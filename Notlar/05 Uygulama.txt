@@ -1,0 +1,11 @@
+MagazaWeb adlı boş web projesi oluştur
+
+HomeController içerisine Ana Sayfa (Index) ve Hakkimizda sayfaları oluştur
+UrunController içerisine Ürünler (Index) ve Detay sayfaları oluştur
+
+Tüm sayfalara varsayılan _Layout şablonunu ata
+Şablon içerisinden 4 sayfaya link ver
+
+Şablona stil.css dosyasından arkaplan rengi ver
+
+Magaza_Tasarım.rar tasarımını projeye uygula
