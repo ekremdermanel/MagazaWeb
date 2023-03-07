@@ -1,0 +1,37 @@
+{
+  "Version": 1,
+  "Hash": "5uKOZvv+4wI6mnZSpbib2sSps3+aXfj5JOPLjgOWfzE=",
+  "Source": "MagazaWeb",
+  "BasePath": "_content/MagazaWeb",
+  "Mode": "Default",
+  "ManifestType": "Build",
+  "ReferencedProjectsConfiguration": [],
+  "DiscoveryPatterns": [
+    {
+      "Name": "MagazaWeb\\wwwroot",
+      "Source": "MagazaWeb",
+      "ContentRoot": "C:\\Users\\Administrator\\Desktop\\MagazaWeb\\wwwroot\\",
+      "BasePath": "_content/MagazaWeb",
+      "Pattern": "**"
+    }
+  ],
+  "Assets": [
+    {
+      "Identity": "C:\\Users\\Administrator\\Desktop\\MagazaWeb\\wwwroot\\stil.css",
+      "SourceId": "MagazaWeb",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\Administrator\\Desktop\\MagazaWeb\\wwwroot\\",
+      "BasePath": "_content/MagazaWeb",
+      "RelativePath": "stil.css",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\stil.css"
+    }
+  ]
+}
