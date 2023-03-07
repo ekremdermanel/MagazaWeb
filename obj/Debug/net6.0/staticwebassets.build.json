@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "5uKOZvv+4wI6mnZSpbib2sSps3+aXfj5JOPLjgOWfzE=",
+  "Hash": "wTqeIAxpUMHfqVs7vO6zDf87CdQgOCZpDCuuOoVkqBQ=",
   "Source": "MagazaWeb",
   "BasePath": "_content/MagazaWeb",
   "Mode": "Default",
@@ -17,12 +17,12 @@
   ],
   "Assets": [
     {
-      "Identity": "C:\\Users\\Administrator\\Desktop\\MagazaWeb\\wwwroot\\stil.css",
+      "Identity": "C:\\Users\\Administrator\\Desktop\\MagazaWeb\\wwwroot\\css\\bootstrap.min.css",
       "SourceId": "MagazaWeb",
       "SourceType": "Discovered",
       "ContentRoot": "C:\\Users\\Administrator\\Desktop\\MagazaWeb\\wwwroot\\",
       "BasePath": "_content/MagazaWeb",
-      "RelativePath": "stil.css",
+      "RelativePath": "css/bootstrap.min.css",
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Primary",
@@ -31,7 +31,58 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\stil.css"
+      "OriginalItemSpec": "wwwroot\\css\\bootstrap.min.css"
+    },
+    {
+      "Identity": "C:\\Users\\Administrator\\Desktop\\MagazaWeb\\wwwroot\\image\\urun.png",
+      "SourceId": "MagazaWeb",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\Administrator\\Desktop\\MagazaWeb\\wwwroot\\",
+      "BasePath": "_content/MagazaWeb",
+      "RelativePath": "image/urun.png",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\image\\urun.png"
+    },
+    {
+      "Identity": "C:\\Users\\Administrator\\Desktop\\MagazaWeb\\wwwroot\\js\\bootstrap.min.js",
+      "SourceId": "MagazaWeb",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\Administrator\\Desktop\\MagazaWeb\\wwwroot\\",
+      "BasePath": "_content/MagazaWeb",
+      "RelativePath": "js/bootstrap.min.js",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\js\\bootstrap.min.js"
+    },
+    {
+      "Identity": "C:\\Users\\Administrator\\Desktop\\MagazaWeb\\wwwroot\\js\\popper.min.js",
+      "SourceId": "MagazaWeb",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\Administrator\\Desktop\\MagazaWeb\\wwwroot\\",
+      "BasePath": "_content/MagazaWeb",
+      "RelativePath": "js/popper.min.js",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\js\\popper.min.js"
     }
   ]
 }
