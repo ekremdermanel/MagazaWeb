@@ -1,0 +1,16 @@
+Shared klasörüne _Arama.cshtml dosyası ekle (partial view)
+
+Ana Sayfa ve Ürünler sayfasından aşağıdaki kod ile _Arama.cshtml dosyasını çağır
+
+@{
+  Html.RenderPartial("_Arama");
+}
+
+
+Shared klasörüne _Iletisim.cshtml dosyası ekle (partial view)
+
+Ana Sayfa ve Hakkımızda sayfasından aşağıdaki kod ile _Iletisim.cshtml dosyasını çağır
+
+@{
+  Html.RenderPartial("_Arama");
+}

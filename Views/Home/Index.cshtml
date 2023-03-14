@@ -20,7 +20,7 @@
                         <p class="card-text small">50 TL</p>
                         <p class="card-text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Necessitatibus,
                             libero!</p>
-                        <a class="btn btn-primary" href="/urun/detay">Detay</a>
+                        <a class="btn btn-primary" asp-controller="Urun" asp-action="Detay">Detay</a>
                     </div>
                 </div>
 
@@ -31,7 +31,7 @@
                         <p class="card-text small">50 TL</p>
                         <p class="card-text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Necessitatibus,
                             libero!</p>
-                        <a class="btn btn-primary" href="/urun/detay">Detay</a>
+                        <a class="btn btn-primary" asp-controller="Urun" asp-action="Detay">Detay</a>
                     </div>
                 </div>
 
@@ -42,24 +42,16 @@
                         <p class="card-text small">50 TL</p>
                         <p class="card-text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Necessitatibus,
                             libero!</p>
-                        <a class="btn btn-primary" href="/urun/detay">Detay</a>
+                        <a class="btn btn-primary" asp-controller="Urun" asp-action="Detay">Detay</a>
                     </div>
                 </div>
 
             </div>
             <!-- Yan Menu -->
             <div class="col-lg-4">
-                <!-- Arama -->
-                <div class="card mb-4">
-                    <div class="card-header">Arama</div>
-                    <div class="card-body">
-                        <div class="input-group">
-                            <input class="form-control" type="text" placeholder="Arama..."
-                                aria-label="Enter search term..." aria-describedby="button-search" />
-                            <button class="btn btn-primary" id="button-search" type="button">Ara</button>
-                        </div>
-                    </div>
-                </div>
+                
+                <partial name="_Arama"></partial>
+                
                 <!-- Kategoriler -->
                 <div class="card mb-4">
                     <div class="card-header">Kategoriler</div>
@@ -71,13 +63,15 @@
                         </div>
                     </div>
                 </div>
-                <!-- Iletisim -->
-                <div class="card mb-4">
-                    <div class="card-header">İletişim</div>
-                    <div class="card-body">Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptate asperiores
-                        quas voluptatibus est at obcaecati culpa labore nulla libero facilis.</div>
-                </div>
+                
+                <partial name="_Iletisim"></partial>
 
             </div>
         </div>
     </div>
+
+
+
+@section Duyuru {
+    <li class="nav-item"><button type="button" class="btn btn-danger me-2">Büyük İndirim</button></li>
+}

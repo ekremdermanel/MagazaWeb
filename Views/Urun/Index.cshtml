@@ -1,4 +1,5 @@
-<!-- Icerik -->
+  
+    <!-- Icerik -->
     <div class="container mt-4">
         <div class="row mb-3">
             <!-- Ana Bolum -->
@@ -13,7 +14,7 @@
                             <div class="card-body text-center">
                                 <h5 class="card-title">Ürün</h5>
                                 <p class="card-text small">50 TL</p>
-                                <a class="btn btn-outline-primary btn-sm" href="/urun/detay">Detay</a>
+                                <a class="btn btn-outline-primary btn-sm" asp-controller="Urun" asp-action="Detay">Detay</a>
                             </div>
                         </div>
                     </div>
@@ -25,7 +26,7 @@
                             <div class="card-body text-center">
                                 <h5 class="card-title">Ürün</h5>
                                 <p class="card-text small">50 TL</p>
-                                <a class="btn btn-outline-primary btn-sm" href="/urun/detay">Detay</a>
+                                <a class="btn btn-outline-primary btn-sm" asp-controller="Urun" asp-action="Detay">Detay</a>
                             </div>
                         </div>
                     </div>
@@ -37,7 +38,7 @@
                             <div class="card-body text-center">
                                 <h5 class="card-title">Ürün</h5>
                                 <p class="card-text small">50 TL</p>
-                                <a class="btn btn-outline-primary btn-sm" href="/urun/detay">Detay</a>
+                                <a class="btn btn-outline-primary btn-sm" asp-controller="Urun" asp-action="Detay">Detay</a>
                             </div>
                         </div>
                     </div>
@@ -49,7 +50,7 @@
                             <div class="card-body text-center">
                                 <h5 class="card-title">Ürün</h5>
                                 <p class="card-text small">50 TL</p>
-                                <a class="btn btn-outline-primary btn-sm" href="/urun/detay">Detay</a>
+                                <a class="btn btn-outline-primary btn-sm" asp-controller="Urun" asp-action="Detay">Detay</a>
                             </div>
                         </div>
                     </div>
@@ -61,7 +62,7 @@
                             <div class="card-body text-center">
                                 <h5 class="card-title">Ürün</h5>
                                 <p class="card-text small">50 TL</p>
-                                <a class="btn btn-outline-primary btn-sm" href="/urun/detay">Detay</a>
+                                <a class="btn btn-outline-primary btn-sm" asp-controller="Urun" asp-action="Detay">Detay</a>
                             </div>
                         </div>
                     </div>
@@ -73,7 +74,7 @@
                             <div class="card-body text-center">
                                 <h5 class="card-title">Ürün</h5>
                                 <p class="card-text small">50 TL</p>
-                                <a class="btn btn-outline-primary btn-sm" href="/urun/detay">Detay</a>
+                                <a class="btn btn-outline-primary btn-sm" asp-controller="Urun" asp-action="Detay">Detay</a>
                             </div>
                         </div>
                     </div>
@@ -83,17 +84,9 @@
             </div>
             <!-- Yan Menu -->
             <div class="col-lg-4">
-                <!-- Arama -->
-                <div class="card mb-4">
-                    <div class="card-header">Arama</div>
-                    <div class="card-body">
-                        <div class="input-group">
-                            <input class="form-control" type="text" placeholder="Arama..."
-                                aria-label="Enter search term..." aria-describedby="button-search" />
-                            <button class="btn btn-primary" id="button-search" type="button">Ara</button>
-                        </div>
-                    </div>
-                </div>
+                
+                <partial name="_Arama"></partial>
+
                 <!-- Kategoriler -->
                 <div class="card mb-4">
                     <div class="card-header">Kategoriler</div>
@@ -108,3 +101,8 @@
             </div>
         </div>
     </div>
+
+@section Duyuru {
+    <li class="nav-item"><button type="button" class="btn btn-success me-2">3 Al 1 Öde</button></li>
+    <li class="nav-item"><button type="button" class="btn btn-primary me-2">Kredi Kartına 5 Taksit</button></li>
+}

@@ -1,0 +1,12 @@
+Views klasörüne _ViewImports.cshtml dosyası ekle
+
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+
+Tüm Partial View çağırma kodlarını aşağıdaki gibi değiştir
+
+<partial name="_Arama"></partial>
+
+Tüm linklerdeki href leri sil ve aşağıdaki gibi değiştir
+
+<a asp-controller="Home" asp-action="Index">Ana Sayfa</a>
+

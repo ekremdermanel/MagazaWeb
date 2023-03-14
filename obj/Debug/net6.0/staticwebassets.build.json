@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "wTqeIAxpUMHfqVs7vO6zDf87CdQgOCZpDCuuOoVkqBQ=",
+  "Hash": "6gPra7WZPT32hxPIDRg0tnCRMOg7SAidKM+CMBvL+HQ=",
   "Source": "MagazaWeb",
   "BasePath": "_content/MagazaWeb",
   "Mode": "Default",
@@ -10,17 +10,17 @@
     {
       "Name": "MagazaWeb\\wwwroot",
       "Source": "MagazaWeb",
-      "ContentRoot": "C:\\Users\\Administrator\\Desktop\\MagazaWeb\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\Administrator\\Desktop\\magazaweb\\wwwroot\\",
       "BasePath": "_content/MagazaWeb",
       "Pattern": "**"
     }
   ],
   "Assets": [
     {
-      "Identity": "C:\\Users\\Administrator\\Desktop\\MagazaWeb\\wwwroot\\css\\bootstrap.min.css",
+      "Identity": "C:\\Users\\Administrator\\Desktop\\magazaweb\\wwwroot\\css\\bootstrap.min.css",
       "SourceId": "MagazaWeb",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\Administrator\\Desktop\\MagazaWeb\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\Administrator\\Desktop\\magazaweb\\wwwroot\\",
       "BasePath": "_content/MagazaWeb",
       "RelativePath": "css/bootstrap.min.css",
       "AssetKind": "All",
@@ -34,10 +34,10 @@
       "OriginalItemSpec": "wwwroot\\css\\bootstrap.min.css"
     },
     {
-      "Identity": "C:\\Users\\Administrator\\Desktop\\MagazaWeb\\wwwroot\\image\\urun.png",
+      "Identity": "C:\\Users\\Administrator\\Desktop\\magazaweb\\wwwroot\\image\\urun.png",
       "SourceId": "MagazaWeb",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\Administrator\\Desktop\\MagazaWeb\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\Administrator\\Desktop\\magazaweb\\wwwroot\\",
       "BasePath": "_content/MagazaWeb",
       "RelativePath": "image/urun.png",
       "AssetKind": "All",
@@ -51,10 +51,10 @@
       "OriginalItemSpec": "wwwroot\\image\\urun.png"
     },
     {
-      "Identity": "C:\\Users\\Administrator\\Desktop\\MagazaWeb\\wwwroot\\js\\bootstrap.min.js",
+      "Identity": "C:\\Users\\Administrator\\Desktop\\magazaweb\\wwwroot\\js\\bootstrap.min.js",
       "SourceId": "MagazaWeb",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\Administrator\\Desktop\\MagazaWeb\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\Administrator\\Desktop\\magazaweb\\wwwroot\\",
       "BasePath": "_content/MagazaWeb",
       "RelativePath": "js/bootstrap.min.js",
       "AssetKind": "All",
@@ -68,10 +68,10 @@
       "OriginalItemSpec": "wwwroot\\js\\bootstrap.min.js"
     },
     {
-      "Identity": "C:\\Users\\Administrator\\Desktop\\MagazaWeb\\wwwroot\\js\\popper.min.js",
+      "Identity": "C:\\Users\\Administrator\\Desktop\\magazaweb\\wwwroot\\js\\popper.min.js",
       "SourceId": "MagazaWeb",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\Administrator\\Desktop\\MagazaWeb\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\Administrator\\Desktop\\magazaweb\\wwwroot\\",
       "BasePath": "_content/MagazaWeb",
       "RelativePath": "js/popper.min.js",
       "AssetKind": "All",
