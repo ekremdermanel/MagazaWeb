@@ -1,0 +1,35 @@
+Projeye ViewComponenets klasörü oluştur
+
+Klasöre New - C# Class ile KategorilerViewComponent.cs sınıfı oluştur.
+
+Sınıfı ViewComponent sınıfından türet (: ViewComponent ile)
+public class KategorilerViewComponent : ViewComponent
+
+Invoke metodu oluştur
+Metot içerisine kategori listesi ekle ve view a gönder
+
+public IViewComponentResult Invoke()
+{
+  List<string> kategoriler = new List<string> { "Telefon", "Notebook", "Televizyon", "Diğer" };
+  return View(kategoriler);
+}
+
+
+TASARIM DOSYASI
+
+Views - Components - Kategoriler klasörleri oluştur
+
+Kategoriler klasörüne Default.cshtml dosyası ekle
+
+İlk satırda modeli tanımla
+@model List<string>
+
+Döngü ile kategorileri yazdır
+@foreach (var item in Model)
+{
+  @item<br>
+}
+
+Anasayfa ve Ürünler sayfalarından Kategoriler ViewComponent ini çağır
+@await Component.InvokeAsync("Kategoriler");
+

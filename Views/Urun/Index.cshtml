@@ -35,17 +35,8 @@
                 
                 <partial name="_Arama"></partial>
 
-                <!-- Kategoriler -->
-                <div class="card mb-4">
-                    <div class="card-header">Kategoriler</div>
-                    <div class="card-body p-0">
-                        <div class="list-group-flush">
-                            <a class="list-group-item" href="#!">Kategori 1</a>
-                            <a class="list-group-item" href="#!">Kategori 2</a>
-                            <a class="list-group-item" href="#!">Kategori 3</a>
-                        </div>
-                    </div>
-                </div>
+                @await Component.InvokeAsync("Kategoriler")
+
             </div>
         </div>
     </div>
