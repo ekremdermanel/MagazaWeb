@@ -1,4 +1,6 @@
-  
+@model List<string>
+    
+
     <!-- Icerik -->
     <div class="container mt-4">
         <div class="row mb-3">
@@ -7,78 +9,24 @@
                 <h2>Ürünler</h2>
                 <!-- Urun Listesi -->
                 <div class="row row-cols-2 row-cols-lg-3 g-3">
-                    <!-- Urun -->
-                    <div class="col">
-                        <div class="card">
-                            <img class="card-img-top" src="~/image/urun.png" alt="..." />
-                            <div class="card-body text-center">
-                                <h5 class="card-title">Ürün</h5>
-                                <p class="card-text small">50 TL</p>
-                                <a class="btn btn-outline-primary btn-sm" asp-controller="Urun" asp-action="Detay">Detay</a>
+                    
+                    @foreach (var item in Model)
+                    {
+                        
+                        <!-- Urun -->
+                        <div class="col">
+                            <div class="card">
+                                <img class="card-img-top" src="~/image/urun.png" alt="..." />
+                                <div class="card-body text-center">
+                                    <h5 class="card-title">@item</h5>
+                                    <p class="card-text small">50 TL</p>
+                                    <a class="btn btn-outline-primary btn-sm" asp-controller="Urun" asp-action="Detay">Detay</a>
+                                </div>
                             </div>
                         </div>
-                    </div>
 
-                    <!-- Urun -->
-                    <div class="col">
-                        <div class="card">
-                            <img class="card-img-top" src="~/image/urun.png" alt="..." />
-                            <div class="card-body text-center">
-                                <h5 class="card-title">Ürün</h5>
-                                <p class="card-text small">50 TL</p>
-                                <a class="btn btn-outline-primary btn-sm" asp-controller="Urun" asp-action="Detay">Detay</a>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Urun -->
-                    <div class="col">
-                        <div class="card">
-                            <img class="card-img-top" src="~/image/urun.png" alt="..." />
-                            <div class="card-body text-center">
-                                <h5 class="card-title">Ürün</h5>
-                                <p class="card-text small">50 TL</p>
-                                <a class="btn btn-outline-primary btn-sm" asp-controller="Urun" asp-action="Detay">Detay</a>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Urun -->
-                    <div class="col">
-                        <div class="card">
-                            <img class="card-img-top" src="~/image/urun.png" alt="..." />
-                            <div class="card-body text-center">
-                                <h5 class="card-title">Ürün</h5>
-                                <p class="card-text small">50 TL</p>
-                                <a class="btn btn-outline-primary btn-sm" asp-controller="Urun" asp-action="Detay">Detay</a>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Urun -->
-                    <div class="col">
-                        <div class="card">
-                            <img class="card-img-top" src="~/image/urun.png" alt="..." />
-                            <div class="card-body text-center">
-                                <h5 class="card-title">Ürün</h5>
-                                <p class="card-text small">50 TL</p>
-                                <a class="btn btn-outline-primary btn-sm" asp-controller="Urun" asp-action="Detay">Detay</a>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Urun -->
-                    <div class="col">
-                        <div class="card">
-                            <img class="card-img-top" src="~/image/urun.png" alt="..." />
-                            <div class="card-body text-center">
-                                <h5 class="card-title">Ürün</h5>
-                                <p class="card-text small">50 TL</p>
-                                <a class="btn btn-outline-primary btn-sm" asp-controller="Urun" asp-action="Detay">Detay</a>
-                            </div>
-                        </div>
-                    </div>
-
+                    }
+                    
                 </div>
 
             </div>

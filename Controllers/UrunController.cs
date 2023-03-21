@@ -9,18 +9,21 @@ namespace MagazaWeb.Controllers
 {
   public class UrunController : Controller
   {
+
     public UrunController()
     {
     }
 
     public IActionResult Index()
     {
-      return View();
+      List<string> urunler = new List<string> { "Iphone14", "Samsung A22", "Xiaomi Note 9", "Noika 3310", "Huawei P40", "Oppo A15" };
+      return View(urunler);
     }
 
     public IActionResult Detay()
     {
-      return View();
+      string urunAdi = "Iphone 14";
+      return View((object)urunAdi);
     }
   }
 }
