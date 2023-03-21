@@ -1,6 +1,10 @@
 Controller dan View'a veri göndermek için farklı yöntemler vardır.
 ViewBag, ViewData, Tempdata, Model
 
+Küçük boyutlu veriler (sayfa başlığı, uyarı mesajı vs) ViewBag, ViewData ve TempData ile gönderilebilir.
+
+Değişken, nesne, liste, form içerikleri için model kullanılır.
+
 VIEWBAG
 
 HomeController Index action a yaz

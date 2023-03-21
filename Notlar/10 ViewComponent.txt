@@ -1,6 +1,12 @@
-Projeye ViewComponenets klasörü oluştur
+ViewComponent yapı olarak PartialView'a benzer.
+Controller'a bağımlı olmayan, tüm controller tarafından çağrılabilen arkaplanında kendine ait cs kodlarına çalıştırabilen sayfa bölümleri oluşturmak için kullanılır.
+
+Projeye ViewComponents klasörü oluştur
 
 Klasöre New - C# Class ile KategorilerViewComponent.cs sınıfı oluştur.
+
+Dosyaya Microsoft.AspNetCore.Mvc kütüphanesini ekle
+using Microsoft.AspNetCore.Mvc;
 
 Sınıfı ViewComponent sınıfından türet (: ViewComponent ile)
 public class KategorilerViewComponent : ViewComponent
@@ -17,7 +23,7 @@ public IViewComponentResult Invoke()
 
 TASARIM DOSYASI
 
-Views - Components - Kategoriler klasörleri oluştur
+Views - Shared - Components - Kategoriler klasörleri oluştur
 
 Kategoriler klasörüne Default.cshtml dosyası ekle
 
