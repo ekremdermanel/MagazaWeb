@@ -6,3 +6,4 @@ List<Urun> urunler = new List<Urun> {
         new Urun { Id = 5, UrunAdi = "Huawei P40", Fiyat = 30000, Aciklama = "Güzel ürün" },
         new Urun { Id = 6, UrunAdi = "Oppo A15", Fiyat = 15000, Aciklama = "Kamerası iyi" }
         };
+        
