@@ -3,12 +3,21 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-//using MagazaWeb.Models;
+using MagazaWeb.Models;
 
 namespace MagazaWeb.Controllers
 {
   public class UrunController : Controller
   {
+
+    List<Urun> urunler = new List<Urun> {
+        new Urun { Id = 1, UrunAdi = "Iphone 14", Fiyat = 40000, Aciklama = "Çok pahalı almayın" },
+        new Urun { Id = 2, UrunAdi = "Samsung A22", Fiyat = 30000, Aciklama = "Güzel ürün" },
+        new Urun { Id = 3, UrunAdi = "Xiaomi Note 9", Fiyat = 15000, Aciklama = "Çin malı  Lorem ipsum dolor, sit amet consectetur adipisicing elit. Magni, eligendi. Sit, quas! Tempora in odit perferendis! Fuga iusto similique nobis quidem vitae, architecto veritatis excepturi minus error molestiae, quae neque placeat voluptas nostrum blanditiis officia alias accusamus iste quaerat tenetur eaque. Omnis earum facilis, corrupti quam, accusamus voluptas odit explicabo dicta incidunt voluptatibus minima illum! Obcaecati rerum natus, cumque nisi deserunt nesciunt voluptatibus ab? Dolorum iure, veniam, assumenda nemo eaque nulla voluptas quam, accusamus culpa rerum adipisci? Officia blanditiis dignissimos libero pariatur modi sed. Impedit odit itaque optio perspiciatis animi qui reiciendis, ipsa repellendus provident, mollitia rem esse! Itaque, distinctio!" },
+        new Urun { Id = 4, UrunAdi = "Noika 3310", Fiyat = 1000, Aciklama = "Tuğla" },
+        new Urun { Id = 5, UrunAdi = "Huawei P40", Fiyat = 30000, Aciklama = "Güzel ürün" },
+        new Urun { Id = 6, UrunAdi = "Oppo A15", Fiyat = 15000, Aciklama = "Kamerası iyi" }
+        };
 
     public UrunController()
     {
@@ -16,14 +25,13 @@ namespace MagazaWeb.Controllers
 
     public IActionResult Index()
     {
-      List<string> urunler = new List<string> { "Iphone14", "Samsung A22", "Xiaomi Note 9", "Noika 3310", "Huawei P40", "Oppo A15" };
       return View(urunler);
     }
 
-    public IActionResult Detay()
+    public IActionResult Detay(int id)
     {
-      string urunAdi = "Iphone 14";
-      return View((object)urunAdi);
+      Urun urun = urunler.FirstOrDefault(x => x.Id == id);
+      return View(urun);
     }
   }
 }

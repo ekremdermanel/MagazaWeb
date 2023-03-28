@@ -1,3 +1,5 @@
+@model List<Urun>
+
 <!-- Slogan -->
     <header class="py-2 bg-light border-bottom">
         <div class="container">
@@ -14,38 +16,19 @@
             <!-- Ana Bolum -->
             <div class="col-lg-8">
                 <!-- Vitrin -->
-                <div class="card mb-4">
-                    <img class="card-img-top" src="~/image/urun.png" alt="..." />
-                    <div class="card-body">
-                        <h2 class="card-title">Ürün</h2>
-                        <p class="card-text small">50 TL</p>
-                        <p class="card-text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Necessitatibus,
-                            libero!</p>
-                        <a class="btn btn-primary" asp-controller="Urun" asp-action="Detay">Detay</a>
-                    </div>
-                </div>
 
-                <div class="card mb-4">
+                @foreach (var item in Model)
+                {
+                    <div class="card mb-4">
                     <img class="card-img-top" src="~/image/urun.png" alt="..." />
                     <div class="card-body">
-                        <h2 class="card-title">Ürün</h2>
-                        <p class="card-text small">50 TL</p>
-                        <p class="card-text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Necessitatibus,
-                            libero!</p>
-                        <a class="btn btn-primary" asp-controller="Urun" asp-action="Detay">Detay</a>
+                        <h2 class="card-title">@item.UrunAdi</h2>
+                        <p class="card-text small">@item.Fiyat TL</p>
+                        <p class="card-text">@AciklamaGoster(@item.Aciklama)</p>
+                        <a class="btn btn-primary" asp-controller="Urun" asp-action="Detay" asp-route-id="@item.Id">Detay</a>
                     </div>
                 </div>
-
-                <div class="card mb-4">
-                    <img class="card-img-top" src="~/image/urun.png" alt="..." />
-                    <div class="card-body">
-                        <h2 class="card-title">Ürün</h2>
-                        <p class="card-text small">50 TL</p>
-                        <p class="card-text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Necessitatibus,
-                            libero!</p>
-                        <a class="btn btn-primary" asp-controller="Urun" asp-action="Detay">Detay</a>
-                    </div>
-                </div>
+                }
 
             </div>
             <!-- Yan Menu -->
@@ -65,4 +48,14 @@
 
 @section Duyuru {
     <li class="nav-item"><button type="button" class="btn btn-danger me-2">Büyük İndirim</button></li>
+}
+
+@functions {
+    string AciklamaGoster(string aciklama) {
+        if(aciklama.Length>50) {
+            return aciklama.Substring(0,50) + "...";
+        } else {
+            return aciklama;
+        }
+    }
 }

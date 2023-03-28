@@ -1,0 +1,17 @@
+FONKSİYON
+
+Ana sayfada ürün açıklamalarını en fazla 50 karakter göster
+
+Index View una fonsksiyon tanımla
+@functions {
+    string AciklamaGoster(string aciklama) {
+        if(aciklama.Length>50) {
+            return aciklama.Substring(0,50) + "...";
+        } else {
+            return aciklama;
+        }
+    }
+}
+
+@item.Aciklama yerine tanımlanan fonksiyonu çağır:
+@AciklamaGoster(@item.Aciklama)
