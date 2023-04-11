@@ -9,29 +9,35 @@ namespace MagazaWeb.Controllers
 {
   public class UrunController : Controller
   {
+    private readonly MagazaContext context;
 
-    List<Urun> urunler = new List<Urun> {
-        new Urun { Id = 1, UrunAdi = "Iphone 14", Fiyat = 40000, Aciklama = "Çok pahalı almayın" },
-        new Urun { Id = 2, UrunAdi = "Samsung A22", Fiyat = 30000, Aciklama = "Güzel ürün" },
-        new Urun { Id = 3, UrunAdi = "Xiaomi Note 9", Fiyat = 15000, Aciklama = "Çin malı  Lorem ipsum dolor, sit amet consectetur adipisicing elit. Magni, eligendi. Sit, quas! Tempora in odit perferendis! Fuga iusto similique nobis quidem vitae, architecto veritatis excepturi minus error molestiae, quae neque placeat voluptas nostrum blanditiis officia alias accusamus iste quaerat tenetur eaque. Omnis earum facilis, corrupti quam, accusamus voluptas odit explicabo dicta incidunt voluptatibus minima illum! Obcaecati rerum natus, cumque nisi deserunt nesciunt voluptatibus ab? Dolorum iure, veniam, assumenda nemo eaque nulla voluptas quam, accusamus culpa rerum adipisci? Officia blanditiis dignissimos libero pariatur modi sed. Impedit odit itaque optio perspiciatis animi qui reiciendis, ipsa repellendus provident, mollitia rem esse! Itaque, distinctio!" },
-        new Urun { Id = 4, UrunAdi = "Noika 3310", Fiyat = 1000, Aciklama = "Tuğla" },
-        new Urun { Id = 5, UrunAdi = "Huawei P40", Fiyat = 30000, Aciklama = "Güzel ürün" },
-        new Urun { Id = 6, UrunAdi = "Oppo A15", Fiyat = 15000, Aciklama = "Kamerası iyi" }
-        };
-
-    public UrunController()
+    public UrunController(MagazaContext context)
     {
+      this.context = context;
     }
 
     public IActionResult Index()
     {
-      return View(urunler);
+      return View(context.Urunler.ToList());
     }
 
     public IActionResult Detay(int id)
     {
-      Urun urun = urunler.FirstOrDefault(x => x.Id == id);
+      Urun urun = context.Urunler.FirstOrDefault(x => x.Id == id);
       return View(urun);
+    }
+
+    public IActionResult Ekle()
+    {
+      Urun urun = new Urun();
+      urun.UrunAdi = "Tester Ürün";
+      urun.Fiyat = 50;
+      urun.Aciklama = "Bu ürün test amaçlıdır.";
+
+      context.Urunler.Add(urun);
+      context.SaveChanges();
+
+      return RedirectToAction("Index");
     }
   }
 }

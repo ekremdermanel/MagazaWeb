@@ -1,0 +1,94 @@
+Terminal ekranından paketleri ekle
+dotnet add package Microsoft.EntityFrameworkCore -v 7.0.0
+dotnet add package Microsoft.EntityFrameworkCore.Tools -v 7.0.0
+dotnet add package Mysql.EntityFrameworkCore -v 7.0.0
+
+
+Models klasörüne MagazaContext.cs oluştur
+ef-dbcontext kısayolunu kullanabilirsin
+optionsBuilder ve DbSet satırlarını düzenle
+
+namespace MagazaWeb.Models
+{
+  public class MagazaContext : DbContext
+  {
+    public MagazaContext() { }
+    public MagazaContext(DbContextOptions<MagazaContext> options) : base(options) { }
+
+    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+    {
+      optionsBuilder.UseMySQL("Server=localhost;Database=MagazaDB;Uid=root;Pwd=;");
+    }
+
+    public DbSet<Urun> Urunler { get; set; }
+  }
+}
+
+
+Program.cs ye ekle
+builder.Services.AddDbContext<MagazaContext>();
+(İlk satıra using MagazaWeb.Models; eklenecek)
+
+
+
+UrunController da context alanı oluştur ve kurucu metotta parametreyi ata:
+
+private readonly MagazaContext context;
+
+public UrunController(MagazaContext context)
+{
+  this.context = context;
+}
+
+
+
+Terminalde komutları çalıştır
+dotnet ef migrations add yeni
+dotnet ef database update
+
+
+
+UrunController da urunler listesini silerek aciton ları değiştir
+
+public IActionResult Index()
+{
+  return View(context.Urunler.ToList());
+}
+
+public IActionResult Detay(int id)
+{
+  Urun urun = context.Urunler.FirstOrDefault(x => x.Id == id);
+  return View(urun);
+}
+
+public IActionResult Ekle()
+{
+  Urun urun = new Urun();
+  urun.UrunAdi = "Tester Ürün";
+  urun.Fiyat = 50;
+  urun.Aciklama = "Bu ürün test amaçlıdır.";
+
+  context.Urunler.Add(urun);
+  context.SaveChanges();
+
+  return RedirectToAction("Index");
+}
+
+
+
+HomeController context alanı ekle ve kurucu metotta parametreyi ata
+Index actionında son eklenen 3 ürünü göster
+
+public IActionResult Index()
+{
+  ViewBag.Yazi = "Merhaba, Sitemize Hoşgeldiniz!";
+  ViewData["Baslik"] = "Ana Sayfa";
+  return View(context.Urunler.OrderByDescending(x => x.Id).Take(3).ToList());
+}
+
+
+OrderByDescending(x => x.Id) : Id ye göre azalan (büyükten küçüğe) sırala
+Take(3) : 3 satırı al
+
+
+
