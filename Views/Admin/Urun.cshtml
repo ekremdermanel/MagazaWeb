@@ -1,3 +1,5 @@
+@model List<Urun>
+
 <div class="container mt-4">
     <div class="mb-3">
         <h2>Ürünler</h2>
@@ -12,22 +14,17 @@
                     <th>İşlem</th>
                 </tr>
             </thead>
-            <tr>
-                <td>Ürün</td>
-                <td>100 TL</td>
-                <td>
-                    <a asp-action="UrunGuncelle" class="btn btn-outline-primary">Güncelle</a>
-                    <a asp-action="UrunSil" class="btn btn-outline-primary">Sil</a>
-                </td>
-            </tr>
-            <tr>
-                <td>Ürün</td>
-                <td>100 TL</td>
-                <td>
-                    <a asp-action="UrunGuncelle" class="btn btn-outline-primary">Güncelle</a>
-                    <a asp-action="UrunSil" class="btn btn-outline-primary">Sil</a>
-                </td>
-            </tr>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.UrunAdi</td>
+                    <td>@item.Fiyat TL</td>
+                    <td>
+                        <a asp-action="UrunGuncelle" asp-route-id="@item.Id" class="btn btn-outline-primary">Güncelle</a>
+                        <a asp-action="UrunSil" asp-route-id="@item.Id" class="btn btn-outline-primary">Sil</a>
+                    </td>
+                </tr>
+            }
         </table>
     </div>
 </div>

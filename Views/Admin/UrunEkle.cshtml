@@ -1,3 +1,5 @@
+@model Urun
+
 <div class="container mt-4">
     <div class="mb-3">
 
@@ -5,18 +7,18 @@
 
         <form method="post" enctype="multipart/form-data">
             <div class="mb-3">
-                <label for="UrunAdi">UrunAdi</label>
-                <input id="UrunAdi" class="form-control">
+                <label asp-for="UrunAdi"></label>
+                <input asp-for="UrunAdi" class="form-control">
                 <span class="text-danger"></span>
             </div>
             <div class="mb-3">
-                <label for="Fiyat">Fiyat</label>
-                <input id="Fiyat" class="form-control">
+                <label asp-for="Fiyat"></label>
+                <input asp-for="Fiyat" class="form-control">
                 <span class="text-danger"></span>
             </div>
             <div class="mb-3">
-                <label for="Aciklama">Aciklama</label>
-                <textarea id="Aciklama" class="form-control"></textarea>
+                <label asp-for="Aciklama"></label>
+                <textarea asp-for="Aciklama" class="form-control"></textarea>
                 <span class="text-danger"></span>
             </div>
             <button type="submit" class="btn btn-primary">Tamam</button>

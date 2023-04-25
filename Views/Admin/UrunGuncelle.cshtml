@@ -1,22 +1,24 @@
+@model Urun
+
 <div class="container mt-4">
     <div class="mb-3">
 
-        <h2>Ürün Ekle</h2>
+        <h2>Ürün Güncelle</h2>
 
         <form method="post" enctype="multipart/form-data">
             <div class="mb-3">
-                <label for="UrunAdi">UrunAdi</label>
-                <input id="UrunAdi" value="Ürün" class="form-control">
-                <span class="text-danger"></spanion-for=>
+                <label asp-for="UrunAdi">UrunAdi</label>
+                <input asp-for="UrunAdi" value="@Model.UrunAdi" class="form-control">
+                <span class="text-danger"></span>
             </div>
             <div class="mb-3">
-                <label for="Fiyat">Fiyat</label>
-                <input id="Fiyat" value="100" class="form-control">
-                <span class="text-danger"></spann-for=>
+                <label asp-for="Fiyat">Fiyat</label>
+                <input asp-for="Fiyat" value="@Model.Fiyat" class="form-control">
+                <span class="text-danger"></span>
             </div>
             <div class="mb-3">
-                <label for="Aciklama">Aciklama</label>
-                <textarea id="Aciklama" class="form-control">Açıklama</textarea>
+                <label asp-for="Aciklama">Aciklama</label>
+                <textarea asp-for="Aciklama" class="form-control">@Model.Aciklama</textarea>
                 <span class="text-danger"></span>
             </div>
             <button type="submit" class="btn btn-primary">Tamam</button>

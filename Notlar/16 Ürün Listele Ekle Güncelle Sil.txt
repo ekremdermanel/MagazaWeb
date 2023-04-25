@@ -1,0 +1,126 @@
+AdminController da context alanı oluştur
+
+private readonly MagazaContext context;
+
+public AdminController(MagazaContext context)
+{
+  this.context = context;
+}
+
+
+*****************
+ÜRÜN LİSTELEME
+*****************
+
+AdminController Urun actionında Urunler listesini gönder
+
+public IActionResult Urun()
+{
+  return View(context.Urunler.ToList());
+}
+
+Urun view unda model oluştur ve foreach ile listele
+Güncelle ve Sil linklerinde Id değerlerini gönder
+
+@model List<Urun>
+
+@foreach (var item in Model)
+{
+    <tr>
+        <td>@item.UrunAdi</td>
+        <td>@item.Fiyat TL</td>
+        <td>
+            <a asp-action="UrunGuncelle" asp-route-id="@item.Id" class="btn btn-outline-primary">Güncelle</a>
+            <a asp-action="UrunSil" asp-route-id="@item.Id" class="btn btn-outline-primary">Sil</a>
+        </td>
+    </tr>
+}
+
+
+
+*****************
+ÜRÜN EKLEME
+*****************
+
+UrunEkle view unda Urun modeli oluştur
+@model Urun
+
+UrunEkle view unda tüm label larda for parametresi yerine asp-for="Özellik" parametresini ekle
+
+UrunEkle view unda tüm input lara asp-for="Özellik" parametresini ekle
+
+
+AdminController da UrunEkle actionı üstüne [HttpGet] ifadesi ekle
+(Sayfanın ilk açıldığı durumu ifade eder)
+
+[HttpGet]
+public IActionResult UrunEkle()
+{
+  return View();
+}
+
+
+Yeni bir UrunEkle actionı oluştur ve üstüne [HttpPost] ifadesi ekle
+(Sayfanın post edildiği - formda düğmeye basıldığı durumu ifade eder)
+
+Formdan gönderilen Urun tipindeki modeli context teki Urunler listesine ekle ve değişiklikleri kaydet 
+
+[HttpPost]
+public IActionResult UrunEkle(Urun model)
+{
+  context.Urunler.Add(model);
+  context.SaveChanges();
+  return RedirectToAction("Urun");
+}
+
+
+
+*****************
+ÜRÜN SİLME
+*****************
+
+AdminController UrunSil action ında gönderilen id parametresine gönder ilgili kaydı bul ve Urunler listesinden Remove komutu ile sil
+
+public IActionResult UrunSil(int id)
+{
+  Urun kayit = context.Urunler.FirstOrDefault(x => x.Id == id);
+  context.Urunler.Remove(kayit);
+  context.SaveChanges();
+  return RedirectToAction("Urun");
+}
+
+
+*****************
+ÜRÜN GÜNCELLEME
+*****************
+
+UrunGuncelle view unda Urun modeli oluştur
+@model Urun
+
+UrunGuncelle view unda tüm label larda for parametresi yerine asp-for="Özellik" parametresini ekle
+
+UrunGuncelle view unda tüm input lara asp-for="Özellik" parametresini ekle
+
+AdminController da UrunGuncelle actionı üstüne [HttpGet] ifadesi ekle
+(Sayfanın ilk açıldığı durumda gönderilen id li kaydı bularak model olarak gönder)
+
+[HttpGet]
+public IActionResult UrunGuncelle(int id)
+{
+  Urun kayit = context.Urunler.FirstOrDefault(x => x.Id == id);
+  return View(kayit);
+}
+
+
+Yeni bir UrunGuncelle actionı oluştur ve üstüne [HttpPost] ifadesi ekle
+(Sayfanın post edildiği - formda düğmeye basıldığı durumu ifade eder)
+
+Formdan gönderilen Urun tipindeki modeli context teki Urunler listesinde Update komutu ile güncelle 
+
+[HttpPost]
+public IActionResult UrunGuncelle(Urun model)
+{
+  context.Urunler.Update(model);
+  context.SaveChanges();
+  return RedirectToAction("Urun");
+}
