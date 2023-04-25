@@ -1,0 +1,27 @@
+AdminTasarim.rar dosyasındaki tasarım dosyalarını kullanarak yönetici paneli oluşturulacak.
+
+wwwroot klasörüne admin klasörü ekle ve tasarımdaki tüm klasörleri kopyala
+
+Views - Shared - _AdminLayout.cshtml oluştur
+
+Statik dosyaları düzenle (~/admin/)
+Linkleri düzenle (asp-action)
+
+AdminController oluştur ve Index, Urun, UrunEkle, UrunGuncelle, UrunSil action ları ekle
+
+UrunSil dışında tüm tasarımları uygula, UrunSil de Urun acitonına yönlendirme ver
+Tasarımlarda Layout dosyası olarak _AdminLayout çağrılacaktır.
+Views - Admin içindeki tüm viewlara ekle
+@{
+  Layout = "_AdminLayout";
+}
+
+
+Tüm Admin sayfalarında varsayılan olarak _AdminLayout gelmesi için
+Views - Admin içerisine _ViewStart.cshtml oluştur ve kodu ekle
+@{
+  Layout = "_AdminLayout";
+}
+
+(Views - Admin içindeki tüm viewlarda layout kodunu silebilirsin)
+
