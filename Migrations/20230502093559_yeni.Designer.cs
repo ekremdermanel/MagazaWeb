@@ -11,7 +11,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace MagazaWeb.Migrations
 {
     [DbContext(typeof(MagazaContext))]
-    [Migration("20230502082540_yeni")]
+    [Migration("20230502093559_yeni")]
     partial class yeni
     {
         /// <inheritdoc />

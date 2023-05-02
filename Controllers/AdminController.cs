@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using MagazaWeb.Models;
+using MagazaWeb.ViewModels;
 
 namespace MagazaWeb.Controllers
 {
@@ -32,9 +33,22 @@ namespace MagazaWeb.Controllers
     }
 
     [HttpPost]
-    public IActionResult UrunEkle(Urun model)
+    public IActionResult UrunEkle(UrunViewModel viewModel)
     {
-      model.EklenmeTarihi = DateTime.Now;
+      if (!ModelState.IsValid)
+      {
+        return View(viewModel);
+      }
+
+      Urun model = new Urun
+      {
+        UrunAdi = viewModel.UrunAdi,
+        Fiyat = viewModel.Fiyat,
+        Stok = viewModel.Stok,
+        Aciklama = viewModel.Aciklama,
+        EklenmeTarihi = DateTime.Now
+      };
+
       context.Urunler.Add(model);
       context.SaveChanges();
       return RedirectToAction("Urun");

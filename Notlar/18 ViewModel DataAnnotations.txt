@@ -1,0 +1,50 @@
+ViewModels klasörü oluştur
+
+ViewModels içine UrunViewModel sınıfı ekle
+
+Urun sınıfındaki tüm özellikleri kullan
+
+Views - _ViewImports.cshtml ye ekle
+@using MagazaWeb.ViewModels 
+
+
+Views - Admin - UrunEkle.cshtml 
+Model değiştir
+@model UrunViewModel
+
+Her giriş elemanına hata mesajının gösterileceği span ekle
+ÖR
+<span asp-validation-for="UrunAdi" class="text-danger"></span>
+
+
+
+AdminController - UrunEkle (Post) metodunu düzenle
+
+using MagazaWeb.ViewModels;
+
+[HttpPost]
+public IActionResult UrunEkle(UrunViewModel viewModel)
+{
+  if (!ModelState.IsValid)
+  {
+    return View(viewModel);
+  }
+
+  Urun model = new Urun
+  {
+    UrunAdi = viewModel.UrunAdi,
+    Fiyat = viewModel.Fiyat,
+    Stok = viewModel.Stok,
+    Aciklama = viewModel.Aciklama,
+    EklenmeTarihi = DateTime.Now
+  };
+
+  context.Urunler.Add(model);
+  context.SaveChanges();
+  return RedirectToAction("Urun");
+}
+
+
+
+
+
