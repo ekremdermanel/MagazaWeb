@@ -45,6 +45,83 @@ public IActionResult UrunEkle(UrunViewModel viewModel)
 }
 
 
+UrunViewModel.cs dosyasında data annotations (veri doğrulama) kontrollerini yap
+(Sayı tipinde olan Fiyat ve Stok alanlarına ? eklediğinde Required ifadesi kullanılabilir
+Urun.cs dosyasında da değişiklik yap)
+
+using System.ComponentModel.DataAnnotations;
+
+
+public class UrunViewModel
+{
+  public int Id { get; set; }
+
+  [Display(Name = "Ürün Adı")]
+  [Required(ErrorMessage = "{0} giriniz")]
+  [StringLength(20, ErrorMessage = "{0} {2}-{1} karakter olmalı", MinimumLength = 3)]
+  public string UrunAdi { get; set; }
+
+  [Display(Name = "Ürün Fiyatı")]
+  [Required(ErrorMessage = "{0} giriniz")]
+  public decimal? Fiyat { get; set; }
+
+  [Display(Name = "Açıklama")]
+  public string? Aciklama { get; set; }
+
+  [Display(Name = "Stok Adedi")]
+  [Required(ErrorMessage = "{0} giriniz")]
+  [Range(0, 100, ErrorMessage = "{0} {1}-{2} arası olmalı")]
+  public int? Stok { get; set; }
+
+  public DateTime EklenmeTarihi { get; set; }
+}
 
 
 
+UrunGuncelle view larında span ekle
+ÖR
+<span asp-validation-for="UrunAdi" class="text-danger"></span>
+
+
+UrunGuncelle action larını değiştir
+
+[HttpGet]
+public IActionResult UrunGuncelle(int id)
+{
+  Urun kayit = context.Urunler.FirstOrDefault(x => x.Id == id);
+  UrunViewModel viewModel = new UrunViewModel
+  {
+    Id = kayit.Id,
+    UrunAdi = kayit.UrunAdi,
+    Fiyat = kayit.Fiyat,
+    Stok = kayit.Stok,
+    Aciklama = kayit.Aciklama,
+    EklenmeTarihi = kayit.EklenmeTarihi
+  };
+  return View(viewModel);
+}
+
+[HttpPost]
+public IActionResult UrunGuncelle(UrunViewModel viewModel)
+{
+  if (!ModelState.IsValid)
+  {
+    return View(viewModel);
+  }
+
+  Urun model = context.Urunler.FirstOrDefault(x => x.Id == viewModel.Id);
+  model.UrunAdi = viewModel.UrunAdi;
+  model.Fiyat = viewModel.Fiyat;
+  model.Stok = viewModel.Stok;
+  model.Aciklama = viewModel.Aciklama;
+
+  context.Urunler.Update(model);
+  context.SaveChanges();
+  return RedirectToAction("Urun");
+}
+
+
+
+VALIDATION SUMMARY
+Eğer doğrulama hatalarını liste halinde tek bir yerden vermek istersen view da kullan
+<div asp-validation-summary="All"></div>

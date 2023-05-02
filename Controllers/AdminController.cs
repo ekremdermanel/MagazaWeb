@@ -66,15 +66,36 @@ namespace MagazaWeb.Controllers
     public IActionResult UrunGuncelle(int id)
     {
       Urun kayit = context.Urunler.FirstOrDefault(x => x.Id == id);
-      return View(kayit);
+      UrunViewModel viewModel = new UrunViewModel
+      {
+        Id = kayit.Id,
+        UrunAdi = kayit.UrunAdi,
+        Fiyat = kayit.Fiyat,
+        Stok = kayit.Stok,
+        Aciklama = kayit.Aciklama,
+        EklenmeTarihi = kayit.EklenmeTarihi
+      };
+      return View(viewModel);
     }
 
     [HttpPost]
-    public IActionResult UrunGuncelle(Urun model)
+    public IActionResult UrunGuncelle(UrunViewModel viewModel)
     {
+      if (!ModelState.IsValid)
+      {
+        return View(viewModel);
+      }
+
+      Urun model = context.Urunler.FirstOrDefault(x => x.Id == viewModel.Id);
+      model.UrunAdi = viewModel.UrunAdi;
+      model.Fiyat = viewModel.Fiyat;
+      model.Stok = viewModel.Stok;
+      model.Aciklama = viewModel.Aciklama;
+
       context.Urunler.Update(model);
       context.SaveChanges();
       return RedirectToAction("Urun");
     }
+
   }
 }
