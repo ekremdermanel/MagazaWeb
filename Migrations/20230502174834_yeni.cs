@@ -22,9 +22,9 @@ namespace MagazaWeb.Migrations
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("MySQL:ValueGenerationStrategy", MySQLValueGenerationStrategy.IdentityColumn),
                     UrunAdi = table.Column<string>(type: "longtext", nullable: false),
-                    Fiyat = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    Fiyat = table.Column<decimal>(type: "decimal(18,2)", nullable: true),
                     Bilgi = table.Column<string>(type: "longtext", nullable: true),
-                    Stok = table.Column<int>(type: "int", nullable: false),
+                    Stok = table.Column<int>(type: "int", nullable: true),
                     EklenmeTarihi = table.Column<DateTime>(type: "datetime(6)", nullable: false)
                 },
                 constraints: table =>

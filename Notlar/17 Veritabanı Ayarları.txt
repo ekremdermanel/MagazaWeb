@@ -50,11 +50,32 @@ Değişken tipi sonundaki ? nullable - boş bırakılabilir anlamına gelir
 int?, string? vs..
 
 
+Views - Home - Index view unda AciklamaGoster fonksiyonunu düzenle
+
+string AciklamaGoster(string aciklama)
+{
+    if (aciklama == null)
+    {
+        return "";
+    }
+    else if (aciklama.Length > 50)
+    {
+        return aciklama.Substring(0, 50) + "...";
+    }
+    else
+    {
+        return aciklama;
+    }
+}
+
+
 
 UrunEkle ve UrunGuncelle view larına Stok alanları ekle
 
 UrunEkle viewunda EklenmeTarihi alanı olmayacak, Controller da veritabanına eklenmeden önce sistem tarih ve saati alınacak.
 UrunGuncelle view una hidden (gizli) EklenmeTarihi alanı ekle
+<input type="hidden" asp-for="EklenmeTarihi" value="@Model.EklenmeTarihi">
+
 
 AdminController UrunEkle (Post) metodunda EklenmeTarihi alanını doldur
 model.EklenmeTarihi = DateTime.Now;

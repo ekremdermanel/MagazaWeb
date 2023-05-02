@@ -11,7 +11,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace MagazaWeb.Migrations
 {
     [DbContext(typeof(MagazaContext))]
-    [Migration("20230502093559_yeni")]
+    [Migration("20230502174834_yeni")]
     partial class yeni
     {
         /// <inheritdoc />
@@ -35,10 +35,10 @@ namespace MagazaWeb.Migrations
                     b.Property<DateTime>("EklenmeTarihi")
                         .HasColumnType("datetime(6)");
 
-                    b.Property<decimal>("Fiyat")
+                    b.Property<decimal?>("Fiyat")
                         .HasColumnType("decimal(18,2)");
 
-                    b.Property<int>("Stok")
+                    b.Property<int?>("Stok")
                         .HasColumnType("int");
 
                     b.Property<string>("UrunAdi")

@@ -2,7 +2,8 @@ ViewModels klasörü oluştur
 
 ViewModels içine UrunViewModel sınıfı ekle
 
-Urun sınıfındaki tüm özellikleri kullan
+Urun sınıfındaki EklenmeTarihi dışında tüm özellikleri kullan
+EklenmeTarihi formdan girilmeyecek sistem saatini kullanacak
 
 Views - _ViewImports.cshtml ye ekle
 @using MagazaWeb.ViewModels 
@@ -72,8 +73,6 @@ public class UrunViewModel
   [Required(ErrorMessage = "{0} giriniz")]
   [Range(0, 100, ErrorMessage = "{0} {1}-{2} arası olmalı")]
   public int? Stok { get; set; }
-
-  public DateTime EklenmeTarihi { get; set; }
 }
 
 
@@ -96,7 +95,6 @@ public IActionResult UrunGuncelle(int id)
     Fiyat = kayit.Fiyat,
     Stok = kayit.Stok,
     Aciklama = kayit.Aciklama,
-    EklenmeTarihi = kayit.EklenmeTarihi
   };
   return View(viewModel);
 }
@@ -109,13 +107,13 @@ public IActionResult UrunGuncelle(UrunViewModel viewModel)
     return View(viewModel);
   }
 
-  Urun model = context.Urunler.FirstOrDefault(x => x.Id == viewModel.Id);
-  model.UrunAdi = viewModel.UrunAdi;
-  model.Fiyat = viewModel.Fiyat;
-  model.Stok = viewModel.Stok;
-  model.Aciklama = viewModel.Aciklama;
+  Urun kayit = context.Urunler.FirstOrDefault(x => x.Id == viewModel.Id);
+  kayit.UrunAdi = viewModel.UrunAdi;
+  kayit.Fiyat = viewModel.Fiyat;
+  kayit.Stok = viewModel.Stok;
+  kayit.Aciklama = viewModel.Aciklama;
 
-  context.Urunler.Update(model);
+  context.Urunler.Update(kayit);
   context.SaveChanges();
   return RedirectToAction("Urun");
 }

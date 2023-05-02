@@ -1,48 +1,49 @@
 @model List<Urun>
 
 <!-- Slogan -->
-    <header class="py-2 bg-light border-bottom">
-        <div class="container">
-            <div class="text-center my-2">
-                <h1 class="fw-bolder">@ViewBag.Yazi</h1>
-                <p class="lead mb-0">Lorem ipsum dolor sit amet consectetur adipisicing elit. Quaerat, quos?</p>
-                <p class="text-danger mt-2">@TempData["Hata"]</p>
-            </div>
+<header class="py-2 bg-light border-bottom">
+    <div class="container">
+        <div class="text-center my-2">
+            <h1 class="fw-bolder">@ViewBag.Yazi</h1>
+            <p class="lead mb-0">Lorem ipsum dolor sit amet consectetur adipisicing elit. Quaerat, quos?</p>
+            <p class="text-danger mt-2">@TempData["Hata"]</p>
         </div>
-    </header>
-    <!-- Icerik -->
-    <div class="container mt-4">
-        <div class="row mb-3">
-            <!-- Ana Bolum -->
-            <div class="col-lg-8">
-                <!-- Vitrin -->
+    </div>
+</header>
+<!-- Icerik -->
+<div class="container mt-4">
+    <div class="row mb-3">
+        <!-- Ana Bolum -->
+        <div class="col-lg-8">
+            <!-- Vitrin -->
 
-                @foreach (var item in Model)
-                {
-                    <div class="card mb-4">
+            @foreach (var item in Model)
+            {
+                <div class="card mb-4">
                     <img class="card-img-top" src="~/image/urun.png" alt="..." />
                     <div class="card-body">
                         <h2 class="card-title">@item.UrunAdi</h2>
                         <p class="card-text small">@item.Fiyat TL</p>
                         <p class="card-text">@AciklamaGoster(@item.Aciklama)</p>
-                        <a class="btn btn-primary" asp-controller="Urun" asp-action="Detay" asp-route-id="@item.Id">Detay</a>
+                        <a class="btn btn-primary" asp-controller="Urun" asp-action="Detay"
+                        asp-route-id="@item.Id">Detay</a>
                     </div>
                 </div>
-                }
+            }
 
-            </div>
-            <!-- Yan Menu -->
-            <div class="col-lg-4">
-                
-                <partial name="_Arama"></partial>
-                
-                @await Component.InvokeAsync("Kategoriler")
-                
-                <partial name="_Iletisim"></partial>
+        </div>
+        <!-- Yan Menu -->
+        <div class="col-lg-4">
 
-            </div>
+            <partial name="_Arama"></partial>
+
+            @await Component.InvokeAsync("Kategoriler")
+
+            <partial name="_Iletisim"></partial>
+
         </div>
     </div>
+</div>
 
 
 
@@ -51,10 +52,18 @@
 }
 
 @functions {
-    string AciklamaGoster(string aciklama) {
-        if(aciklama.Length>50) {
-            return aciklama.Substring(0,50) + "...";
-        } else {
+    string AciklamaGoster(string aciklama)
+    {
+        if (aciklama == null)
+        {
+            return "";
+        }
+        else if (aciklama.Length > 50)
+        {
+            return aciklama.Substring(0, 50) + "...";
+        }
+        else
+        {
             return aciklama;
         }
     }

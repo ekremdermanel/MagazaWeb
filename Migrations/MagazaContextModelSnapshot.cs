@@ -32,10 +32,10 @@ namespace MagazaWeb.Migrations
                     b.Property<DateTime>("EklenmeTarihi")
                         .HasColumnType("datetime(6)");
 
-                    b.Property<decimal>("Fiyat")
+                    b.Property<decimal?>("Fiyat")
                         .HasColumnType("decimal(18,2)");
 
-                    b.Property<int>("Stok")
+                    b.Property<int?>("Stok")
                         .HasColumnType("int");
 
                     b.Property<string>("UrunAdi")
