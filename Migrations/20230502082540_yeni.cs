@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore.Migrations;
+﻿using System;
+using Microsoft.EntityFrameworkCore.Migrations;
 using MySql.EntityFrameworkCore.Metadata;
 
 #nullable disable
@@ -15,18 +16,20 @@ namespace MagazaWeb.Migrations
                 .Annotation("MySQL:Charset", "utf8mb4");
 
             migrationBuilder.CreateTable(
-                name: "Urunler",
+                name: "tblUrunler",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("MySQL:ValueGenerationStrategy", MySQLValueGenerationStrategy.IdentityColumn),
                     UrunAdi = table.Column<string>(type: "longtext", nullable: false),
                     Fiyat = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
-                    Aciklama = table.Column<string>(type: "longtext", nullable: false)
+                    Bilgi = table.Column<string>(type: "longtext", nullable: true),
+                    Stok = table.Column<int>(type: "int", nullable: false),
+                    EklenmeTarihi = table.Column<DateTime>(type: "datetime(6)", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Urunler", x => x.Id);
+                    table.PrimaryKey("PK_tblUrunler", x => x.Id);
                 })
                 .Annotation("MySQL:Charset", "utf8mb4");
         }
@@ -35,7 +38,7 @@ namespace MagazaWeb.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "Urunler");
+                name: "tblUrunler");
         }
     }
 }

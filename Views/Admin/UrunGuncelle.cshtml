@@ -7,20 +7,26 @@
 
         <form method="post" enctype="multipart/form-data">
             <div class="mb-3">
-                <label asp-for="UrunAdi">UrunAdi</label>
+                <label asp-for="UrunAdi"></label>
                 <input asp-for="UrunAdi" value="@Model.UrunAdi" class="form-control">
                 <span class="text-danger"></span>
             </div>
             <div class="mb-3">
-                <label asp-for="Fiyat">Fiyat</label>
+                <label asp-for="Fiyat"></label>
                 <input asp-for="Fiyat" value="@Model.Fiyat" class="form-control">
                 <span class="text-danger"></span>
             </div>
             <div class="mb-3">
-                <label asp-for="Aciklama">Aciklama</label>
+                <label asp-for="Stok"></label>
+                <input asp-for="Stok" value="@Model.Stok" class="form-control">
+                <span class="text-danger"></span>
+            </div>
+            <div class="mb-3">
+                <label asp-for="Aciklama"></label>
                 <textarea asp-for="Aciklama" class="form-control">@Model.Aciklama</textarea>
                 <span class="text-danger"></span>
             </div>
+            <input type="hidden" asp-for="EklenmeTarihi" value="@Model.EklenmeTarihi">
             <button type="submit" class="btn btn-primary">Tamam</button>
 
         </form>

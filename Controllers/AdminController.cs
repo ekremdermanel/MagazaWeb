@@ -34,6 +34,7 @@ namespace MagazaWeb.Controllers
     [HttpPost]
     public IActionResult UrunEkle(Urun model)
     {
+      model.EklenmeTarihi = DateTime.Now;
       context.Urunler.Add(model);
       context.SaveChanges();
       return RedirectToAction("Urun");

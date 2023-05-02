@@ -1,0 +1,64 @@
+VERİTABANI BAĞLANTI CÜMLELERİNİ appsettings DOSYASINA TUTMAK
+
+Context dosyasındaki veritabanı bağlantı cümlesini appsettings.json dosyasına yaz
+
+"ConnectionStrings": {
+    "BaglantiMySQL": "Server=localhost;Database=MagazaDB;Uid=root;Pwd=;"
+  }
+
+Context dosyasından OnConfiguring metodunu sil
+
+Program.cs dosyasına kütüphaneleri ekle ve AddDbContext metodunu düzenle
+
+using Microsoft.EntityFrameworkCore;
+using System.Configuration;
+
+builder.Services.AddDbContext<MagazaContext>(options => options.UseMySQL(builder.Configuration.GetConnectionString("BaglantiMySQL")));
+
+
+
+VERİTABANI TABLO VE SÜTUN ADLARINI DEĞİŞTİRME
+
+Urun.cs dosyasında
+
+using System.ComponentModel.DataAnnotations.Schema;
+
+class Urun satırının üzerine ekle
+[Table("tblUrunler")]
+(Veritabanında Urunler yerine tblUrunler tablosu oluşturacak)
+
+public string Aciklama { get; set; } satırının üzerine ekle
+[Column("Bilgi")]
+(tblUrunler tablosunda Aciklama yerine Bilgi sütunu oluşturacak)
+
+
+
+
+URUN SINIFINA EKSTRA ALANLAR EKLE
+
+
+Urun class ına int tipinde Stok ve DateTime tipinde EklenmeTarihi alanları ekle
+public int Stok { get; set; }
+public DateTime EklenmeTarihi { get; set; }
+
+
+Aciklama alanını boş bırakılabilir yap
+
+public string? Aciklama { get; set; }
+
+Değişken tipi sonundaki ? nullable - boş bırakılabilir anlamına gelir
+int?, string? vs..
+
+
+
+UrunEkle ve UrunGuncelle view larına Stok alanları ekle
+
+UrunEkle viewunda EklenmeTarihi alanı olmayacak, Controller da veritabanına eklenmeden önce sistem tarih ve saati alınacak.
+UrunGuncelle view una hidden (gizli) EklenmeTarihi alanı ekle
+
+AdminController UrunEkle (Post) metodunda EklenmeTarihi alanını doldur
+model.EklenmeTarihi = DateTime.Now;
+
+
+
+
