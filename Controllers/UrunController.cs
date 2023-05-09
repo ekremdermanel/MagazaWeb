@@ -21,10 +21,13 @@ namespace MagazaWeb.Controllers
     {
       if (id == null)
       {
+        ViewBag.ListeBasligi = "Tüm Ürünler";
         return View(context.Urunler.Include("Kategori").ToList());
       }
       else
       {
+        Kategori kayit = context.Kategoriler.FirstOrDefault(x => x.Id == id);
+        ViewBag.ListeBasligi = kayit.KategoriAdi + " - " + kayit.Slogan;
         return View(context.Urunler.Include("Kategori").Where(x => x.KategoriId == id).ToList());
       }
     }

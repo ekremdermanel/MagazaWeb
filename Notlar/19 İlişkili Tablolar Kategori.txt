@@ -151,17 +151,25 @@ public IActionResult Index(int? id)
 {
   if (id == null)
   {
-    return View(context.Urunler.Include("Kategori").ToList());
+      ViewBag.Liste = "Tüm Ürünler";
+      return View(context.Urunler.Include("Kategori").ToList());
   }
   else
   {
-    return View(context.Urunler.Include("Kategori").Where(x => x.KategoriId == id).ToList());
+      Kategori kayit = context.Kategoriler.FirstOrDefault(x => x.Id == id);
+      ViewBag.Liste = kayit.KategoriAdi + " - " + kayit.Slogan;
+      return View(context.Urunler.Include("Kategori").Where(x => x.KategoriId == id).ToList());
   }
 }
+
+Views - Urun - Index sayfasında Ürünler yerine ViewBag kullan
+<h2>@ViewBag.ListeBasligi</h2>
 
 
 _Layout dosyasında Ürünler linkine ekle
 asp-route-id=""
+
+
 
 
 
