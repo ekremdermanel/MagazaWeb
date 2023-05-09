@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using MagazaWeb.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace MagazaWeb.Controllers
 {
@@ -16,9 +17,16 @@ namespace MagazaWeb.Controllers
       this.context = context;
     }
 
-    public IActionResult Index()
+    public IActionResult Index(int? id)
     {
-      return View(context.Urunler.ToList());
+      if (id == null)
+      {
+        return View(context.Urunler.Include("Kategori").ToList());
+      }
+      else
+      {
+        return View(context.Urunler.Include("Kategori").Where(x => x.KategoriId == id).ToList());
+      }
     }
 
     public IActionResult Detay(int id)

@@ -20,5 +20,8 @@ namespace MagazaWeb.Models
 
     public DateTime EklenmeTarihi { get; set; }
 
+    public int KategoriId { get; set; }
+    public Kategori Kategori { get; set; }
+
   }
 }

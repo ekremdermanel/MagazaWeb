@@ -19,6 +19,25 @@ namespace MagazaWeb.Migrations
                 .HasAnnotation("ProductVersion", "7.0.0")
                 .HasAnnotation("Relational:MaxIdentifierLength", 64);
 
+            modelBuilder.Entity("MagazaWeb.Models.Kategori", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.Property<string>("KategoriAdi")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("Slogan")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Kategoriler");
+                });
+
             modelBuilder.Entity("MagazaWeb.Models.Urun", b =>
                 {
                     b.Property<int>("Id")
@@ -35,6 +54,9 @@ namespace MagazaWeb.Migrations
                     b.Property<decimal?>("Fiyat")
                         .HasColumnType("decimal(18,2)");
 
+                    b.Property<int>("KategoriId")
+                        .HasColumnType("int");
+
                     b.Property<int?>("Stok")
                         .HasColumnType("int");
 
@@ -44,7 +66,20 @@ namespace MagazaWeb.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("KategoriId");
+
                     b.ToTable("tblUrunler");
+                });
+
+            modelBuilder.Entity("MagazaWeb.Models.Urun", b =>
+                {
+                    b.HasOne("MagazaWeb.Models.Kategori", "Kategori")
+                        .WithMany()
+                        .HasForeignKey("KategoriId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Kategori");
                 });
 #pragma warning restore 612, 618
         }

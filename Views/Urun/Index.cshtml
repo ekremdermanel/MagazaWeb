@@ -20,6 +20,7 @@
                                 <div class="card-body text-center">
                                     <h5 class="card-title">@item.UrunAdi</h5>
                                     <p class="card-text small">@item.Fiyat TL</p>
+                                    <p class="card-text small muted">@item.Kategori.KategoriAdi</p>
                                     <a class="btn btn-outline-primary btn-sm" asp-controller="Urun" asp-action="Detay" asp-route-id="@item.Id">Detay</a>
                                 </div>
                             </div>

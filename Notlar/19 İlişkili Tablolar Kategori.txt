@@ -1,0 +1,168 @@
+Models - Kategori sınıfı oluştur
+Ürünler ile ilişki kurulacak özelliği ekle
+public List<Urun> Urunler { get; set; }
+
+
+Models - Urun sınıfına kategori ile ilişkili alanları ekle
+public int KategoriId { get; set; }
+public Kategori Kategori { get; set; }
+
+MagazaContext içerisine Kategoriler DbSet i ekle
+public DbSet<Kategori> Kategoriler { get; set; }
+
+
+KategorilerViewComponent.cs dosyasında
+
+
+Yapıcı metot oluştur ve context alanını ata
+private readonly MagazaContext context;
+
+public UrunController(MagazaContext context)
+{
+  this.context = context;
+}
+
+
+Models klasörünü ekle
+using MagazaWeb.Models;
+
+Invoke metoduna veritabanındaki kategoriler tablosunu çağır
+public IViewComponentResult Invoke()
+{
+  return View(context.Kategoriler.ToList());
+}
+
+
+Kategori ViewComponent ine ait view dosyasını aç
+Views - Shared - Components - Kategoriler - Default.cshtml
+@model List<Kategori>
+
+@foreach (var item in Model)
+{
+  <a class="list-group-item" asp-controller="Urun" asp-action="Index" asp-route-id="@item.Id">@item.KategoriAdi</a>
+}
+
+
+
+ViewModels - KategoriViewModel ekle
+public class KategoriViewModel
+{
+  public int Id { get; set; }
+
+  [Display(Name = "Kategori Adı")]
+  [Required(ErrorMessage = "{0} giriniz")]
+  public string KategoriAdi { get; set; }
+  [Display(Name = "Kategori Sloganı")]
+  public string? Slogan { get; set; }
+}
+
+
+AdminController Kategori, KategoriEkle, KategoriGuncelle, KategoriSil metodlarını hazırla
+
+Views - Admin - Kategori, KategoriEkle, KategoriGuncelle view larını hazırla 
+
+
+AdminLayout Kategoriler linki ekle
+
+
+UrunViewModel düzenle
+using Microsoft.AspNetCore.Mvc.Rendering;
+
+[Display(Name = "Ürün Kategorisi")]
+public int KategoriId { get; set; }
+public IEnumerable<SelectListItem>? Kategoriler { get; set; }
+
+
+AdminController - Urun action ına kategori ekle
+return View(context.Urunler.Include("Kategori").ToList());
+
+Views - Admin - Urun kategoriyi göster
+<td>@item.Kategori.KategoriAdi</td>
+
+AdminController - UrunEkle action ı düzenle
+HttpGet te tüm ürünleri viewmodel de gönder
+
+[HttpGet]
+public IActionResult UrunEkle()
+{
+  UrunViewModel viewModel = new UrunViewModel
+  {
+    Kategoriler = new SelectList(context.Kategoriler, "Id", "KategoriAdi")
+  };
+  return View(viewModel);
+}
+
+AdminController - UrunEkle action ı düzenle
+HttpPost ta eğer hata varsa tüm ürünleri viewmodel de gönder
+
+if (!ModelState.IsValid)
+{
+  viewModel.Kategoriler = new SelectList(context.Kategoriler, "Id", "KategoriAdi");
+  return View(viewModel);
+}
+
+Hata yoksa seçilen KategoriId yi veritabanına kaydet
+
+Urun model = new Urun
+{
+  UrunAdi = viewModel.UrunAdi,
+  Fiyat = viewModel.Fiyat,
+  Stok = viewModel.Stok,
+  Aciklama = viewModel.Aciklama,
+  EklenmeTarihi = DateTime.Now,
+  KategoriId = viewModel.KategoriId
+};
+
+
+Views - Admin - UrunEkle ye Kategoriler açılır kutusu ekle
+<div class="mb-3">
+    <label asp-for="KategoriId"></label>
+    <select asp-for="KategoriId" asp-items="@Model.Kategoriler" class="form-select">
+        <option value="">Seçiniz</option>
+    </select>
+    <span asp-validation-for="KategoriId" class="text-danger"></span>
+</div>
+
+
+
+AdminController - UrunGuncelle action ı düzenle
+HttpGet te tüm ürünleri viewmodel de gönder (UrunEkle aynısı)
+
+AdminController - UrunGuncelle action ı düzenle
+HttpPost ta eğer hata varsa tüm ürünleri viewmodel de gönder (UrunEkle aynısı)
+Hata yoksa seçilen KategoriId yi veritabanına kaydet (UrunEkle aynısı)
+
+Views - Admin - UrunGuncelle ye Kategoriler açılır kutusu ekle ve KategoriId seçili getir
+<select asp-for="KategoriId" asp-items="@Model.Kategoriler" value="@Model.KategoriId" class="form-select">
+
+
+
+
+
+Views - Urun - Index sayfasında kategoriyi göster
+<p class="card-text small muted">@item.Kategori.KategoriAdi</p>
+
+UrunController Index action ına Kategorileri dahil et
+return View(context.Urunler.Include("Kategori").ToList());
+
+
+UrunController Index action ını tüm ürünleri veya seçili kategorideki ürünleri gösterecek şekilde değiştir
+public IActionResult Index(int? id)
+{
+  if (id == null)
+  {
+    return View(context.Urunler.Include("Kategori").ToList());
+  }
+  else
+  {
+    return View(context.Urunler.Include("Kategori").Where(x => x.KategoriId == id).ToList());
+  }
+}
+
+
+_Layout dosyasında Ürünler linkine ekle
+asp-route-id=""
+
+
+
+

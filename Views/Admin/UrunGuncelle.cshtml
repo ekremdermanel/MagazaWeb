@@ -12,6 +12,13 @@
                 <span asp-validation-for="UrunAdi" class="text-danger"></span>
             </div>
             <div class="mb-3">
+                <label asp-for="KategoriId"></label>
+                <select asp-for="KategoriId" asp-items="@Model.Kategoriler" value="@Model.KategoriId" class="form-select">
+                    <option value="">Seçiniz</option>
+                </select>
+                <span asp-validation-for="KategoriId" class="text-danger"></span>
+            </div>
+            <div class="mb-3">
                 <label asp-for="Fiyat"></label>
                 <input asp-for="Fiyat" value="@Model.Fiyat" class="form-control">
                 <span asp-validation-for="Fiyat" class="text-danger"></span>

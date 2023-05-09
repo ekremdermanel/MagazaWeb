@@ -1,4 +1,4 @@
-@model List<string>
+@model List<Kategori>
 
 <!-- Kategoriler -->
 <div class="card mb-4">
@@ -7,7 +7,7 @@
         <div class="list-group-flush">
           @foreach (var item in Model)
           {
-            <a class="list-group-item" href="#!">@item</a>
+            <a class="list-group-item" asp-controller="Urun" asp-action="Index" asp-route-id="@item.Id">@item.KategoriAdi</a>
           }
         </div>
     </div>

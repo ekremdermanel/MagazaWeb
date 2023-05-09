@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "teuBumJulU+M9DFd7euDsBmOEDr+vfHDi5xNJkL0aA0=",
+  "Hash": "ssaNIQEVxHhwxc7tHqSt0hLOoDglgQvLWd7d9hH3n6Q=",
   "Source": "MagazaWeb",
   "BasePath": "_content/MagazaWeb",
   "Mode": "Default",
@@ -10,17 +10,17 @@
     {
       "Name": "MagazaWeb\\wwwroot",
       "Source": "MagazaWeb",
-      "ContentRoot": "C:\\Users\\Ekrem\\Desktop\\MagazaWeb\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\Administrator\\Desktop\\MagazaWeb\\wwwroot\\",
       "BasePath": "_content/MagazaWeb",
       "Pattern": "**"
     }
   ],
   "Assets": [
     {
-      "Identity": "C:\\Users\\Ekrem\\Desktop\\MagazaWeb\\wwwroot\\admin\\assets\\demo\\chart-area-demo.js",
+      "Identity": "C:\\Users\\Administrator\\Desktop\\MagazaWeb\\wwwroot\\admin\\assets\\demo\\chart-area-demo.js",
       "SourceId": "MagazaWeb",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\Ekrem\\Desktop\\MagazaWeb\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\Administrator\\Desktop\\MagazaWeb\\wwwroot\\",
       "BasePath": "_content/MagazaWeb",
       "RelativePath": "admin/assets/demo/chart-area-demo.js",
       "AssetKind": "All",
@@ -34,10 +34,10 @@
       "OriginalItemSpec": "wwwroot\\admin\\assets\\demo\\chart-area-demo.js"
     },
     {
-      "Identity": "C:\\Users\\Ekrem\\Desktop\\MagazaWeb\\wwwroot\\admin\\assets\\demo\\chart-bar-demo.js",
+      "Identity": "C:\\Users\\Administrator\\Desktop\\MagazaWeb\\wwwroot\\admin\\assets\\demo\\chart-bar-demo.js",
       "SourceId": "MagazaWeb",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\Ekrem\\Desktop\\MagazaWeb\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\Administrator\\Desktop\\MagazaWeb\\wwwroot\\",
       "BasePath": "_content/MagazaWeb",
       "RelativePath": "admin/assets/demo/chart-bar-demo.js",
       "AssetKind": "All",
@@ -51,10 +51,10 @@
       "OriginalItemSpec": "wwwroot\\admin\\assets\\demo\\chart-bar-demo.js"
     },
     {
-      "Identity": "C:\\Users\\Ekrem\\Desktop\\MagazaWeb\\wwwroot\\admin\\assets\\demo\\chart-pie-demo.js",
+      "Identity": "C:\\Users\\Administrator\\Desktop\\MagazaWeb\\wwwroot\\admin\\assets\\demo\\chart-pie-demo.js",
       "SourceId": "MagazaWeb",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\Ekrem\\Desktop\\MagazaWeb\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\Administrator\\Desktop\\MagazaWeb\\wwwroot\\",
       "BasePath": "_content/MagazaWeb",
       "RelativePath": "admin/assets/demo/chart-pie-demo.js",
       "AssetKind": "All",
@@ -68,10 +68,10 @@
       "OriginalItemSpec": "wwwroot\\admin\\assets\\demo\\chart-pie-demo.js"
     },
     {
-      "Identity": "C:\\Users\\Ekrem\\Desktop\\MagazaWeb\\wwwroot\\admin\\assets\\demo\\datatables-demo.js",
+      "Identity": "C:\\Users\\Administrator\\Desktop\\MagazaWeb\\wwwroot\\admin\\assets\\demo\\datatables-demo.js",
       "SourceId": "MagazaWeb",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\Ekrem\\Desktop\\MagazaWeb\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\Administrator\\Desktop\\MagazaWeb\\wwwroot\\",
       "BasePath": "_content/MagazaWeb",
       "RelativePath": "admin/assets/demo/datatables-demo.js",
       "AssetKind": "All",
@@ -85,10 +85,10 @@
       "OriginalItemSpec": "wwwroot\\admin\\assets\\demo\\datatables-demo.js"
     },
     {
-      "Identity": "C:\\Users\\Ekrem\\Desktop\\MagazaWeb\\wwwroot\\admin\\assets\\img\\error-404-monochrome.svg",
+      "Identity": "C:\\Users\\Administrator\\Desktop\\MagazaWeb\\wwwroot\\admin\\assets\\img\\error-404-monochrome.svg",
       "SourceId": "MagazaWeb",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\Ekrem\\Desktop\\MagazaWeb\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\Administrator\\Desktop\\MagazaWeb\\wwwroot\\",
       "BasePath": "_content/MagazaWeb",
       "RelativePath": "admin/assets/img/error-404-monochrome.svg",
       "AssetKind": "All",
@@ -102,10 +102,10 @@
       "OriginalItemSpec": "wwwroot\\admin\\assets\\img\\error-404-monochrome.svg"
     },
     {
-      "Identity": "C:\\Users\\Ekrem\\Desktop\\MagazaWeb\\wwwroot\\admin\\css\\styles.css",
+      "Identity": "C:\\Users\\Administrator\\Desktop\\MagazaWeb\\wwwroot\\admin\\css\\styles.css",
       "SourceId": "MagazaWeb",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\Ekrem\\Desktop\\MagazaWeb\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\Administrator\\Desktop\\MagazaWeb\\wwwroot\\",
       "BasePath": "_content/MagazaWeb",
       "RelativePath": "admin/css/styles.css",
       "AssetKind": "All",
@@ -119,10 +119,10 @@
       "OriginalItemSpec": "wwwroot\\admin\\css\\styles.css"
     },
     {
-      "Identity": "C:\\Users\\Ekrem\\Desktop\\MagazaWeb\\wwwroot\\admin\\extras\\all.js",
+      "Identity": "C:\\Users\\Administrator\\Desktop\\MagazaWeb\\wwwroot\\admin\\extras\\all.js",
       "SourceId": "MagazaWeb",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\Ekrem\\Desktop\\MagazaWeb\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\Administrator\\Desktop\\MagazaWeb\\wwwroot\\",
       "BasePath": "_content/MagazaWeb",
       "RelativePath": "admin/extras/all.js",
       "AssetKind": "All",
@@ -136,10 +136,10 @@
       "OriginalItemSpec": "wwwroot\\admin\\extras\\all.js"
     },
     {
-      "Identity": "C:\\Users\\Ekrem\\Desktop\\MagazaWeb\\wwwroot\\admin\\extras\\all2.js",
+      "Identity": "C:\\Users\\Administrator\\Desktop\\MagazaWeb\\wwwroot\\admin\\extras\\all2.js",
       "SourceId": "MagazaWeb",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\Ekrem\\Desktop\\MagazaWeb\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\Administrator\\Desktop\\MagazaWeb\\wwwroot\\",
       "BasePath": "_content/MagazaWeb",
       "RelativePath": "admin/extras/all2.js",
       "AssetKind": "All",
@@ -153,10 +153,10 @@
       "OriginalItemSpec": "wwwroot\\admin\\extras\\all2.js"
     },
     {
-      "Identity": "C:\\Users\\Ekrem\\Desktop\\MagazaWeb\\wwwroot\\admin\\extras\\bootstrap.bundle.min.js",
+      "Identity": "C:\\Users\\Administrator\\Desktop\\MagazaWeb\\wwwroot\\admin\\extras\\bootstrap.bundle.min.js",
       "SourceId": "MagazaWeb",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\Ekrem\\Desktop\\MagazaWeb\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\Administrator\\Desktop\\MagazaWeb\\wwwroot\\",
       "BasePath": "_content/MagazaWeb",
       "RelativePath": "admin/extras/bootstrap.bundle.min.js",
       "AssetKind": "All",
@@ -170,10 +170,10 @@
       "OriginalItemSpec": "wwwroot\\admin\\extras\\bootstrap.bundle.min.js"
     },
     {
-      "Identity": "C:\\Users\\Ekrem\\Desktop\\MagazaWeb\\wwwroot\\admin\\extras\\Chart.min.js",
+      "Identity": "C:\\Users\\Administrator\\Desktop\\MagazaWeb\\wwwroot\\admin\\extras\\Chart.min.js",
       "SourceId": "MagazaWeb",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\Ekrem\\Desktop\\MagazaWeb\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\Administrator\\Desktop\\MagazaWeb\\wwwroot\\",
       "BasePath": "_content/MagazaWeb",
       "RelativePath": "admin/extras/Chart.min.js",
       "AssetKind": "All",
@@ -187,10 +187,10 @@
       "OriginalItemSpec": "wwwroot\\admin\\extras\\Chart.min.js"
     },
     {
-      "Identity": "C:\\Users\\Ekrem\\Desktop\\MagazaWeb\\wwwroot\\admin\\extras\\simple-datatables@latest.js",
+      "Identity": "C:\\Users\\Administrator\\Desktop\\MagazaWeb\\wwwroot\\admin\\extras\\simple-datatables@latest.js",
       "SourceId": "MagazaWeb",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\Ekrem\\Desktop\\MagazaWeb\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\Administrator\\Desktop\\MagazaWeb\\wwwroot\\",
       "BasePath": "_content/MagazaWeb",
       "RelativePath": "admin/extras/simple-datatables@latest.js",
       "AssetKind": "All",
@@ -204,10 +204,10 @@
       "OriginalItemSpec": "wwwroot\\admin\\extras\\simple-datatables@latest.js"
     },
     {
-      "Identity": "C:\\Users\\Ekrem\\Desktop\\MagazaWeb\\wwwroot\\admin\\extras\\style.css",
+      "Identity": "C:\\Users\\Administrator\\Desktop\\MagazaWeb\\wwwroot\\admin\\extras\\style.css",
       "SourceId": "MagazaWeb",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\Ekrem\\Desktop\\MagazaWeb\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\Administrator\\Desktop\\MagazaWeb\\wwwroot\\",
       "BasePath": "_content/MagazaWeb",
       "RelativePath": "admin/extras/style.css",
       "AssetKind": "All",
@@ -221,10 +221,10 @@
       "OriginalItemSpec": "wwwroot\\admin\\extras\\style.css"
     },
     {
-      "Identity": "C:\\Users\\Ekrem\\Desktop\\MagazaWeb\\wwwroot\\admin\\js\\datatables-simple-demo.js",
+      "Identity": "C:\\Users\\Administrator\\Desktop\\MagazaWeb\\wwwroot\\admin\\js\\datatables-simple-demo.js",
       "SourceId": "MagazaWeb",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\Ekrem\\Desktop\\MagazaWeb\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\Administrator\\Desktop\\MagazaWeb\\wwwroot\\",
       "BasePath": "_content/MagazaWeb",
       "RelativePath": "admin/js/datatables-simple-demo.js",
       "AssetKind": "All",
@@ -238,10 +238,10 @@
       "OriginalItemSpec": "wwwroot\\admin\\js\\datatables-simple-demo.js"
     },
     {
-      "Identity": "C:\\Users\\Ekrem\\Desktop\\MagazaWeb\\wwwroot\\admin\\js\\scripts.js",
+      "Identity": "C:\\Users\\Administrator\\Desktop\\MagazaWeb\\wwwroot\\admin\\js\\scripts.js",
       "SourceId": "MagazaWeb",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\Ekrem\\Desktop\\MagazaWeb\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\Administrator\\Desktop\\MagazaWeb\\wwwroot\\",
       "BasePath": "_content/MagazaWeb",
       "RelativePath": "admin/js/scripts.js",
       "AssetKind": "All",
@@ -255,10 +255,10 @@
       "OriginalItemSpec": "wwwroot\\admin\\js\\scripts.js"
     },
     {
-      "Identity": "C:\\Users\\Ekrem\\Desktop\\MagazaWeb\\wwwroot\\css\\bootstrap.min.css",
+      "Identity": "C:\\Users\\Administrator\\Desktop\\MagazaWeb\\wwwroot\\css\\bootstrap.min.css",
       "SourceId": "MagazaWeb",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\Ekrem\\Desktop\\MagazaWeb\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\Administrator\\Desktop\\MagazaWeb\\wwwroot\\",
       "BasePath": "_content/MagazaWeb",
       "RelativePath": "css/bootstrap.min.css",
       "AssetKind": "All",
@@ -272,10 +272,10 @@
       "OriginalItemSpec": "wwwroot\\css\\bootstrap.min.css"
     },
     {
-      "Identity": "C:\\Users\\Ekrem\\Desktop\\MagazaWeb\\wwwroot\\image\\urun.png",
+      "Identity": "C:\\Users\\Administrator\\Desktop\\MagazaWeb\\wwwroot\\image\\urun.png",
       "SourceId": "MagazaWeb",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\Ekrem\\Desktop\\MagazaWeb\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\Administrator\\Desktop\\MagazaWeb\\wwwroot\\",
       "BasePath": "_content/MagazaWeb",
       "RelativePath": "image/urun.png",
       "AssetKind": "All",
@@ -289,10 +289,10 @@
       "OriginalItemSpec": "wwwroot\\image\\urun.png"
     },
     {
-      "Identity": "C:\\Users\\Ekrem\\Desktop\\MagazaWeb\\wwwroot\\js\\bootstrap.min.js",
+      "Identity": "C:\\Users\\Administrator\\Desktop\\MagazaWeb\\wwwroot\\js\\bootstrap.min.js",
       "SourceId": "MagazaWeb",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\Ekrem\\Desktop\\MagazaWeb\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\Administrator\\Desktop\\MagazaWeb\\wwwroot\\",
       "BasePath": "_content/MagazaWeb",
       "RelativePath": "js/bootstrap.min.js",
       "AssetKind": "All",
@@ -306,10 +306,10 @@
       "OriginalItemSpec": "wwwroot\\js\\bootstrap.min.js"
     },
     {
-      "Identity": "C:\\Users\\Ekrem\\Desktop\\MagazaWeb\\wwwroot\\js\\popper.min.js",
+      "Identity": "C:\\Users\\Administrator\\Desktop\\MagazaWeb\\wwwroot\\js\\popper.min.js",
       "SourceId": "MagazaWeb",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\Ekrem\\Desktop\\MagazaWeb\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\Administrator\\Desktop\\MagazaWeb\\wwwroot\\",
       "BasePath": "_content/MagazaWeb",
       "RelativePath": "js/popper.min.js",
       "AssetKind": "All",

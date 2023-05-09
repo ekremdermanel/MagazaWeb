@@ -8,5 +8,6 @@ namespace MagazaWeb.Models
     public MagazaContext(DbContextOptions<MagazaContext> options) : base(options) { }
 
     public DbSet<Urun> Urunler { get; set; }
+    public DbSet<Kategori> Kategoriler { get; set; }
   }
 }
