@@ -1,0 +1,53 @@
+View dan 
+- View içerisindeki bir metot
+- Controller içerisindeki bir metot
+- Farklı bir statik sınıfta tanımlanmış metotlar çağırılabilir
+
+Ana sayfada ürün açıklamalarını en fazla 50 karakter göster
+
+Index View una fonsksiyon tanımla
+@functions {
+    string AciklamaGoster(string aciklama)
+    {
+        if (aciklama == null)
+        {
+            return "";
+        }
+        else if (aciklama.Length > 50)
+        {
+            return aciklama.Substring(0, 50) + "...";
+        }
+        else
+        {
+            return aciklama;
+        }
+    }
+}
+
+@item.Aciklama yerine tanımlanan fonksiyonu çağır:
+@AciklamaGoster(@item.Aciklama)
+
+
+Functions klasörü oluştur ve statik sınıfları hazırla
+
+
+Functions - Sayi.cs
+
+Functions - Metin.cs
+
+Functions - Tarih.cs
+
+ÖR:
+public static string Bicimlendir(this string metin)
+
+
+Statik sınıftan nesne oluşturmadan metotları kullanılır.
+Sayi.ParaBirimi, Metin.Bicimlendir vb.
+
+
+Metottaki this ile ifade edilen parametre ile alttaki gibi kullanılabilir
+Metin.Bicimlendir(yazi)
+yazi.Bicimlendir()
+
+
+Detay ve Listeleme sayfalarında fonksiyonları çağır

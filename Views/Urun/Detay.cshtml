@@ -12,8 +12,9 @@
                     <div class="col-md-6">
                         <div class="card-body">
                             <h2 class="card-title">@Model.UrunAdi</h2>
-                            <p class="card-text small">@Model.Fiyat TL</p>
-                            <p class="card-text">@Model.Aciklama</p>
+                            <p class="card-text small">@Model.Fiyat.ParaBirimi() TL</p>
+                            <p>@Model.EklenmeTarihi.GecenZaman() eklendi</p>
+                            <p class="card-text">@Html.Raw(Model.Aciklama.Bicimlendir())</p>
                         </div>
                     </div>
                 </div>
