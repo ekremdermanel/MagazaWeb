@@ -20,7 +20,7 @@
             @foreach (var item in Model)
             {
                 <div class="card mb-4">
-                    <img class="card-img-top" src="~/image/urun.png" alt="..." />
+                    <img class="card-img-top" src="@item.ResimAdi.Goster()" alt="..." />
                     <div class="card-body">
                         <h2 class="card-title">@item.UrunAdi</h2>
                         <p class="card-text small">@item.Fiyat TL</p>

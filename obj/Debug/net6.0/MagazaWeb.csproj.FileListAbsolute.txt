@@ -136,3 +136,4 @@ C:\Users\Ekrem\Desktop\MagazaWeb\obj\Debug\net6.0\refint\MagazaWeb.dll
 C:\Users\Ekrem\Desktop\MagazaWeb\obj\Debug\net6.0\MagazaWeb.pdb
 C:\Users\Ekrem\Desktop\MagazaWeb\obj\Debug\net6.0\MagazaWeb.genruntimeconfig.cache
 C:\Users\Ekrem\Desktop\MagazaWeb\obj\Debug\net6.0\ref\MagazaWeb.dll
+C:\Users\Administrator\Desktop\MagazaWeb\bin\Debug\net6.0\SixLabors.ImageSharp.dll

@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "mA2oU/mi/g8qOoJqUjjuAGxwGWizLDcK0TnlcH2ZvwUQlS1EvQBaIEVLYZxGnoriAYHCzz/qEmsuv9A7IIhw6g==",
+  "dgSpecHash": "QnuiuI0Tf9vnHsvS9FXIRILEX3+aFX/FlM2Vz4u2wev4tj3GvTfQnXPZX/TzHf02TyYMnRdcNZyd+GtgyyvEJQ==",
   "success": true,
   "projectFilePath": "C:\\Users\\Administrator\\Desktop\\MagazaWeb\\MagazaWeb.csproj",
   "expectedPackageFiles": [
@@ -32,6 +32,7 @@
     "C:\\Users\\Administrator\\.nuget\\packages\\mysql.data\\8.0.32\\mysql.data.8.0.32.nupkg.sha512",
     "C:\\Users\\Administrator\\.nuget\\packages\\mysql.entityframeworkcore\\7.0.0\\mysql.entityframeworkcore.7.0.0.nupkg.sha512",
     "C:\\Users\\Administrator\\.nuget\\packages\\portable.bouncycastle\\1.9.0\\portable.bouncycastle.1.9.0.nupkg.sha512",
+    "C:\\Users\\Administrator\\.nuget\\packages\\sixlabors.imagesharp\\3.0.1\\sixlabors.imagesharp.3.0.1.nupkg.sha512",
     "C:\\Users\\Administrator\\.nuget\\packages\\system.buffers\\4.5.1\\system.buffers.4.5.1.nupkg.sha512",
     "C:\\Users\\Administrator\\.nuget\\packages\\system.codedom\\4.4.0\\system.codedom.4.4.0.nupkg.sha512",
     "C:\\Users\\Administrator\\.nuget\\packages\\system.configuration.configurationmanager\\4.4.1\\system.configuration.configurationmanager.4.4.1.nupkg.sha512",

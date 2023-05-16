@@ -19,6 +19,7 @@ namespace MagazaWeb.Models
     public int? Stok { get; set; }
 
     public DateTime EklenmeTarihi { get; set; }
+    public string? ResimAdi { get; set; }
 
     public int KategoriId { get; set; }
     public Kategori Kategori { get; set; }

@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using MagazaWeb.Models;
 using MagazaWeb.ViewModels;
+using MagazaWeb.Functions;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Mvc.Rendering;
 
@@ -47,6 +48,12 @@ namespace MagazaWeb.Controllers
         return View(viewModel);
       }
 
+      string resimAdi = null;
+      if (viewModel.Resim != null)
+      {
+        resimAdi = Resim.Ekle(viewModel.Resim);
+      }
+
       Urun model = new Urun
       {
         UrunAdi = viewModel.UrunAdi,
@@ -54,6 +61,7 @@ namespace MagazaWeb.Controllers
         Stok = viewModel.Stok,
         Aciklama = viewModel.Aciklama,
         EklenmeTarihi = DateTime.Now,
+        ResimAdi = resimAdi,
         KategoriId = viewModel.KategoriId
       };
 
@@ -65,6 +73,7 @@ namespace MagazaWeb.Controllers
     public IActionResult UrunSil(int id)
     {
       Urun kayit = context.Urunler.FirstOrDefault(x => x.Id == id);
+      Resim.Sil(kayit.ResimAdi);
       context.Urunler.Remove(kayit);
       context.SaveChanges();
       return RedirectToAction("Urun");
@@ -80,6 +89,7 @@ namespace MagazaWeb.Controllers
         UrunAdi = kayit.UrunAdi,
         Fiyat = kayit.Fiyat,
         Stok = kayit.Stok,
+        ResimAdi = kayit.ResimAdi,
         Aciklama = kayit.Aciklama,
         KategoriId = kayit.KategoriId,
         Kategoriler = new SelectList(context.Kategoriler, "Id", "KategoriAdi")
@@ -96,10 +106,22 @@ namespace MagazaWeb.Controllers
         return View(viewModel);
       }
 
+      string resimAdi;
+      if (viewModel.Resim != null)
+      {
+        Resim.Sil(viewModel.ResimAdi);
+        resimAdi = Resim.Ekle(viewModel.Resim);
+      }
+      else
+      {
+        resimAdi = viewModel.ResimAdi;
+      }
+
       Urun kayit = context.Urunler.FirstOrDefault(x => x.Id == viewModel.Id);
       kayit.UrunAdi = viewModel.UrunAdi;
       kayit.Fiyat = viewModel.Fiyat;
       kayit.Stok = viewModel.Stok;
+      kayit.ResimAdi = resimAdi;
       kayit.Aciklama = viewModel.Aciklama;
       kayit.KategoriId = viewModel.KategoriId;
 
@@ -140,6 +162,12 @@ namespace MagazaWeb.Controllers
 
     public IActionResult KategoriSil(int id)
     {
+      List<string> resimAdlari = context.Urunler.Where(x => x.KategoriId == id).Select(x => x.ResimAdi).ToList();
+      foreach (var item in resimAdlari)
+      {
+        Resim.Sil(item);
+      }
+
       Kategori kayit = context.Kategoriler.FirstOrDefault(x => x.Id == id);
       context.Kategoriler.Remove(kayit);
       context.SaveChanges();
@@ -175,6 +203,17 @@ namespace MagazaWeb.Controllers
       context.SaveChanges();
       return RedirectToAction("Kategori");
     }
+
+    public IActionResult ResimSil(int id)
+    {
+      Urun kayit = context.Urunler.FirstOrDefault(x => x.Id == id);
+      Resim.Sil(kayit.ResimAdi);
+      kayit.ResimAdi = null;
+      context.Urunler.Update(kayit);
+      context.SaveChanges();
+      return RedirectToAction("UrunGuncelle", new { id });
+    }
+
 
   }
 }

@@ -27,6 +27,8 @@ namespace MagazaWeb.ViewModels
     [Required(ErrorMessage = "{0} giriniz")]
     [Range(0, 100, ErrorMessage = "{0} {1}-{2} arası olmalı")]
     public int? Stok { get; set; }
+    public string? ResimAdi { get; set; }
+    public IFormFile? Resim { get; set; }
 
     [Display(Name = "Ürün Kategorisi")]
     public int KategoriId { get; set; }

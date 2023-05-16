@@ -1,0 +1,156 @@
+Resim boyutlandırma kütüphanesi ekle
+dotnet add package SixLabors.ImageSharp
+
+Functions klasörü oluştur
+Functions - Resim.cs
+
+public static class Resim
+{
+  public static string Ekle(IFormFile resim)
+  {
+    string resimUzantisi = Path.GetExtension(resim.FileName);
+    string resimAdi = Guid.NewGuid() + resimUzantisi;
+    string resimYolu = Path.Combine(Directory.GetCurrentDirectory(), $"wwwroot/image/{resimAdi}");
+    var img = Image.Load(resim.OpenReadStream());
+    img.Mutate(x => x.Resize(800, 600));
+    img.Save(resimYolu);
+    return resimAdi;
+  }
+
+  public static void Sil(string resimAdi)
+  {
+    string resimYolu = Path.Combine(Directory.GetCurrentDirectory(), $"wwwroot/image/{resimAdi}");
+    FileInfo file = new FileInfo(resimYolu);
+    if (file.Exists)
+    {
+      file.Delete();
+    }
+  }
+
+  public static string Goster(this string resimAdi)
+  {
+    if (resimAdi != null)
+    {
+      return "/image/" + resimAdi;
+    }
+    else
+    {
+      return "/image/urun.png";
+    }
+  }
+}
+
+
+Models - Urun.cs
+public string? ResimAdi { get; set; }
+
+ViewModels - UrunViewModel.cs
+public string? ResimAdi { get; set; }
+public IFormFile? Resim { get; set; }
+
+
+_ViewImports.cshtml
+@using MagazaWeb.Functions
+
+Sayfalardaki img src kodlarını düzenle
+(Urun - Index, Home - Index)
+src="@item.ResimAdi.Goster()"
+(Urun - Detay)
+src="@Model.ResimAdi.Goster()"
+
+
+Views - Admin - UrunEkle.cshtml
+
+form etiketini düzenle
+enctype="multipart/form-data"
+
+<div class="mb-3">
+    <label asp-for="Resim"></label>
+    <input asp-for="Resim" class="form-control">
+    <span asp-validation-for="Resim" class="text-danger"></span>
+</div>
+
+
+AdminController - UrunEkle (post)
+string resimAdi = null;
+if (viewModel.Resim != null)
+{
+  resimAdi = Resim.Ekle(viewModel.Resim);
+}
+
+Urun model = new Urun
+{
+  UrunAdi = viewModel.UrunAdi,
+  Fiyat = viewModel.Fiyat,
+  Stok = viewModel.Stok,
+  Aciklama = viewModel.Aciklama,
+  EklenmeTarihi = DateTime.Now,
+  ResimAdi = resimAdi,
+  KategoriId = viewModel.KategoriId
+};
+
+
+AdminController - UrunSil e ekle
+Resim.Sil(kayit.ResimAdi);
+
+AdminController - KategoriSil e ekle
+List<string> resimAdlari = context.Urunler.Where(x => x.KattegoriId == id).Select(x => x.ResimAdi).ToList();
+foreach(var item in resimAdlari) {
+  Resim.Sil(item);
+}
+
+
+AdminController - UrunGuncelle (Get)
+ResimAdi = kayit.ResimAdi,
+
+UrunGuncelle View
+<div class="mb-3">
+    <label asp-for="Resim"></label>
+    <input asp-for="Resim" class="form-control">
+    <span asp-validation-for="Resim" class="text-danger"></span>
+</div>
+<div class="mb-3">
+    <input type="hidden" asp-for="ResimAdi">
+    <img src="@Model.ResimAdi.Goster()" style="height: 100px;" class="img-thumbnail" alt="">
+    @if (@Model.ResimAdi != null)
+    {
+        <button asp-action="ResimSil" asp-route-id="@Model.Id" class="btn btn-secondary btn-sm">Resim
+            Sil</button>
+    }
+</div>
+
+AdminController - ResimSil action ekle
+
+public IActionResult ResimSil(int id)
+{
+  Urun kayit = context.Urunler.FirstOrDefault(x => x.Id == id);
+  Resim.Sil(kayit.ResimAdi);
+  kayit.ResimAdi = null;
+  context.Urunler.Update(kayit);
+  context.SaveChanges();
+  return RedirectToAction("UrunGuncelle", new { id });
+}
+
+
+AdminController - UrunGuncelle (Post)
+
+string resimAdi;
+if (viewModel.Resim != null)
+{
+  Resim.Sil(viewModel.ResimAdi);
+  resimAdi = Resim.Ekle(viewModel.Resim);
+}
+else
+{
+  resimAdi = viewModel.ResimAdi;
+}
+
+Urun kayit = context.Urunler.FirstOrDefault(x => x.Id == viewModel.Id);
+kayit.UrunAdi = viewModel.UrunAdi;
+kayit.Fiyat = viewModel.Fiyat;
+kayit.Stok = viewModel.Stok;
+kayit.ResimAdi = resimAdi;
+kayit.Aciklama = viewModel.Aciklama;
+kayit.KategoriId = viewModel.KategoriId;
+
+
