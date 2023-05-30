@@ -2,10 +2,12 @@
 <div class="card mb-4">
     <div class="card-header">Arama</div>
     <div class="card-body">
-        <div class="input-group">
-            <input class="form-control" type="text" placeholder="Arama..."
-                aria-label="Enter search term..." aria-describedby="button-search" />
-            <button class="btn btn-primary" id="button-search" type="button">Ara</button>
-        </div>
+        <form asp-controller="Home" asp-action="Arama" method="get">
+            <div class="input-group">  
+                <input name="p" class="form-control" type="text" placeholder="Arama..."
+                value='@(Context.Request.Query["p"])' />
+                <button class="btn btn-primary" id="button-search" type="submit">Ara</button>
+            </div>
+        </form>
     </div>
 </div>

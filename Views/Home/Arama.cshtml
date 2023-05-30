@@ -1,0 +1,73 @@
+@model AramaViewModel
+
+<!-- Icerik -->
+<div class="container mt-4">
+    <div class="row mb-3">
+        <!-- Ana Bolum -->
+        <div class="col-lg-8">
+            
+            
+            <h2>@ViewBag.ListeBasligi</h2>
+
+            <h4>Ürünler</h4>
+            @if (Model.Urunler.Count == 0)
+            {
+                <div class="alert alert-danger small" role="alert">
+                    Kayıt bulunamadı
+                </div>
+            }
+            else
+            {
+                <div class="alert alert-success small" role="alert">
+                    @Model.Urunler.Count kayıt listeleniyor
+                </div>
+            }
+            <div>
+                @foreach (var item in Model.Urunler)
+                {
+                    <p>
+                        <a asp-controller="Urun" asp-action="Detay" asp-route-id="@item.Id">
+                            @item.UrunAdi
+                        </a>
+                    </p>
+                }
+            </div>
+
+
+            <h4>Kategoriler</h4>
+            @if (Model.Kategoriler.Count == 0)
+            {
+                <div class="alert alert-danger small" role="alert">
+                    Kayıt bulunamadı
+                </div>
+            }
+            else
+            {
+                <div class="alert alert-success small" role="alert">
+                    @Model.Kategoriler.Count kayıt listeleniyor
+                </div>
+            }
+            <div>
+                @foreach (var item in Model.Kategoriler)
+                {
+                    <p>
+                        <a asp-controller="Urun" asp-action="Index" asp-route-id="@item.Id">
+                            @item.KategoriAdi
+                        </a>
+                    </p>
+                }
+            </div>
+
+        </div>
+        <!-- Yan Menu -->
+        <div class="col-lg-4">
+
+            <partial name="_Arama"></partial>
+
+            @await Component.InvokeAsync("Kategoriler")
+
+            <partial name="_Iletisim"></partial>
+
+        </div>
+    </div>
+</div>

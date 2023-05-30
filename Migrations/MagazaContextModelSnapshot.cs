@@ -113,7 +113,7 @@ namespace MagazaWeb.Migrations
                         {
                             Id = 2,
                             Aciklama = "Lorem ipsum dolor sit amet consectetur adipisicing elit. Quis voluptas reiciendis, iste accusantium ipsa magni culpa ad distinctio? At illo doloribus cupiditate amet ex eligendi, qui optio ducimus eaque deleniti molestiae eos praesentium soluta fugiat? Nulla totam ipsam explicabo quo nam dolorem numquam dolore vero velit, asperiores sequi odit in.\r\n        Laborum nulla molestiae sit vitae. Praesentium accusamus quidem blanditiis aliquam voluptatum ab ad magni soluta, maxime cupiditate et sint. Minus corporis quae quisquam pariatur enim architecto quo aliquam, molestias expedita sit consequatur accusantium ut dignissimos ducimus sapiente, natus repudiandae itaque suscipit officiis, eius fuga corrupti rerum fugit. Sunt, illo nulla.",
-                            EklenmeTarihi = new DateTime(2023, 5, 16, 11, 53, 1, 378, DateTimeKind.Local).AddTicks(1163),
+                            EklenmeTarihi = new DateTime(2023, 5, 30, 10, 18, 36, 991, DateTimeKind.Local).AddTicks(6431),
                             Fiyat = 30000m,
                             KategoriId = 1,
                             Stok = 100,
@@ -123,7 +123,7 @@ namespace MagazaWeb.Migrations
                         {
                             Id = 3,
                             Aciklama = "Lorem ipsum dolor sit amet.",
-                            EklenmeTarihi = new DateTime(2023, 5, 16, 11, 53, 1, 378, DateTimeKind.Local).AddTicks(1175),
+                            EklenmeTarihi = new DateTime(2023, 5, 30, 10, 18, 36, 991, DateTimeKind.Local).AddTicks(6449),
                             Fiyat = 20000m,
                             KategoriId = 1,
                             Stok = 5,
@@ -133,7 +133,7 @@ namespace MagazaWeb.Migrations
                         {
                             Id = 4,
                             Aciklama = "Lorem ipsum dolor sit amet consectetur adipisicing elit. Saepe, natus? Consequatur fugit vel assumenda iusto consectetur amet alias ex aut.\r\nSequi aperiam ullam distinctio atque, tempora voluptates perspiciatis cupiditate cumque itaque unde vero neque ratione, maxime culpa nostrum adipisci quibusdam?\r\n[onemli]Pariatur natus assumenda recusandae distinctio totam ipsum quo dolorem amet, dignissimos sunt quasi laboriosam ex maiores vero provident eius nemo![/onemli]",
-                            EklenmeTarihi = new DateTime(2023, 5, 16, 11, 13, 1, 378, DateTimeKind.Local).AddTicks(1183),
+                            EklenmeTarihi = new DateTime(2023, 5, 30, 9, 38, 36, 991, DateTimeKind.Local).AddTicks(6458),
                             Fiyat = 19900m,
                             KategoriId = 1,
                             Stok = 50,
@@ -163,7 +163,7 @@ namespace MagazaWeb.Migrations
                         {
                             Id = 7,
                             Aciklama = "Lorem ipsum dolor sit amet consectetur adipisicing elit. Saepe, natus? Consequatur fugit vel assumenda iusto consectetur amet alias ex aut.\r\nSequi aperiam ullam distinctio atque, tempora voluptates perspiciatis cupiditate cumque itaque unde vero neque ratione, maxime culpa nostrum adipisci quibusdam?\r\nPariatur natus assumenda recusandae distinctio totam ipsum quo dolorem amet, dignissimos sunt quasi laboriosam ex maiores vero provident eius nemo!",
-                            EklenmeTarihi = new DateTime(2023, 5, 1, 11, 53, 1, 378, DateTimeKind.Local).AddTicks(1210),
+                            EklenmeTarihi = new DateTime(2023, 5, 15, 10, 18, 36, 991, DateTimeKind.Local).AddTicks(6494),
                             Fiyat = 59999m,
                             KategoriId = 2,
                             Stok = 1,
@@ -173,7 +173,7 @@ namespace MagazaWeb.Migrations
                         {
                             Id = 8,
                             Aciklama = "Lorem ipsum dolor sit amet consectetur adipisicing elit. Saepe, natus? Consequatur fugit vel assumenda iusto consectetur amet alias ex aut.",
-                            EklenmeTarihi = new DateTime(2023, 3, 16, 11, 53, 1, 378, DateTimeKind.Local).AddTicks(1218),
+                            EklenmeTarihi = new DateTime(2023, 3, 30, 10, 18, 36, 991, DateTimeKind.Local).AddTicks(6503),
                             Fiyat = 34500m,
                             KategoriId = 3,
                             Stok = 50,
@@ -183,7 +183,7 @@ namespace MagazaWeb.Migrations
                         {
                             Id = 9,
                             Aciklama = "Lorem ipsum dolor sit amet.",
-                            EklenmeTarihi = new DateTime(2023, 5, 16, 11, 43, 1, 378, DateTimeKind.Local).AddTicks(1238),
+                            EklenmeTarihi = new DateTime(2023, 5, 30, 10, 8, 36, 991, DateTimeKind.Local).AddTicks(6529),
                             Fiyat = 29999m,
                             KategoriId = 3,
                             Stok = 15,
@@ -193,7 +193,7 @@ namespace MagazaWeb.Migrations
                         {
                             Id = 10,
                             Aciklama = "Lorem ipsum dolor sit amet consectetur adipisicing elit. Porro, suscipit.\r\nArchitecto, eum quasi amet porro voluptatum consequatur? Numquam, quas voluptate.",
-                            EklenmeTarihi = new DateTime(2023, 5, 16, 8, 53, 1, 378, DateTimeKind.Local).AddTicks(1247),
+                            EklenmeTarihi = new DateTime(2023, 5, 30, 7, 18, 36, 991, DateTimeKind.Local).AddTicks(6540),
                             Fiyat = 250m,
                             KategoriId = 4,
                             Stok = 100,

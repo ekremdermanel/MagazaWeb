@@ -8,85 +8,89 @@ build_property.PlatformNeutralAssembly =
 build_property._SupportedPlatformList = Linux,macOS,Windows
 build_property.RootNamespace = MagazaWeb
 build_property.RootNamespace = MagazaWeb
-build_property.ProjectDir = C:\Users\Ekrem\Desktop\MagazaWeb\
+build_property.ProjectDir = C:\Users\Administrator\Desktop\MagazaWeb\
 build_property.RazorLangVersion = 6.0
 build_property.SupportLocalizedComponentNames = 
 build_property.GenerateRazorMetadataSourceChecksumAttributes = 
-build_property.MSBuildProjectDirectory = C:\Users\Ekrem\Desktop\MagazaWeb
+build_property.MSBuildProjectDirectory = C:\Users\Administrator\Desktop\MagazaWeb
 build_property._RazorSourceGeneratorDebug = 
 
-[C:/Users/Ekrem/Desktop/MagazaWeb/Views/Admin/Index.cshtml]
+[C:/Users/Administrator/Desktop/MagazaWeb/Views/Admin/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cSW5kZXguY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Ekrem/Desktop/MagazaWeb/Views/Admin/Kategori.cshtml]
+[C:/Users/Administrator/Desktop/MagazaWeb/Views/Admin/Kategori.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cS2F0ZWdvcmkuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Ekrem/Desktop/MagazaWeb/Views/Admin/KategoriEkle.cshtml]
+[C:/Users/Administrator/Desktop/MagazaWeb/Views/Admin/KategoriEkle.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cS2F0ZWdvcmlFa2xlLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Ekrem/Desktop/MagazaWeb/Views/Admin/KategoriGuncelle.cshtml]
+[C:/Users/Administrator/Desktop/MagazaWeb/Views/Admin/KategoriGuncelle.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cS2F0ZWdvcmlHdW5jZWxsZS5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Ekrem/Desktop/MagazaWeb/Views/Admin/Urun.cshtml]
+[C:/Users/Administrator/Desktop/MagazaWeb/Views/Admin/Urun.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cVXJ1bi5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Ekrem/Desktop/MagazaWeb/Views/Admin/UrunEkle.cshtml]
+[C:/Users/Administrator/Desktop/MagazaWeb/Views/Admin/UrunEkle.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cVXJ1bkVrbGUuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Ekrem/Desktop/MagazaWeb/Views/Admin/UrunGuncelle.cshtml]
+[C:/Users/Administrator/Desktop/MagazaWeb/Views/Admin/UrunGuncelle.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cVXJ1bkd1bmNlbGxlLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Ekrem/Desktop/MagazaWeb/Views/Admin/_ViewStart.cshtml]
+[C:/Users/Administrator/Desktop/MagazaWeb/Views/Admin/_ViewStart.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cX1ZpZXdTdGFydC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Ekrem/Desktop/MagazaWeb/Views/Home/Hakkimizda.cshtml]
+[C:/Users/Administrator/Desktop/MagazaWeb/Views/Home/Arama.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxBcmFtYS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Administrator/Desktop/MagazaWeb/Views/Home/Hakkimizda.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxIYWtraW1pemRhLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Ekrem/Desktop/MagazaWeb/Views/Home/Index.cshtml]
+[C:/Users/Administrator/Desktop/MagazaWeb/Views/Home/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxJbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Ekrem/Desktop/MagazaWeb/Views/Shared/Components/Kategoriler/Default.cshtml]
+[C:/Users/Administrator/Desktop/MagazaWeb/Views/Shared/Components/Kategoriler/Default.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXENvbXBvbmVudHNcS2F0ZWdvcmlsZXJcRGVmYXVsdC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Ekrem/Desktop/MagazaWeb/Views/Shared/_AdminLayout.cshtml]
+[C:/Users/Administrator/Desktop/MagazaWeb/Views/Shared/_AdminLayout.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9BZG1pbkxheW91dC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Ekrem/Desktop/MagazaWeb/Views/Shared/_Arama.cshtml]
+[C:/Users/Administrator/Desktop/MagazaWeb/Views/Shared/_Arama.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9BcmFtYS5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Ekrem/Desktop/MagazaWeb/Views/Shared/_Iletisim.cshtml]
+[C:/Users/Administrator/Desktop/MagazaWeb/Views/Shared/_Iletisim.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9JbGV0aXNpbS5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Ekrem/Desktop/MagazaWeb/Views/Shared/_Layout.cshtml]
+[C:/Users/Administrator/Desktop/MagazaWeb/Views/Shared/_Layout.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9MYXlvdXQuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Ekrem/Desktop/MagazaWeb/Views/Urun/Detay.cshtml]
+[C:/Users/Administrator/Desktop/MagazaWeb/Views/Urun/Detay.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVXJ1blxEZXRheS5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Ekrem/Desktop/MagazaWeb/Views/Urun/Index.cshtml]
+[C:/Users/Administrator/Desktop/MagazaWeb/Views/Urun/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVXJ1blxJbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Ekrem/Desktop/MagazaWeb/Views/_ViewImports.cshtml]
+[C:/Users/Administrator/Desktop/MagazaWeb/Views/_ViewImports.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcX1ZpZXdJbXBvcnRzLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Ekrem/Desktop/MagazaWeb/Views/_ViewStart.cshtml]
+[C:/Users/Administrator/Desktop/MagazaWeb/Views/_ViewStart.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcX1ZpZXdTdGFydC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
