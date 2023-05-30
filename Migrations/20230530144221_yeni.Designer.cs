@@ -11,7 +11,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace MagazaWeb.Migrations
 {
     [DbContext(typeof(MagazaContext))]
-    [Migration("20230530071837_yeni")]
+    [Migration("20230530144221_yeni")]
     partial class yeni
     {
         /// <inheritdoc />
@@ -66,6 +66,74 @@ namespace MagazaWeb.Migrations
                         });
                 });
 
+            modelBuilder.Entity("MagazaWeb.Models.Kullanici", b =>
+                {
+                    b.Property<string>("Id")
+                        .HasColumnType("varchar(255)");
+
+                    b.Property<int>("AccessFailedCount")
+                        .HasColumnType("int");
+
+                    b.Property<string>("AdSoyad")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("ConcurrencyStamp")
+                        .IsConcurrencyToken()
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("Email")
+                        .HasMaxLength(256)
+                        .HasColumnType("varchar(256)");
+
+                    b.Property<bool>("EmailConfirmed")
+                        .HasColumnType("tinyint(1)");
+
+                    b.Property<bool>("LockoutEnabled")
+                        .HasColumnType("tinyint(1)");
+
+                    b.Property<DateTimeOffset?>("LockoutEnd")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<string>("NormalizedEmail")
+                        .HasMaxLength(256)
+                        .HasColumnType("varchar(256)");
+
+                    b.Property<string>("NormalizedUserName")
+                        .HasMaxLength(256)
+                        .HasColumnType("varchar(256)");
+
+                    b.Property<string>("PasswordHash")
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("PhoneNumber")
+                        .HasColumnType("longtext");
+
+                    b.Property<bool>("PhoneNumberConfirmed")
+                        .HasColumnType("tinyint(1)");
+
+                    b.Property<string>("SecurityStamp")
+                        .HasColumnType("longtext");
+
+                    b.Property<bool>("TwoFactorEnabled")
+                        .HasColumnType("tinyint(1)");
+
+                    b.Property<string>("UserName")
+                        .HasMaxLength(256)
+                        .HasColumnType("varchar(256)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("NormalizedEmail")
+                        .HasDatabaseName("EmailIndex");
+
+                    b.HasIndex("NormalizedUserName")
+                        .IsUnique()
+                        .HasDatabaseName("UserNameIndex");
+
+                    b.ToTable("AspNetUsers", (string)null);
+                });
+
             modelBuilder.Entity("MagazaWeb.Models.Urun", b =>
                 {
                     b.Property<int>("Id")
@@ -116,7 +184,7 @@ namespace MagazaWeb.Migrations
                         {
                             Id = 2,
                             Aciklama = "Lorem ipsum dolor sit amet consectetur adipisicing elit. Quis voluptas reiciendis, iste accusantium ipsa magni culpa ad distinctio? At illo doloribus cupiditate amet ex eligendi, qui optio ducimus eaque deleniti molestiae eos praesentium soluta fugiat? Nulla totam ipsam explicabo quo nam dolorem numquam dolore vero velit, asperiores sequi odit in.\r\n        Laborum nulla molestiae sit vitae. Praesentium accusamus quidem blanditiis aliquam voluptatum ab ad magni soluta, maxime cupiditate et sint. Minus corporis quae quisquam pariatur enim architecto quo aliquam, molestias expedita sit consequatur accusantium ut dignissimos ducimus sapiente, natus repudiandae itaque suscipit officiis, eius fuga corrupti rerum fugit. Sunt, illo nulla.",
-                            EklenmeTarihi = new DateTime(2023, 5, 30, 10, 18, 36, 991, DateTimeKind.Local).AddTicks(6431),
+                            EklenmeTarihi = new DateTime(2023, 5, 30, 17, 42, 21, 739, DateTimeKind.Local).AddTicks(3554),
                             Fiyat = 30000m,
                             KategoriId = 1,
                             Stok = 100,
@@ -126,7 +194,7 @@ namespace MagazaWeb.Migrations
                         {
                             Id = 3,
                             Aciklama = "Lorem ipsum dolor sit amet.",
-                            EklenmeTarihi = new DateTime(2023, 5, 30, 10, 18, 36, 991, DateTimeKind.Local).AddTicks(6449),
+                            EklenmeTarihi = new DateTime(2023, 5, 30, 17, 42, 21, 739, DateTimeKind.Local).AddTicks(3571),
                             Fiyat = 20000m,
                             KategoriId = 1,
                             Stok = 5,
@@ -136,7 +204,7 @@ namespace MagazaWeb.Migrations
                         {
                             Id = 4,
                             Aciklama = "Lorem ipsum dolor sit amet consectetur adipisicing elit. Saepe, natus? Consequatur fugit vel assumenda iusto consectetur amet alias ex aut.\r\nSequi aperiam ullam distinctio atque, tempora voluptates perspiciatis cupiditate cumque itaque unde vero neque ratione, maxime culpa nostrum adipisci quibusdam?\r\n[onemli]Pariatur natus assumenda recusandae distinctio totam ipsum quo dolorem amet, dignissimos sunt quasi laboriosam ex maiores vero provident eius nemo![/onemli]",
-                            EklenmeTarihi = new DateTime(2023, 5, 30, 9, 38, 36, 991, DateTimeKind.Local).AddTicks(6458),
+                            EklenmeTarihi = new DateTime(2023, 5, 30, 17, 2, 21, 739, DateTimeKind.Local).AddTicks(3579),
                             Fiyat = 19900m,
                             KategoriId = 1,
                             Stok = 50,
@@ -166,7 +234,7 @@ namespace MagazaWeb.Migrations
                         {
                             Id = 7,
                             Aciklama = "Lorem ipsum dolor sit amet consectetur adipisicing elit. Saepe, natus? Consequatur fugit vel assumenda iusto consectetur amet alias ex aut.\r\nSequi aperiam ullam distinctio atque, tempora voluptates perspiciatis cupiditate cumque itaque unde vero neque ratione, maxime culpa nostrum adipisci quibusdam?\r\nPariatur natus assumenda recusandae distinctio totam ipsum quo dolorem amet, dignissimos sunt quasi laboriosam ex maiores vero provident eius nemo!",
-                            EklenmeTarihi = new DateTime(2023, 5, 15, 10, 18, 36, 991, DateTimeKind.Local).AddTicks(6494),
+                            EklenmeTarihi = new DateTime(2023, 5, 15, 17, 42, 21, 739, DateTimeKind.Local).AddTicks(3611),
                             Fiyat = 59999m,
                             KategoriId = 2,
                             Stok = 1,
@@ -176,7 +244,7 @@ namespace MagazaWeb.Migrations
                         {
                             Id = 8,
                             Aciklama = "Lorem ipsum dolor sit amet consectetur adipisicing elit. Saepe, natus? Consequatur fugit vel assumenda iusto consectetur amet alias ex aut.",
-                            EklenmeTarihi = new DateTime(2023, 3, 30, 10, 18, 36, 991, DateTimeKind.Local).AddTicks(6503),
+                            EklenmeTarihi = new DateTime(2023, 3, 30, 17, 42, 21, 739, DateTimeKind.Local).AddTicks(3620),
                             Fiyat = 34500m,
                             KategoriId = 3,
                             Stok = 50,
@@ -186,7 +254,7 @@ namespace MagazaWeb.Migrations
                         {
                             Id = 9,
                             Aciklama = "Lorem ipsum dolor sit amet.",
-                            EklenmeTarihi = new DateTime(2023, 5, 30, 10, 8, 36, 991, DateTimeKind.Local).AddTicks(6529),
+                            EklenmeTarihi = new DateTime(2023, 5, 30, 17, 32, 21, 739, DateTimeKind.Local).AddTicks(3643),
                             Fiyat = 29999m,
                             KategoriId = 3,
                             Stok = 15,
@@ -196,12 +264,140 @@ namespace MagazaWeb.Migrations
                         {
                             Id = 10,
                             Aciklama = "Lorem ipsum dolor sit amet consectetur adipisicing elit. Porro, suscipit.\r\nArchitecto, eum quasi amet porro voluptatum consequatur? Numquam, quas voluptate.",
-                            EklenmeTarihi = new DateTime(2023, 5, 30, 7, 18, 36, 991, DateTimeKind.Local).AddTicks(6540),
+                            EklenmeTarihi = new DateTime(2023, 5, 30, 14, 42, 21, 739, DateTimeKind.Local).AddTicks(3653),
                             Fiyat = 250m,
                             KategoriId = 4,
                             Stok = 100,
                             UrunAdi = "LG Bluetooth Kulaklık"
                         });
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
+                {
+                    b.Property<string>("Id")
+                        .HasColumnType("varchar(255)");
+
+                    b.Property<string>("ConcurrencyStamp")
+                        .IsConcurrencyToken()
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("Name")
+                        .HasMaxLength(256)
+                        .HasColumnType("varchar(256)");
+
+                    b.Property<string>("NormalizedName")
+                        .HasMaxLength(256)
+                        .HasColumnType("varchar(256)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("NormalizedName")
+                        .IsUnique()
+                        .HasDatabaseName("RoleNameIndex");
+
+                    b.ToTable("AspNetRoles", (string)null);
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.Property<string>("ClaimType")
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("ClaimValue")
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("RoleId")
+                        .IsRequired()
+                        .HasColumnType("varchar(255)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("RoleId");
+
+                    b.ToTable("AspNetRoleClaims", (string)null);
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.Property<string>("ClaimType")
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("ClaimValue")
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("UserId")
+                        .IsRequired()
+                        .HasColumnType("varchar(255)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("AspNetUserClaims", (string)null);
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
+                {
+                    b.Property<string>("LoginProvider")
+                        .HasColumnType("varchar(255)");
+
+                    b.Property<string>("ProviderKey")
+                        .HasColumnType("varchar(255)");
+
+                    b.Property<string>("ProviderDisplayName")
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("UserId")
+                        .IsRequired()
+                        .HasColumnType("varchar(255)");
+
+                    b.HasKey("LoginProvider", "ProviderKey");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("AspNetUserLogins", (string)null);
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserRole<string>", b =>
+                {
+                    b.Property<string>("UserId")
+                        .HasColumnType("varchar(255)");
+
+                    b.Property<string>("RoleId")
+                        .HasColumnType("varchar(255)");
+
+                    b.HasKey("UserId", "RoleId");
+
+                    b.HasIndex("RoleId");
+
+                    b.ToTable("AspNetUserRoles", (string)null);
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
+                {
+                    b.Property<string>("UserId")
+                        .HasColumnType("varchar(255)");
+
+                    b.Property<string>("LoginProvider")
+                        .HasColumnType("varchar(255)");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("varchar(255)");
+
+                    b.Property<string>("Value")
+                        .HasColumnType("longtext");
+
+                    b.HasKey("UserId", "LoginProvider", "Name");
+
+                    b.ToTable("AspNetUserTokens", (string)null);
                 });
 
             modelBuilder.Entity("MagazaWeb.Models.Urun", b =>
@@ -213,6 +409,57 @@ namespace MagazaWeb.Migrations
                         .IsRequired();
 
                     b.Navigation("Kategori");
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
+                {
+                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole", null)
+                        .WithMany()
+                        .HasForeignKey("RoleId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
+                {
+                    b.HasOne("MagazaWeb.Models.Kullanici", null)
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
+                {
+                    b.HasOne("MagazaWeb.Models.Kullanici", null)
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserRole<string>", b =>
+                {
+                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole", null)
+                        .WithMany()
+                        .HasForeignKey("RoleId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("MagazaWeb.Models.Kullanici", null)
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
+                {
+                    b.HasOne("MagazaWeb.Models.Kullanici", null)
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("MagazaWeb.Models.Kategori", b =>

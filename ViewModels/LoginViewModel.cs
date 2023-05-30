@@ -6,17 +6,17 @@ using System.Threading.Tasks;
 
 namespace MagazaWeb.ViewModels
 {
-  public class LoginViewModel
-  {
-    [Required]
-    [Display(Prompt = "Kullanıcı Adı")]
-    public string KullaniciAdi { get; set; }
+    public class LoginViewModel
+    {
+        [Required]
+        [Display(Name = "Kullanıcı Adı")]
+        public string KullaniciAdi { get; set; }
 
-    [Required]
-    [Display(Prompt = "Şifre")]
-    [DataType(DataType.Password)]
-    public string Sifre { get; set; }
+        [Required]
+        [Display(Name = "Şifre")]
+        [DataType(DataType.Password)]
+        public string Sifre { get; set; }
 
-    public string? ReturnUrl { get; set; }
-  }
+        public string? ReturnUrl { get; set; }
+    }
 }

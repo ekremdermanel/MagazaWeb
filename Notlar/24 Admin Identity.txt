@@ -41,6 +41,11 @@ public KullaniciController(UserManager<Kullanici> userManager, SignInManager<Kul
 Login, Kayit, Logout action ları ekle
 
 
+Login ve Kayit actionlarında [ValidateAntiForgeryToken] kullanın
+Bu sayede site dışından yapılacak saldırılara karşı önlem alınır.
+Login ve Kayit işlemlerinin bir bot tarafından defalarca denenmesini engeller.
+
+
 Login ve Kayit için view hazırla
 Login View
 Kayit View
@@ -91,7 +96,8 @@ Views - Shared - _AdminLayout.cshtml ekle
 <div class="small">Giriş Yapıldı:</div>
 @User.Identity.Name
 
-<a class="dropdown-item" asp-controller="Kullanici" asp-action="Logout">Çıkış</a>
+<li><a class="dropdown-item" asp-controller="Home" asp-action="Index">Siteye Dön</a></li>
+<li><a class="dropdown-item" asp-controller="Kullanici" asp-action="Logout">Çıkış</a></li>
 
 
 Varsayılan şifre kuralı
