@@ -8,9 +8,11 @@ using MagazaWeb.ViewModels;
 using MagazaWeb.Functions;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.AspNetCore.Authorization;
 
 namespace MagazaWeb.Controllers
 {
+  [Authorize]
   public class AdminController : Controller
   {
     private readonly MagazaContext context;

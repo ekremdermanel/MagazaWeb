@@ -14,6 +14,8 @@
                             <h2 class="card-title">@Model.UrunAdi</h2>
                             <p class="card-text small">@Model.Fiyat.ParaBirimi() TL</p>
                             <p>@Model.EklenmeTarihi.GecenZaman() eklendi</p>
+                            <a class="btn btn-primary" asp-controller="Sepet" asp-action="SepeteEkle"
+                            asp-route-id="@Model.Id">Sepete Ekle</a>
                             <p class="card-text">@Html.Raw(Model.Aciklama.Bicimlendir())</p>
                         </div>
                     </div>

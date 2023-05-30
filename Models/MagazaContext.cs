@@ -1,8 +1,9 @@
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 
 namespace MagazaWeb.Models
 {
-  public class MagazaContext : DbContext
+  public class MagazaContext : IdentityDbContext<Kullanici>
   {
     public MagazaContext() { }
     public MagazaContext(DbContextOptions<MagazaContext> options) : base(options) { }

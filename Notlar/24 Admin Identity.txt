@@ -1,0 +1,179 @@
+AdminController üzerine [Authorize] ifadesi yaz
+using Microsoft.AspNetCore.Authorization;
+
+Paketi ekle
+dotnet add package Microsoft.AspNetCore.Identity.EntityFrameworkCore -v 6.0.0
+
+Models - Kullanici.cs sınıf oluştur
+
+public class Kullanici : IdentityUser
+{
+    public string AdSoyad { get; set; }
+}
+
+using Microsoft.AspNetCore.Identity;
+
+
+
+Context te değişiklik yap
+public class MagazaContext : IdentityDbContext<Kullanici>
+
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+
+
+ViewModels - LoginViewModel
+ViewModels - KayitViewModel sınıfları oluştur
+
+Controllers - KullaniciController oluştur
+
+
+UserManager ve SingInManager alanları oluştur ve yapıcı metotta atama yap
+
+private readonly UserManager<Kullanici> userManager;
+private readonly SignInManager<Kullanici> signInManager;
+
+public KullaniciController(UserManager<Kullanici> userManager, SignInManager<Kullanici> signInManager)
+{
+    this.userManager = userManager;
+    this.signInManager = signInManager;
+}
+
+Login, Kayit, Logout action ları ekle
+
+
+Login ve Kayit için view hazırla
+Login View
+Kayit View
+
+
+Program.cs dosyasına builder kodlarını ekle
+
+builder.Services.AddIdentity<Kullanici, IdentityRole>().AddEntityFrameworkStores<MagazaContext>();
+
+builder.Services.ConfigureApplicationCookie(option =>
+{
+    option.LoginPath = "/Kullanici/Login";
+    option.LogoutPath = "/Kullanici/Logout";
+});
+
+Program.cs dosyasına app kodlarını ekle (sırası önemli)
+
+app.UseAuthentication();
+app.UseAuthorization();
+
+Views - Shared - _Layout.cshtml ekle
+
+@if (User.Identity.IsAuthenticated)
+{
+    <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+            data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            @User.Identity.Name
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <a class="dropdown-item" asp-controller="Admin" asp-action="Index">Admin Panel</a>
+            <div class="dropdown-divider"></div>
+            <a class="dropdown-item" asp-controller="Kullanici" asp-action="Logout">Çıkış</a>
+        </div>
+    </li>
+}
+else
+{
+    <li class="nav-item"><a class="btn btn-success ms-lg-1" asp-controller="Kullanici"
+            asp-action="Login">Login</a>
+    </li>
+    <li class="nav-item"><a class="btn btn-primary ms-lg-1" asp-controller="Kullanici"
+            asp-action="Kayit">Kayıt</a>
+    </li>
+}
+
+Views - Shared - _AdminLayout.cshtml ekle
+<div class="small">Giriş Yapıldı:</div>
+@User.Identity.Name
+
+<a class="dropdown-item" asp-controller="Kullanici" asp-action="Logout">Çıkış</a>
+
+
+Varsayılan şifre kuralı
+Şunları içermeli: 1 büyük harf, 1 küçük harf, 1 rakam, 1 özel karakter
+En az 6 karakter uzunluğunda olmalı
+
+
+
+SepetController.cs ekle
+
+[Authorize]
+public class SepetController : Controller
+{
+    public SepetController()
+    {
+    }
+
+    public IActionResult Index()
+    {
+        return View();
+    }
+
+    public IActionResult SepeteEkle()
+    {
+        return RedirectToAction("Index");
+    }
+}
+
+Sepet - Index view unu hazırla (Alışveriş Sepeti sayfası - tasarım dosyalarda var)
+
+<div class="container my-4">
+    <h2>Alışveriş Sepeti</h2>
+
+    <table class="table table-bordered table-striped align-middle text-center">
+        <thead>
+            <tr>
+                <th>Ürün</th>
+                <th>Fiyat</th>
+                <th style="width:100px">Adet</th>
+                <th>Toplam</th>
+                <th style="width:100px"></th>
+            </tr>
+        </thead>
+        <tr>
+            <td>
+                <div class="d-md-flex align-items-center">
+                    <img src="~/image/urun.png" alt="" style="height:100px">
+                    <a asp-controller="Urun" asp-action="Detay" asp-route-id="1" class="ms-2">Ürün 1</a>
+                </div>
+            </td>
+            <td class="col-2 align-items-center">10 TL</td>
+            <td>
+                <div class="input-group input-group-sm mx-auto">
+                    <a class="btn btn-outline-secondary" type="button" asp-action="Arttir" asp-route-id="1">-</a>
+                    <input type="text" class="form-control text-center" value="1">
+                    <a class="btn btn-outline-secondary" type="button" asp-action="Azalt" asp-route-id="1">+</a>
+                </div>
+            </td>
+            <td>10 TL</td>
+            <td>
+                <a class=" btn btn-danger btn-sm" asp-controller="Sepet" asp-action="SepettenSil" asp-route-id="1">
+                    Sil</a>
+            </td>
+        </tr>
+    </table>
+
+    <h4 class="mb-3 text-end">Ödenecek Tutar: 20 TL</h4>
+    <div class="text-end">
+        <a class="btn btn-danger" asp-controller="Sepet" asp-action="SepetiBosalt">Sepeti
+            Boşalt</a>
+        <a class="btn btn-success" asp-controller="Home" asp-action="Index">Ödeme Yap</a>
+    </div>
+</div>
+
+
+
+_Layout.cshtml ye Sepet linkini ekle
+(@if (User.Identity.IsAuthenticated) bloğuna)
+
+<li class="nav-item">
+    <a class="btn btn-success" asp-controller="Sepet" asp-action="Index">
+        Sepet
+        <span class="badge bg-light text-dark">3</span>
+    </a>
+</li>
