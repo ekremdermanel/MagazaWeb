@@ -100,5 +100,63 @@ namespace MagazaWeb.Controllers
             return RedirectToAction("Index", "Home");
         }
 
+        [Authorize]
+        public IActionResult Profil()
+        {
+            string userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            Kullanici user = userManager.FindByIdAsync(userId).Result;
+            ProfilViewModel viewModel = new ProfilViewModel
+            {
+                AdSoyad = user.AdSoyad,
+                Eposta = user.Email
+            };
+            return View(viewModel);
+        }
+
+        [Authorize]
+        [HttpPost]
+        public async Task<IActionResult> Profil(ProfilViewModel viewModel)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(viewModel);
+            }
+
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var user = userManager.FindByIdAsync(userId).Result;
+
+            user.Email = viewModel.Eposta;
+            user.AdSoyad = viewModel.AdSoyad;
+
+            await userManager.UpdateAsync(user);
+            return View(viewModel);
+        }
+
+        [Authorize]
+        public IActionResult SifreDegistir()
+        {
+            return View();
+        }
+
+        [Authorize]
+        [HttpPost]
+        public async Task<IActionResult> SifreDegistir(SifreDegistirViewModel viewModel)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(viewModel);
+            }
+
+            Kullanici user = await userManager.GetUserAsync(User);
+
+            var result = await userManager.ChangePasswordAsync(user, viewModel.EskiSifre, viewModel.YeniSifre);
+            if (result.Succeeded)
+            {
+                await signInManager.RefreshSignInAsync(user);
+                return RedirectToAction("Index", "Home");
+            }
+            ModelState.AddModelError("", "Şifreleri kontrol et");
+            return View(viewModel);
+        }
     }
 }

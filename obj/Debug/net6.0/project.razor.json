@@ -18401,6 +18401,11 @@
       "FileKind": "mvc"
     },
     {
+      "FilePath": "c:\\Users\\Ekrem\\Desktop\\MagazaWeb\\Views\\Admin\\Kullanici.cshtml",
+      "TargetPath": "Views\\Admin\\Kullanici.cshtml",
+      "FileKind": "mvc"
+    },
+    {
       "FilePath": "c:\\Users\\Ekrem\\Desktop\\MagazaWeb\\Views\\Kullanici\\Kayit.cshtml",
       "TargetPath": "Views\\Kullanici\\Kayit.cshtml",
       "FileKind": "mvc"
@@ -18471,6 +18476,11 @@
       "FileKind": "mvc"
     },
     {
+      "FilePath": "c:\\Users\\Ekrem\\Desktop\\MagazaWeb\\Views\\Kullanici\\Profil.cshtml",
+      "TargetPath": "Views\\Kullanici\\Profil.cshtml",
+      "FileKind": "mvc"
+    },
+    {
       "FilePath": "c:\\Users\\Ekrem\\Desktop\\MagazaWeb\\Views\\Home\\Arama.cshtml",
       "TargetPath": "Views\\Home\\Arama.cshtml",
       "FileKind": "mvc"
@@ -18503,6 +18513,11 @@
     {
       "FilePath": "c:\\Users\\Ekrem\\Desktop\\MagazaWeb\\Views\\_ViewImports.cshtml",
       "TargetPath": "Views\\_ViewImports.cshtml",
+      "FileKind": "mvc"
+    },
+    {
+      "FilePath": "c:\\Users\\Ekrem\\Desktop\\MagazaWeb\\Views\\Kullanici\\SifreDegistir.cshtml",
+      "TargetPath": "Views\\Kullanici\\SifreDegistir.cshtml",
       "FileKind": "mvc"
     }
   ],

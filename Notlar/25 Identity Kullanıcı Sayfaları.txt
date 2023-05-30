@@ -1,0 +1,254 @@
+AdminController.cs userManager alanı ekle
+
+private readonly MagazaContext context;
+private readonly UserManager<Kullanici> userManager;
+
+public AdminController(MagazaContext context, UserManager<Kullanici> userManager)
+{
+    this.context = context;
+    this.userManager = userManager;
+}
+
+
+****************************
+ADMIN KULLANICI LİSTESİ
+****************************
+
+AdminController.cs Kullanici ve  KullaniciSil action ları oluştur
+(Kullanıcının kendisini silmesini engelliyoruz)
+
+public IActionResult Kullanici()
+{
+    return View(userManager.Users.ToList());
+}
+
+public async Task<IActionResult> KullaniciSil(string id)
+{
+    string userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+    if (userId == id)
+    {
+        return RedirectToAction("Kullanici");
+    }
+    Kullanici kayit = await userManager.FindByIdAsync(id);
+    await userManager.DeleteAsync(kayit);
+    return RedirectToAction("Kullanici");
+}
+
+
+Views - Admin - Kullanici view sayfası oluştur
+
+@model List<Kullanici>
+
+<div class="container mt-4">
+    <div class="mb-3">
+        <h2>Kullanıcılar</h2>
+
+        <!-- Kullanıcı Listesi -->
+        <table class="table table-striped align-middle">
+            <thead>
+                <tr>
+                    <th>Ad Soyad</th>
+                    <th>Kullanıcı Adı</th>
+                    <th>Eposta</th>
+                    <th>İşlem</th>
+                </tr>
+            </thead>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.AdSoyad</td>
+                    <td>@item.UserName</td>
+                    <td>@item.Email</td>
+                    <td>
+                        @if (User.Identity.Name == item.UserName)
+                        {
+                            <a class="btn btn-outline-secondary disabled">Sil</a>
+                        }
+                        else
+                        {
+                            <a asp-action="KullaniciSil" asp-route-id="@item.Id" class="btn btn-outline-primary">Sil</a>
+                        }
+                    </td>
+                </tr>
+            }
+        </table>
+    </div>
+</div>
+
+
+Views - Shared - _AdminLayout.cshtml ye link ekle
+
+<a class="nav-link" asp-action="Kullanici">
+    <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
+    Kullanıcılar
+</a>
+
+
+
+
+****************************
+KULLANICI PROFİLİ GÜNCELLEME
+****************************
+
+ViewModels - ProfilViewModel.cs oluştur
+
+public class ProfilViewModel
+{
+    [Required]
+    [Display(Name = "Ad Soyad")]
+    public string AdSoyad { get; set; }
+    [Required]
+    public string Eposta { get; set; }
+}
+
+
+
+KullaniciController.cs Profil action ı oluştur
+
+[Authorize]
+public IActionResult Profil()
+{
+    string userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+    Kullanici user = userManager.FindByIdAsync(userId).Result;
+    ProfilViewModel viewModel = new ProfilViewModel
+    {
+        AdSoyad = user.AdSoyad,
+        Eposta = user.Email
+    };
+    return View(viewModel);
+}
+
+[Authorize]
+[HttpPost]
+public async Task<IActionResult> Profil(ProfilViewModel viewModel)
+{
+    if (!ModelState.IsValid)
+    {
+        return View(viewModel);
+    }
+
+    var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+    var user = userManager.FindByIdAsync(userId).Result;
+
+    user.Email = viewModel.Eposta;
+    user.AdSoyad = viewModel.AdSoyad;
+
+    await userManager.UpdateAsync(user);
+    return View(viewModel);
+}
+
+
+Views - Kullanici - Profil view sayfası oluştur
+
+@model ProfilViewModel
+
+<div class="container my-4">
+    <h1>Profil</h1>
+    <div asp-validation-summary="All"></div>
+    <form method="post">
+        <div class="mb-3">
+            <label asp-for="AdSoyad"></label>
+            <input asp-for="AdSoyad" class="form-control">
+            <span asp-validation-for="AdSoyad" class="text-danger"></span>
+        </div>
+        <div class="mb-3">
+            <label asp-for="Eposta"></label>
+            <input asp-for="Eposta" class="form-control">
+            <span asp-validation-for="Eposta" class="text-danger"></span>
+        </div>
+        <button type="submit" class="btn btn-primary">Tamam</button>
+    </form>
+</div>
+
+
+Views - Shared - _Layout.cshtml ye link ekle
+
+<a class="dropdown-item" asp-controller="Kullanici" asp-action="Profil">Profil</a>
+
+
+
+****************************
+KULLANICI ŞİFRE DEĞİŞTİRME
+****************************
+
+ViewModels - SifreDegistirViewModel.cs oluştur
+
+public class SifreDegistirViewModel
+{
+    [Required]
+    [Display(Name = "Eski Şifre")]
+    [DataType(DataType.Password)]
+    public string EskiSifre { get; set; }
+    [Required]
+    [Display(Name = "Yeni Şifre")]
+    [DataType(DataType.Password)]
+    public string YeniSifre { get; set; }
+    [Required]
+    [Display(Name = "Yeni Şifre Tekrar")]
+    [DataType(DataType.Password)]
+    [Compare("YeniSifre")]
+    public string YeniSifreTekrar { get; set; }
+}
+
+
+KullaniciController.cs SifreDegistir action ı oluştur
+
+[Authorize]
+public IActionResult SifreDegistir()
+{
+    return View();
+}
+
+[Authorize]
+[HttpPost]
+public async Task<IActionResult> SifreDegistir(SifreDegistirViewModel viewModel)
+{
+    if (!ModelState.IsValid)
+    {
+        return View(viewModel);
+    }
+
+    Kullanici user = await userManager.GetUserAsync(User);
+
+    var result = await userManager.ChangePasswordAsync(user, viewModel.EskiSifre, viewModel.YeniSifre);
+    if (result.Succeeded)
+    {
+        await signInManager.RefreshSignInAsync(user);
+        return RedirectToAction("Index", "Home");
+    }
+    ModelState.AddModelError("", "Şifreleri kontrol et");
+    return View(viewModel);
+}
+
+
+Views - Kullanici - SifreDegistir view sayfası oluştur
+
+@model SifreDegistirViewModel
+
+<div class="container my-4">
+    <h1>Şifre Değiştir</h1>
+    <div asp-validation-summary="All"></div>
+    <form method="post">
+        <div class="mb-3">
+            <label asp-for="EskiSifre"></label>
+            <input asp-for="EskiSifre" class="form-control">
+            <span asp-validation-for="EskiSifre" class="text-danger"></span>
+        </div>
+        <div class="mb-3">
+            <label asp-for="YeniSifre"></label>
+            <input asp-for="YeniSifre" class="form-control">
+            <span asp-validation-for="YeniSifre" class="text-danger"></span>
+        </div>
+        <div class="mb-3">
+            <label asp-for="YeniSifreTekrar"></label>
+            <input asp-for="YeniSifreTekrar" class="form-control">
+            <span asp-validation-for="YeniSifreTekrar" class="text-danger"></span>
+        </div>
+        <button type="submit" class="btn btn-primary">Tamam</button>
+    </form>
+</div>
+
+
+Views - Shared - _Layout.cshtml ye link ekle
+
+<a class="dropdown-item" asp-controller="Kullanici" asp-action="SifreDegistir">Şifre Değiştir</a>

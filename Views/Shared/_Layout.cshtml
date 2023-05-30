@@ -24,8 +24,10 @@
                 <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
                     @RenderSection("Duyuru",false)
                     <li class="nav-item"><a class="nav-link" asp-controller="Home" asp-action="Index">Ana Sayfa</a></li>
-                    <li class="nav-item"><a class="nav-link" asp-controller="Urun" asp-action="Index" asp-route-id="">Ürünler</a></li>
-                    <li class="nav-item"><a class="nav-link" asp-controller="Home" asp-action="Hakkimizda">Hakkımızda</a></li>
+                    <li class="nav-item"><a class="nav-link" asp-controller="Urun" asp-action="Index"
+                            asp-route-id="">Ürünler</a></li>
+                    <li class="nav-item"><a class="nav-link" asp-controller="Home"
+                            asp-action="Hakkimizda">Hakkımızda</a></li>
 
                     @if (User.Identity.IsAuthenticated)
                     {
@@ -37,6 +39,9 @@
                             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                                 <a class="dropdown-item" asp-controller="Admin" asp-action="Index">Admin Panel</a>
                                 <div class="dropdown-divider"></div>
+                                <a class="dropdown-item" asp-controller="Kullanici" asp-action="Profil">Profil</a>
+                                <a class="dropdown-item" asp-controller="Kullanici" asp-action="SifreDegistir">Şifre
+                                    Değiştir</a>
                                 <a class="dropdown-item" asp-controller="Kullanici" asp-action="Logout">Çıkış</a>
                             </div>
                         </li>
@@ -58,7 +63,7 @@
 
 
     @RenderBody()
-    
+
     <!-- Footer-->
     <footer class="py-3 bg-dark">
         <div class="container">

@@ -1,0 +1,24 @@
+@model SifreDegistirViewModel
+
+<div class="container my-4">
+    <h1>Şifre Değiştir</h1>
+    <div asp-validation-summary="All"></div>
+    <form method="post">
+        <div class="mb-3">
+            <label asp-for="EskiSifre"></label>
+            <input asp-for="EskiSifre" class="form-control">
+            <span asp-validation-for="EskiSifre" class="text-danger"></span>
+        </div>
+        <div class="mb-3">
+            <label asp-for="YeniSifre"></label>
+            <input asp-for="YeniSifre" class="form-control">
+            <span asp-validation-for="YeniSifre" class="text-danger"></span>
+        </div>
+        <div class="mb-3">
+            <label asp-for="YeniSifreTekrar"></label>
+            <input asp-for="YeniSifreTekrar" class="form-control">
+            <span asp-validation-for="YeniSifreTekrar" class="text-danger"></span>
+        </div>
+        <button type="submit" class="btn btn-primary">Tamam</button>
+    </form>
+</div>

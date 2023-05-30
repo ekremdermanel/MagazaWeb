@@ -1,0 +1,19 @@
+@model ProfilViewModel
+
+<div class="container my-4">
+    <h1>Profil</h1>
+    <div asp-validation-summary="All"></div>
+    <form method="post">
+        <div class="mb-3">
+            <label asp-for="AdSoyad"></label>
+            <input asp-for="AdSoyad" class="form-control">
+            <span asp-validation-for="AdSoyad" class="text-danger"></span>
+        </div>
+        <div class="mb-3">
+            <label asp-for="Eposta"></label>
+            <input asp-for="Eposta" class="form-control">
+            <span asp-validation-for="Eposta" class="text-danger"></span>
+        </div>
+        <button type="submit" class="btn btn-primary">Tamam</button>
+    </form>
+</div>

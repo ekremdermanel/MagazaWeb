@@ -1,0 +1,37 @@
+@model List<Kullanici>
+
+<div class="container mt-4">
+    <div class="mb-3">
+        <h2>Kullanıcılar</h2>
+
+        <!-- Kullanıcı Listesi -->
+        <table class="table table-striped align-middle">
+            <thead>
+                <tr>
+                    <th>Ad Soyad</th>
+                    <th>Kullanıcı Adı</th>
+                    <th>Eposta</th>
+                    <th>İşlem</th>
+                </tr>
+            </thead>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.AdSoyad</td>
+                    <td>@item.UserName</td>
+                    <td>@item.Email</td>
+                    <td>
+                        @if (User.Identity.Name == item.UserName)
+                        {
+                            <a class="btn btn-outline-secondary disabled">Sil</a>
+                        }
+                        else
+                        {
+                            <a asp-action="KullaniciSil" asp-route-id="@item.Id" class="btn btn-outline-primary">Sil</a>
+                        }
+                    </td>
+                </tr>
+            }
+        </table>
+    </div>
+</div>
