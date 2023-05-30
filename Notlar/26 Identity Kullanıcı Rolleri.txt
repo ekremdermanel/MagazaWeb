@@ -1,0 +1,209 @@
+AdminController üzerine ekle
+[Authorize(Roles = "Admin")]
+
+
+Models - MagazaContext.cs deki OrnekVeri metoduna ekle
+
+using Microsoft.AspNetCore.Identity;
+
+
+IdentityRole roleAdmin = new IdentityRole { Name = "Admin", NormalizedName = "ADMIN" };
+builder.Entity<IdentityRole>().HasData(roleAdmin);
+
+IdentityRole roleUser = new IdentityRole { Name = "User", NormalizedName = "USER" };
+builder.Entity<IdentityRole>().HasData(roleUser);
+
+Kullanici user = new Kullanici { AdSoyad = "Admin", UserName = "Admin", Email = "admin@gmail.com", EmailConfirmed = true, NormalizedUserName = "ADMIN", NormalizedEmail = "ADMIN@GMAIL.COM" };
+user.PasswordHash = new PasswordHasher<Kullanici>().HashPassword(user, "AAaa11..");
+builder.Entity<Kullanici>().HasData(user);
+
+IdentityUserRole<string> userRole = new IdentityUserRole<string> { UserId = user.Id, RoleId = roleAdmin.Id };
+builder.Entity<IdentityUserRole<string>>().HasData(userRole);
+
+
+
+
+Program.cs değiştir (son satır ekle)
+builder.Services.ConfigureApplicationCookie(options =>
+{
+    options.LoginPath = "/Kullanici/Login";
+    options.LogoutPath = "/Kullanici/Logout";
+    options.AccessDeniedPath = "/Kullanici/Yetki";
+});
+
+
+KullaniciController.cs yapıcı metodu değiştir ve yeni alan oluştur
+
+private readonly UserManager<Kullanici> userManager;
+private readonly SignInManager<Kullanici> signInManager;
+public readonly RoleManager<IdentityRole> roleManager;
+
+public KullaniciController(UserManager<Kullanici> userManager, SignInManager<Kullanici> signInManager, RoleManager<IdentityRole> roleManager)
+{
+    this.userManager = userManager;
+    this.signInManager = signInManager;
+    this.roleManager = roleManager;
+}
+
+
+KullaniciController.cs - Kayit action ında değiştir
+
+if (result.Succeeded)
+{
+    await userManager.AddToRoleAsync(kullanici, "User");
+    return RedirectToAction("Login", "Kullanici");
+}
+
+
+KullaniciController - Yetki action ve view u ekle
+
+public IActionResult Yetki()
+{
+    return View();
+}
+
+
+<div class="container my-4">
+    <h1>Yetkiniz Yok</h1>
+    <a asp-controller="Home" asp-action="Index">Ana Sayfa</a>
+</div>
+
+
+Views - Shared - _Layout.cshtml deki Admin Panel linkini düzenle
+
+@if (User.IsInRole("Admin")) {
+    <a class="dropdown-item" asp-controller="Admin" asp-action="Index">Admin Panel</a>
+}
+
+
+****************************
+ADMIN KULLANICI ROLLERİ
+****************************
+
+ViewModels - KullaniciRolleriViewModel oluştur 
+
+public class KullaniciRolleriViewModel
+{
+    public string KullaniciId { get; set; }
+    public string KullaniciAdi { get; set; }
+    public string AdSoyad { get; set; }
+    public List<IdentityRole> Roller { get; set; }
+    public List<string> KullaniciRolleri { get; set; }
+    public List<string> SecilenRoller { get; set; }
+}
+
+
+Views - Admin - Kullanici.cshtml
+
+<a asp-action="KullaniciRolleri" asp-route-id="@item.Id" class="btn btn-outline-primary">Yetkiler</a>
+
+
+AdminController.cs roleManager alanı oluştur ve yapıcı metotta ata
+
+private readonly RoleManager<IdentityRole> roleManager;
+
+public AdminController(MagazaContext context, UserManager<Kullanici> userManager, RoleManager<IdentityRole> roleManager)
+{
+    this.context = context;
+    this.userManager = userManager;
+    this.roleManager = roleManager;
+}
+
+AdminController a KullaniciRolleri actionı ekle
+
+[HttpGet]
+public async Task<IActionResult> KullaniciRolleri(string id)
+{
+    var user = await userManager.FindByIdAsync(id);
+    var roles = roleManager.Roles.ToList();
+    var userRoles = (List<string>) await userManager.GetRolesAsync(user);
+
+    var viewModel = new KullaniciRolleriViewModel
+    {
+        KullaniciId = id,
+        KullaniciAdi = user.UserName,
+        AdSoyad = user.AdSoyad,
+        Roller = roles,
+        KullaniciRolleri = userRoles
+    };
+
+    return View(viewModel);
+}
+
+[HttpPost]
+public async Task<IActionResult> KullaniciRolleri(KullaniciRolleriViewModel viewModel)
+{
+    var user = await userManager.FindByIdAsync(viewModel.KullaniciId);
+    var userRoles = await userManager.GetRolesAsync(user);
+    string userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+
+    if (viewModel.SecilenRoller == null)
+    {
+        viewModel.SecilenRoller = new List<string>();
+    }
+
+    if(viewModel.KullaniciId == userId && !viewModel.SecilenRoller.Contains("Admin")) {
+        viewModel.SecilenRoller.Add("Admin");
+    }
+
+    var result = await userManager.AddToRolesAsync(user, viewModel.SecilenRoller.Except(userRoles));
+    
+    if (!result.Succeeded)
+    {
+        ModelState.AddModelError(string.Empty, "Roller kullanıcıya atanırken bir hata oluştu.");
+        return View(viewModel);
+    }
+    
+
+    result = await userManager.RemoveFromRolesAsync(user, userRoles.Except(viewModel.SecilenRoller));
+    if (!result.Succeeded)
+    {
+        ModelState.AddModelError(string.Empty, "Roller kullanıcıdan kaldırılırken bir hata oluştu.");
+        return View(viewModel);
+    }
+
+    return RedirectToAction("Kullanici");
+}
+
+
+
+
+
+Views - Admin - KullaniciRolleri.cshtml
+(Eğer bağlı kullanıcının Admin seçeneğinin pasif gelmesini istiyorsan UserMaganer sınıfı dahil edilmeli)
+
+@model KullaniciRolleriViewModel
+
+@using Microsoft.AspNetCore.Identity
+
+@inject UserManager<Kullanici> UserManager
+
+@{
+    var userId = UserManager.GetUserId(User);
+}
+
+<div class="container mt-4">
+    <div class="mb-3">
+        <h2>Kullanıcı Yetkileri</h2>
+
+        <div class="card">
+            <div class="card-header">Kullanıcı Bilgileri</div>
+            <div class="card-body">
+                <p>Ad Soyad: @Model.AdSoyad</p>
+                <p>Kullanıcı Adı: @Model.KullaniciAdi</p>
+            </div>
+        </div>
+        
+        <form method="post">
+            @foreach (var role in Model.Roller)
+            {
+                <div class="form-check my-3">
+                    <input class="form-check-input" type="checkbox" id="@($"role_{role.Id}")" name="SecilenRoller" value="@role.Name" @(Model.KullaniciRolleri.Contains(role.Name) ? "checked" : "") @((Model.KullaniciId == userId && role.Name=="Admin") ? "disabled" : "") />
+                    <label class="form-check-label" for="@($"role_{role.Id}")">@role.Name</label>
+                </div>
+            }
+            <input type="hidden" name="KullaniciId" value="@Model.KullaniciId" />
+            <button type="submit" class="btn btn-primary">Kaydet</button>
+        </form>
+    </div>
+</div>

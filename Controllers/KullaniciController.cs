@@ -15,11 +15,13 @@ namespace MagazaWeb.Controllers
     {
         private readonly UserManager<Kullanici> userManager;
         private readonly SignInManager<Kullanici> signInManager;
+        public readonly RoleManager<IdentityRole> roleManager;
 
-        public KullaniciController(UserManager<Kullanici> userManager, SignInManager<Kullanici> signInManager)
+        public KullaniciController(UserManager<Kullanici> userManager, SignInManager<Kullanici> signInManager, RoleManager<IdentityRole> roleManager)
         {
             this.userManager = userManager;
             this.signInManager = signInManager;
+            this.roleManager = roleManager;
         }
 
         public IActionResult Kayit()
@@ -47,6 +49,7 @@ namespace MagazaWeb.Controllers
 
             if (result.Succeeded)
             {
+                await userManager.AddToRoleAsync(kullanici, "User");
                 return RedirectToAction("Login", "Kullanici");
             }
 
@@ -157,6 +160,11 @@ namespace MagazaWeb.Controllers
             }
             ModelState.AddModelError("", "Şifreleri kontrol et");
             return View(viewModel);
+        }
+
+        public IActionResult Yetki()
+        {
+            return View();
         }
     }
 }

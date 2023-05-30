@@ -18406,6 +18406,11 @@
       "FileKind": "mvc"
     },
     {
+      "FilePath": "c:\\Users\\Ekrem\\Desktop\\MagazaWeb\\Views\\Kullanici\\Yetki.cshtml",
+      "TargetPath": "Views\\Kullanici\\Yetki.cshtml",
+      "FileKind": "mvc"
+    },
+    {
       "FilePath": "c:\\Users\\Ekrem\\Desktop\\MagazaWeb\\Views\\Kullanici\\Kayit.cshtml",
       "TargetPath": "Views\\Kullanici\\Kayit.cshtml",
       "FileKind": "mvc"
@@ -18503,6 +18508,11 @@
     {
       "FilePath": "c:\\Users\\Ekrem\\Desktop\\MagazaWeb\\Views\\Admin\\Index.cshtml",
       "TargetPath": "Views\\Admin\\Index.cshtml",
+      "FileKind": "mvc"
+    },
+    {
+      "FilePath": "c:\\Users\\Ekrem\\Desktop\\MagazaWeb\\Views\\Admin\\KullaniciRolleri.cshtml",
+      "TargetPath": "Views\\Admin\\KullaniciRolleri.cshtml",
       "FileKind": "mvc"
     },
     {

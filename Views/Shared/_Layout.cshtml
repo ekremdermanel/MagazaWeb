@@ -37,8 +37,10 @@
                                 @User.Identity.Name
                             </a>
                             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                <a class="dropdown-item" asp-controller="Admin" asp-action="Index">Admin Panel</a>
-                                <div class="dropdown-divider"></div>
+                                @if (User.IsInRole("Admin"))
+                                {
+                                    <a class="dropdown-item" asp-controller="Admin" asp-action="Index">Admin Panel</a>
+                                }
                                 <a class="dropdown-item" asp-controller="Kullanici" asp-action="Profil">Profil</a>
                                 <a class="dropdown-item" asp-controller="Kullanici" asp-action="SifreDegistir">Şifre
                                     Değiştir</a>

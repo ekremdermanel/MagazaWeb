@@ -10,10 +10,11 @@ Configuration.GetConnectionString("BaglantiMySQL")));
 
 builder.Services.AddIdentity<Kullanici, IdentityRole>().AddEntityFrameworkStores<MagazaContext>();
 
-builder.Services.ConfigureApplicationCookie(option =>
+builder.Services.ConfigureApplicationCookie(options =>
 {
-  option.LoginPath = "/Kullanici/Login";
-  option.LogoutPath = "/Kullanici/Logout";
+    options.LoginPath = "/Kullanici/Login";
+    options.LogoutPath = "/Kullanici/Logout";
+    options.AccessDeniedPath = "/Kullanici/Yetki";
 });
 
 var app = builder.Build();

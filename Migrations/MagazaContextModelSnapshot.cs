@@ -129,6 +129,25 @@ namespace MagazaWeb.Migrations
                         .HasDatabaseName("UserNameIndex");
 
                     b.ToTable("AspNetUsers", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            Id = "e78f0075-c7fe-45c9-a510-4d2be46136b2",
+                            AccessFailedCount = 0,
+                            AdSoyad = "Admin",
+                            ConcurrencyStamp = "17fbd7e3-8b46-466c-98b3-b1ec502fd59c",
+                            Email = "admin@gmail.com",
+                            EmailConfirmed = true,
+                            LockoutEnabled = false,
+                            NormalizedEmail = "ADMIN@GMAIL.COM",
+                            NormalizedUserName = "ADMIN",
+                            PasswordHash = "AQAAAAEAACcQAAAAEBueUOYPb/NGoxkTTeRnYEWKYIgYZ5BGOmHwrKqyerEHRqzuoPtFdY+2P0cTXDDYLw==",
+                            PhoneNumberConfirmed = false,
+                            SecurityStamp = "b7548f2c-6b11-433e-bd67-8bae28542d1d",
+                            TwoFactorEnabled = false,
+                            UserName = "Admin"
+                        });
                 });
 
             modelBuilder.Entity("MagazaWeb.Models.Urun", b =>
@@ -181,7 +200,7 @@ namespace MagazaWeb.Migrations
                         {
                             Id = 2,
                             Aciklama = "Lorem ipsum dolor sit amet consectetur adipisicing elit. Quis voluptas reiciendis, iste accusantium ipsa magni culpa ad distinctio? At illo doloribus cupiditate amet ex eligendi, qui optio ducimus eaque deleniti molestiae eos praesentium soluta fugiat? Nulla totam ipsam explicabo quo nam dolorem numquam dolore vero velit, asperiores sequi odit in.\r\n        Laborum nulla molestiae sit vitae. Praesentium accusamus quidem blanditiis aliquam voluptatum ab ad magni soluta, maxime cupiditate et sint. Minus corporis quae quisquam pariatur enim architecto quo aliquam, molestias expedita sit consequatur accusantium ut dignissimos ducimus sapiente, natus repudiandae itaque suscipit officiis, eius fuga corrupti rerum fugit. Sunt, illo nulla.",
-                            EklenmeTarihi = new DateTime(2023, 5, 30, 17, 42, 21, 739, DateTimeKind.Local).AddTicks(3554),
+                            EklenmeTarihi = new DateTime(2023, 5, 30, 18, 59, 34, 896, DateTimeKind.Local).AddTicks(9494),
                             Fiyat = 30000m,
                             KategoriId = 1,
                             Stok = 100,
@@ -191,7 +210,7 @@ namespace MagazaWeb.Migrations
                         {
                             Id = 3,
                             Aciklama = "Lorem ipsum dolor sit amet.",
-                            EklenmeTarihi = new DateTime(2023, 5, 30, 17, 42, 21, 739, DateTimeKind.Local).AddTicks(3571),
+                            EklenmeTarihi = new DateTime(2023, 5, 30, 18, 59, 34, 896, DateTimeKind.Local).AddTicks(9512),
                             Fiyat = 20000m,
                             KategoriId = 1,
                             Stok = 5,
@@ -201,7 +220,7 @@ namespace MagazaWeb.Migrations
                         {
                             Id = 4,
                             Aciklama = "Lorem ipsum dolor sit amet consectetur adipisicing elit. Saepe, natus? Consequatur fugit vel assumenda iusto consectetur amet alias ex aut.\r\nSequi aperiam ullam distinctio atque, tempora voluptates perspiciatis cupiditate cumque itaque unde vero neque ratione, maxime culpa nostrum adipisci quibusdam?\r\n[onemli]Pariatur natus assumenda recusandae distinctio totam ipsum quo dolorem amet, dignissimos sunt quasi laboriosam ex maiores vero provident eius nemo![/onemli]",
-                            EklenmeTarihi = new DateTime(2023, 5, 30, 17, 2, 21, 739, DateTimeKind.Local).AddTicks(3579),
+                            EklenmeTarihi = new DateTime(2023, 5, 30, 18, 19, 34, 896, DateTimeKind.Local).AddTicks(9522),
                             Fiyat = 19900m,
                             KategoriId = 1,
                             Stok = 50,
@@ -231,7 +250,7 @@ namespace MagazaWeb.Migrations
                         {
                             Id = 7,
                             Aciklama = "Lorem ipsum dolor sit amet consectetur adipisicing elit. Saepe, natus? Consequatur fugit vel assumenda iusto consectetur amet alias ex aut.\r\nSequi aperiam ullam distinctio atque, tempora voluptates perspiciatis cupiditate cumque itaque unde vero neque ratione, maxime culpa nostrum adipisci quibusdam?\r\nPariatur natus assumenda recusandae distinctio totam ipsum quo dolorem amet, dignissimos sunt quasi laboriosam ex maiores vero provident eius nemo!",
-                            EklenmeTarihi = new DateTime(2023, 5, 15, 17, 42, 21, 739, DateTimeKind.Local).AddTicks(3611),
+                            EklenmeTarihi = new DateTime(2023, 5, 15, 18, 59, 34, 896, DateTimeKind.Local).AddTicks(9557),
                             Fiyat = 59999m,
                             KategoriId = 2,
                             Stok = 1,
@@ -241,7 +260,7 @@ namespace MagazaWeb.Migrations
                         {
                             Id = 8,
                             Aciklama = "Lorem ipsum dolor sit amet consectetur adipisicing elit. Saepe, natus? Consequatur fugit vel assumenda iusto consectetur amet alias ex aut.",
-                            EklenmeTarihi = new DateTime(2023, 3, 30, 17, 42, 21, 739, DateTimeKind.Local).AddTicks(3620),
+                            EklenmeTarihi = new DateTime(2023, 3, 30, 18, 59, 34, 896, DateTimeKind.Local).AddTicks(9567),
                             Fiyat = 34500m,
                             KategoriId = 3,
                             Stok = 50,
@@ -251,7 +270,7 @@ namespace MagazaWeb.Migrations
                         {
                             Id = 9,
                             Aciklama = "Lorem ipsum dolor sit amet.",
-                            EklenmeTarihi = new DateTime(2023, 5, 30, 17, 32, 21, 739, DateTimeKind.Local).AddTicks(3643),
+                            EklenmeTarihi = new DateTime(2023, 5, 30, 18, 49, 34, 896, DateTimeKind.Local).AddTicks(9583),
                             Fiyat = 29999m,
                             KategoriId = 3,
                             Stok = 15,
@@ -261,7 +280,7 @@ namespace MagazaWeb.Migrations
                         {
                             Id = 10,
                             Aciklama = "Lorem ipsum dolor sit amet consectetur adipisicing elit. Porro, suscipit.\r\nArchitecto, eum quasi amet porro voluptatum consequatur? Numquam, quas voluptate.",
-                            EklenmeTarihi = new DateTime(2023, 5, 30, 14, 42, 21, 739, DateTimeKind.Local).AddTicks(3653),
+                            EklenmeTarihi = new DateTime(2023, 5, 30, 15, 59, 34, 896, DateTimeKind.Local).AddTicks(9593),
                             Fiyat = 250m,
                             KategoriId = 4,
                             Stok = 100,
@@ -293,6 +312,22 @@ namespace MagazaWeb.Migrations
                         .HasDatabaseName("RoleNameIndex");
 
                     b.ToTable("AspNetRoles", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            Id = "0efef8bf-9571-42b8-9aed-8aa91e16c14c",
+                            ConcurrencyStamp = "b0864f19-0c87-4889-aee4-216f83d631fd",
+                            Name = "Admin",
+                            NormalizedName = "ADMIN"
+                        },
+                        new
+                        {
+                            Id = "9006aeb2-8a66-4872-89c3-4630fba2f5b2",
+                            ConcurrencyStamp = "c234e023-ea9f-404d-bf04-6989249c1e6d",
+                            Name = "User",
+                            NormalizedName = "USER"
+                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -376,6 +411,13 @@ namespace MagazaWeb.Migrations
                     b.HasIndex("RoleId");
 
                     b.ToTable("AspNetUserRoles", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            UserId = "e78f0075-c7fe-45c9-a510-4d2be46136b2",
+                            RoleId = "0efef8bf-9571-42b8-9aed-8aa91e16c14c"
+                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>

@@ -14,16 +14,18 @@ using System.Security.Claims;
 
 namespace MagazaWeb.Controllers
 {
-    [Authorize]
+    [Authorize(Roles = "Admin")]
     public class AdminController : Controller
     {
         private readonly MagazaContext context;
         private readonly UserManager<Kullanici> userManager;
+        private readonly RoleManager<IdentityRole> roleManager;
 
-        public AdminController(MagazaContext context, UserManager<Kullanici> userManager)
+        public AdminController(MagazaContext context, UserManager<Kullanici> userManager, RoleManager<IdentityRole> roleManager)
         {
             this.context = context;
             this.userManager = userManager;
+            this.roleManager = roleManager;
         }
 
         public IActionResult Index()
@@ -235,6 +237,61 @@ namespace MagazaWeb.Controllers
             }
             Kullanici kayit = await userManager.FindByIdAsync(id);
             await userManager.DeleteAsync(kayit);
+            return RedirectToAction("Kullanici");
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> KullaniciRolleri(string id)
+        {
+            var user = await userManager.FindByIdAsync(id);
+            var roles = roleManager.Roles.ToList();
+            var userRoles = (List<string>)await userManager.GetRolesAsync(user);
+
+            var viewModel = new KullaniciRolleriViewModel
+            {
+                KullaniciId = id,
+                KullaniciAdi = user.UserName,
+                AdSoyad = user.AdSoyad,
+                Roller = roles,
+                KullaniciRolleri = userRoles
+            };
+
+            return View(viewModel);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> KullaniciRolleri(KullaniciRolleriViewModel viewModel)
+        {
+            var user = await userManager.FindByIdAsync(viewModel.KullaniciId);
+            var userRoles = await userManager.GetRolesAsync(user);
+            string userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+
+            if (viewModel.SecilenRoller == null)
+            {
+                viewModel.SecilenRoller = new List<string>();
+            }
+
+            if (viewModel.KullaniciId == userId && !viewModel.SecilenRoller.Contains("Admin"))
+            {
+                viewModel.SecilenRoller.Add("Admin");
+            }
+
+            var result = await userManager.AddToRolesAsync(user, viewModel.SecilenRoller.Except(userRoles));
+
+            if (!result.Succeeded)
+            {
+                ModelState.AddModelError(string.Empty, "Roller kullanıcıya atanırken bir hata oluştu.");
+                return View(viewModel);
+            }
+
+
+            result = await userManager.RemoveFromRolesAsync(user, userRoles.Except(viewModel.SecilenRoller));
+            if (!result.Succeeded)
+            {
+                ModelState.AddModelError(string.Empty, "Roller kullanıcıdan kaldırılırken bir hata oluştu.");
+                return View(viewModel);
+            }
+
             return RedirectToAction("Kullanici");
         }
 
