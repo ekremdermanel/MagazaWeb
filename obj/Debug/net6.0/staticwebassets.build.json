@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "teuBumJulU+M9DFd7euDsBmOEDr+vfHDi5xNJkL0aA0=",
+  "Hash": "Aza3a6oM2jabFtxWtiLmPLW/cLltTPKDKzbsKPksTMM=",
   "Source": "MagazaWeb",
   "BasePath": "_content/MagazaWeb",
   "Mode": "Default",
@@ -255,6 +255,23 @@
       "OriginalItemSpec": "wwwroot\\admin\\js\\scripts.js"
     },
     {
+      "Identity": "C:\\Users\\Ekrem\\Desktop\\MagazaWeb\\wwwroot\\css\\bootstrap-icons.css",
+      "SourceId": "MagazaWeb",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\Ekrem\\Desktop\\MagazaWeb\\wwwroot\\",
+      "BasePath": "_content/MagazaWeb",
+      "RelativePath": "css/bootstrap-icons.css",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\css\\bootstrap-icons.css"
+    },
+    {
       "Identity": "C:\\Users\\Ekrem\\Desktop\\MagazaWeb\\wwwroot\\css\\bootstrap.min.css",
       "SourceId": "MagazaWeb",
       "SourceType": "Discovered",
@@ -270,6 +287,23 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\css\\bootstrap.min.css"
+    },
+    {
+      "Identity": "C:\\Users\\Ekrem\\Desktop\\MagazaWeb\\wwwroot\\css\\fonts\\bootstrap-icons.woff",
+      "SourceId": "MagazaWeb",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\Ekrem\\Desktop\\MagazaWeb\\wwwroot\\",
+      "BasePath": "_content/MagazaWeb",
+      "RelativePath": "css/fonts/bootstrap-icons.woff",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\css\\fonts\\bootstrap-icons.woff"
     },
     {
       "Identity": "C:\\Users\\Ekrem\\Desktop\\MagazaWeb\\wwwroot\\image\\urun.png",

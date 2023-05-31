@@ -295,6 +295,21 @@ namespace MagazaWeb.Controllers
             return RedirectToAction("Kullanici");
         }
 
+        public IActionResult Degerlendirme(int id)
+        {
+            Urun kayit = context.Urunler.FirstOrDefault(x => x.Id == id);
+            ViewBag.UrunAdi = kayit.UrunAdi;
+            return View(context.Degerlendirmeler.Where(x => x.UrunId == id).ToList());
+        }
+
+        public IActionResult DegerlendirmeOnay(int id)
+        {
+            Degerlendirme kayit = context.Degerlendirmeler.FirstOrDefault(x => x.Id == id);
+            kayit.Onay = !kayit.Onay;
+            context.Degerlendirmeler.Update(kayit);
+            context.SaveChanges();
+            return RedirectToAction("Degerlendirme", new { id = kayit.UrunId });
+        }
 
     }
 }

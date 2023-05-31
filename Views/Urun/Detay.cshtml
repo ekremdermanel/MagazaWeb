@@ -1,27 +1,113 @@
-@model Urun
+@model UrunDetayViewModel
 
 <!-- Icerik -->
-    <div class="container mt-4">
-        <div class="mb-3">
-            <!-- Vitrin -->
-            <div class="card mb-4">
-                <div class="row">
-                    <div class="col-md-6">
-                        <img class="img-fluid rounded-start" src="@Model.ResimAdi.Goster()" alt="..." />
-                    </div>
-                    <div class="col-md-6">
-                        <div class="card-body">
-                            <h2 class="card-title">@Model.UrunAdi</h2>
-                            <p class="card-text small">@Model.Fiyat.ParaBirimi() TL</p>
-                            <p>@Model.EklenmeTarihi.GecenZaman() eklendi</p>
-                            <a class="btn btn-primary" asp-controller="Sepet" asp-action="SepeteEkle"
-                            asp-route-id="@Model.Id">Sepete Ekle</a>
-                            <p class="card-text">@Html.Raw(Model.Aciklama.Bicimlendir())</p>
-                        </div>
+<div class="container mt-4">
+    <div class="mb-3">
+        <!-- Vitrin -->
+        <div class="card mb-4">
+            <div class="row">
+                <div class="col-md-6">
+                    <img class="img-fluid rounded-start" src="@Model.Urun.ResimAdi.Goster()" alt="..." />
+                </div>
+                <div class="col-md-6">
+                    <div class="card-body">
+                        <h2 class="card-title">@Model.Urun.UrunAdi</h2>
+                        <p class="card-text small">@Model.Urun.Fiyat.ParaBirimi() TL</p>
+                        <p>@Model.Urun.EklenmeTarihi.GecenZaman() eklendi</p>
+                        <p>
+                            @{
+                                string yuzde = (Model.OrtalamaPuan * 100 / 5).ToString("#");
+                            }
+                            @if (Model.Degerlendirmeler.Count > 0)
+                            {
+                            <div class="text-secondary d-flex flex-nowrap" id="puanlama-arka">
+                                <i class="bi bi-star-fill"></i>
+                                <i class="bi bi-star-fill"></i>
+                                <i class="bi bi-star-fill"></i>
+                                <i class="bi bi-star-fill"></i>
+                                <i class="bi bi-star-fill"></i>
+                                <div class="text-warning d-flex flex-nowrap" id="puanlama-on" style="width:@yuzde%;">
+                                    <i class="bi bi-star-fill"></i>
+                                    <i class="bi bi-star-fill"></i>
+                                    <i class="bi bi-star-fill"></i>
+                                    <i class="bi bi-star-fill"></i>
+                                    <i class="bi bi-star-fill"></i>
+                                </div>
+                            </div>
+                            <h5>
+                                    @Model.OrtalamaPuan.ToString("#.#") / 5
+                                <span class="text-muted small">(@Model.Degerlendirmeler.Count değerlendirme)</span>
+                            </h5>
+                            }
+                        </p>
+                        <a class="btn btn-primary" asp-controller="Sepet" asp-action="SepeteEkle"
+                            asp-route-id="@Model.Urun.Id">Sepete Ekle</a>
+                        <p class="card-text">@Html.Raw(Model.Urun.Aciklama.Bicimlendir())</p>
                     </div>
                 </div>
-
-
             </div>
+
+
         </div>
+
+        <h4 class="mb-2">Ürün Değerlendirmeleri</h4>
+        @if (User.Identity.IsAuthenticated)
+        {
+            <partial name="_DegerlendirmeYap" model="@Model.Urun.Id"></partial>
+        }
+        else
+        {
+            <div class="alert alert-danger">Sadece kayıtlı kullanıcılar değerlendirme yapabilir</div>
+        }
+
+
+        @if (Model.Degerlendirmeler.Count == 0)
+        {
+            <div class="alert alert-danger">Henüz değerlendirme yapılmamıştır</div>
+        }
+        else
+        {
+            <div class="alert alert-success">@Model.Degerlendirmeler.Count değerlendirme</div>
+        }
+        @foreach (var item in Model.Degerlendirmeler)
+        {
+            <div class="card mb-2 small">
+                <div class="card-body">
+                    <h5 class="card-title">@item.Kullanici.UserName</h5>
+                    <h6 class="card-subtitle text-muted mb-2">@item.EklenmeTarihi.GecenZaman()</h6>
+                    <div class="text-warning">
+                        @for (int i = 0; i < item.Puan; i++)
+                        {
+                            <i class="bi bi-star-fill"></i>
+                        }
+                        @for (int i = 0; i < 5 - item.Puan; i++)
+                        {
+                            <i class="bi bi-star"></i>
+                        }
+                    </div>
+                    <div class="card-text">@item.Yorum</div>
+                </div>
+            </div>
+        }
+
     </div>
+</div>
+
+<style>
+    #puanlama-arka {
+        position: relative;
+        font-size: 21px;
+        width: 125px;
+    }
+
+    #puanlama-on {
+        position: absolute;
+        left: 0;
+        top: 0;
+        overflow: hidden;
+    }
+
+    #puanlama-arka i {
+        margin: 0 2px 0 2px;
+    }
+</style>

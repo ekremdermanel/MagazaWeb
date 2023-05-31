@@ -1,0 +1,38 @@
+@model List<Degerlendirme>
+
+<div class="container mt-4">
+    <div class="mb-3">
+        <h2>@ViewBag.UrunAdi İçin Değerlendirmeler</h2>
+
+        <!-- Urun Listesi -->
+        <table class="table table-striped align-middle">
+            <thead>
+                <tr>
+                    <th>Yorum</th>
+                    <th>Puan</th>
+                    <th>Tarih</th>
+                    <th>İşlem</th>
+                </tr>
+            </thead>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.Yorum</td>
+                    <td>@item.Puan</td>
+                    <td>@item.EklenmeTarihi.KisaTarih()</td>
+                    <td>
+                        @if (@item.Onay)
+                        {
+                            <a asp-action="DegerlendirmeOnay" asp-route-id="@item.Id" class="btn btn-outline-danger">Onayı
+                                Kaldır</a>
+                        }
+                        else
+                        {
+                            <a asp-action="DegerlendirmeOnay" asp-route-id="@item.Id" class="btn btn-outline-success">Onayla</a>
+                        }
+                    </td>
+                </tr>
+            }
+        </table>
+    </div>
+</div>

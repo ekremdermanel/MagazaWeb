@@ -2,14 +2,14 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Identity;
+using MagazaWeb.Models;
 
-namespace MagazaWeb.Models
+namespace MagazaWeb.ViewModels
 {
-    public class Kullanici : IdentityUser
+    public class UrunDetayViewModel
     {
-        public string AdSoyad { get; set; }
-
+        public Urun Urun { get; set; }
         public List<Degerlendirme> Degerlendirmeler { get; set; }
+        public double OrtalamaPuan { get; set; }
     }
 }
