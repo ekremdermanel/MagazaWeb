@@ -75,7 +75,7 @@ Views - Urun - Detay.cshtml partial çağır
 {
     @if (TempData["Mesaj"] != null)
     {
-        <div class="alert alert-success">@TempData["Mesaj"]</div>
+        <div class='alert alert-@TempData["Stil"]'>@TempData["Mesaj"]</div>
     }
     <partial name="_DegerlendirmeYap" model="@Model.Id"></partial>
 }
@@ -91,6 +91,19 @@ UrunController - DegerlendirmeYap action ekle
 [HttpPost]
 public IActionResult DegerlendirmeYap(int UrunId, string Yorum, int Puan)
 {
+    if (Yorum == null)
+    {
+        TempData["Mesaj"] = "Yorum alanı gerekli";
+        TempData["Stil"] = "danger";
+        return RedirectToAction("Detay", new { id = UrunId });
+    }
+    if (String.IsNullOrEmpty(Yorum.Trim()))
+    {
+        TempData["Mesaj"] = "Yorum alanı gerekli";
+        TempData["Stil"] = "danger";
+        return RedirectToAction("Detay", new { id = UrunId });
+    }
+    
     Degerlendirme model = new Degerlendirme()
     {
         KullaniciId = User.FindFirstValue(ClaimTypes.NameIdentifier),
@@ -109,6 +122,7 @@ public IActionResult DegerlendirmeYap(int UrunId, string Yorum, int Puan)
     context.Degerlendirmeler.Add(model);
     context.SaveChanges();
     TempData["Mesaj"] = "Değerlendirmeniz için teşekkürler!";
+    TempData["Stil"] = "success";
     return RedirectToAction("Detay", new { id = UrunId });
 }
 

@@ -72,7 +72,7 @@
         {
             @if (TempData["Mesaj"] != null)
             {
-                <div class="alert alert-success">@TempData["Mesaj"]</div>
+                <div class='alert alert-@TempData["Stil"]'>@TempData["Mesaj"]</div>
             }
             <partial name="_DegerlendirmeYap" model="@Model.Urun.Id"></partial>
         }

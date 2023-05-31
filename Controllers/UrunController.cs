@@ -72,6 +72,19 @@ namespace MagazaWeb.Controllers
         [HttpPost]
         public IActionResult DegerlendirmeYap(int UrunId, string Yorum, int Puan)
         {
+            if (Yorum == null)
+            {
+                TempData["Mesaj"] = "Yorum alanı gerekli";
+                TempData["Stil"] = "danger";
+                return RedirectToAction("Detay", new { id = UrunId });
+            }
+            if (String.IsNullOrEmpty(Yorum.Trim()))
+            {
+                TempData["Mesaj"] = "Yorum alanı gerekli";
+                TempData["Stil"] = "danger";
+                return RedirectToAction("Detay", new { id = UrunId });
+            }
+
             Degerlendirme model = new Degerlendirme()
             {
                 KullaniciId = User.FindFirstValue(ClaimTypes.NameIdentifier),
@@ -90,6 +103,7 @@ namespace MagazaWeb.Controllers
             context.Degerlendirmeler.Add(model);
             context.SaveChanges();
             TempData["Mesaj"] = "Değerlendirmeniz için teşekkürler!";
+            TempData["Stil"] = "success";
             return RedirectToAction("Detay", new { id = UrunId });
         }
 
