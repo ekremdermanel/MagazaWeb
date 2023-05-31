@@ -73,6 +73,10 @@ Views - Urun - Detay.cshtml partial çağır
 <h4 class="mb-2">Ürün Değerlendirmeleri</h4>
 @if (User.Identity.IsAuthenticated)
 {
+    @if (TempData["Mesaj"] != null)
+    {
+        <div class="alert alert-success">@TempData["Mesaj"]</div>
+    }
     <partial name="_DegerlendirmeYap" model="@Model.Id"></partial>
 }
 else
@@ -104,6 +108,7 @@ public IActionResult DegerlendirmeYap(int UrunId, string Yorum, int Puan)
 
     context.Degerlendirmeler.Add(model);
     context.SaveChanges();
+    TempData["Mesaj"] = "Değerlendirmeniz için teşekkürler!";
     return RedirectToAction("Detay", new { id = UrunId });
 }
 
@@ -128,7 +133,7 @@ UrunController - Detay action ı değiştir
 public IActionResult Detay(int id)
 {
     Urun urun = context.Urunler.FirstOrDefault(x => x.Id == id);
-    List<Degerlendirme> degerlendirmeler = context.Degerlendirmeler.Where(x => x.UrunId == id && x.Onay == true).Include("Kullanici").ToList();
+    List<Degerlendirme> degerlendirmeler = context.Degerlendirmeler.Where(x => x.UrunId == id && x.Onay == true).Include("Kullanici").OrderByDescending(x => x.EklenmeTarihi).ToList();
     UrunDetayViewModel viewModel = new UrunDetayViewModel()
     {
         Urun = urun,
@@ -221,6 +226,7 @@ Views - Admin - Degerlendirme.cshtml hazırla
                     <td>@item.Puan</td>
                     <td>@item.EklenmeTarihi.KisaTarih()</td>
                     <td>
+                        <a asp-action="DegerlendirmeSil" asp-route-id="@item.Id" class="btn btn-outline-primary">Sil</a>
                         @if (@item.Onay)
                         {
                             <a asp-action="DegerlendirmeOnay" asp-route-id="@item.Id" class="btn btn-outline-danger">Onayı
@@ -238,7 +244,7 @@ Views - Admin - Degerlendirme.cshtml hazırla
 </div>
 
 
-AdminController DegerlendirmeOnay action hazırla
+AdminController DegerlendirmeOnay ve DegerlendirmeSil action hazırla
 
 public IActionResult DegerlendirmeOnay(int id)
 {
@@ -247,6 +253,15 @@ public IActionResult DegerlendirmeOnay(int id)
     context.Degerlendirmeler.Update(kayit);
     context.SaveChanges();
     return RedirectToAction("Degerlendirme", new { id = kayit.UrunId });
+}
+
+public IActionResult DegerlendirmeSil(int id)
+{
+    Degerlendirme kayit = context.Degerlendirmeler.FirstOrDefault(x => x.Id == id);
+    int urunId = kayit.UrunId;
+    context.Degerlendirmeler.Remove(kayit);
+    context.SaveChanges();
+    return RedirectToAction("Degerlendirme", new { id = urunId });
 }
 
 

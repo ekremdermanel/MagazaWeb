@@ -311,5 +311,14 @@ namespace MagazaWeb.Controllers
             return RedirectToAction("Degerlendirme", new { id = kayit.UrunId });
         }
 
+        public IActionResult DegerlendirmeSil(int id)
+        {
+            Degerlendirme kayit = context.Degerlendirmeler.FirstOrDefault(x => x.Id == id);
+            int urunId = kayit.UrunId;
+            context.Degerlendirmeler.Remove(kayit);
+            context.SaveChanges();
+            return RedirectToAction("Degerlendirme", new { id = urunId });
+        }
+
     }
 }

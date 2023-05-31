@@ -21,6 +21,7 @@
                     <td>@item.Puan</td>
                     <td>@item.EklenmeTarihi.KisaTarih()</td>
                     <td>
+                        <a asp-action="DegerlendirmeSil" asp-route-id="@item.Id" class="btn btn-outline-primary">Sil</a>
                         @if (@item.Onay)
                         {
                             <a asp-action="DegerlendirmeOnay" asp-route-id="@item.Id" class="btn btn-outline-danger">Onayı

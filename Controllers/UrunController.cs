@@ -38,7 +38,7 @@ namespace MagazaWeb.Controllers
         public IActionResult Detay(int id)
         {
             Urun urun = context.Urunler.FirstOrDefault(x => x.Id == id);
-            List<Degerlendirme> degerlendirmeler = context.Degerlendirmeler.Where(x => x.UrunId == id && x.Onay == true).Include("Kullanici").ToList();
+            List<Degerlendirme> degerlendirmeler = context.Degerlendirmeler.Where(x => x.UrunId == id && x.Onay == true).Include("Kullanici").OrderByDescending(x => x.EklenmeTarihi).ToList();
 
             double ortalamaPuan = 0;
             if (degerlendirmeler.Count > 0)
@@ -89,6 +89,7 @@ namespace MagazaWeb.Controllers
 
             context.Degerlendirmeler.Add(model);
             context.SaveChanges();
+            TempData["Mesaj"] = "Değerlendirmeniz için teşekkürler!";
             return RedirectToAction("Detay", new { id = UrunId });
         }
 

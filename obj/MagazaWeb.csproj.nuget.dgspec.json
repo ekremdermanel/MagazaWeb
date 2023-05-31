@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "c:\\Users\\Ekrem\\Desktop\\MagazaWeb\\MagazaWeb.csproj": {}
+    "C:\\Users\\Ekrem\\Desktop\\MagazaWeb\\MagazaWeb.csproj": {}
   },
   "projects": {
-    "c:\\Users\\Ekrem\\Desktop\\MagazaWeb\\MagazaWeb.csproj": {
+    "C:\\Users\\Ekrem\\Desktop\\MagazaWeb\\MagazaWeb.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "c:\\Users\\Ekrem\\Desktop\\MagazaWeb\\MagazaWeb.csproj",
+        "projectUniqueName": "C:\\Users\\Ekrem\\Desktop\\MagazaWeb\\MagazaWeb.csproj",
         "projectName": "MagazaWeb",
-        "projectPath": "c:\\Users\\Ekrem\\Desktop\\MagazaWeb\\MagazaWeb.csproj",
+        "projectPath": "C:\\Users\\Ekrem\\Desktop\\MagazaWeb\\MagazaWeb.csproj",
         "packagesPath": "C:\\Users\\Ekrem\\.nuget\\packages\\",
-        "outputPath": "c:\\Users\\Ekrem\\Desktop\\MagazaWeb\\obj\\",
+        "outputPath": "C:\\Users\\Ekrem\\Desktop\\MagazaWeb\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
