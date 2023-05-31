@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "sUX2wH5EWkshhPF011al1tLo1Q4hK7CEB+Qt9eBXRkcbJw8tKcNzzIkS14ncRcuo8rI59ptQrRYYH6Jga62VPA==",
+  "dgSpecHash": "81gylQjV3y20skLNWo+cRHZgAfLiR1aL++7Raa4xchnO+AmxSMZuymTPkInqIkSDLOxFG6YaA3x1XcxDfTYzxw==",
   "success": true,
-  "projectFilePath": "C:\\Users\\Ekrem\\Desktop\\MagazaWeb\\MagazaWeb.csproj",
+  "projectFilePath": "c:\\Users\\Ekrem\\Desktop\\MagazaWeb\\MagazaWeb.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Ekrem\\.nuget\\packages\\google.protobuf\\3.21.9\\google.protobuf.3.21.9.nupkg.sha512",
     "C:\\Users\\Ekrem\\.nuget\\packages\\humanizer.core\\2.14.1\\humanizer.core.2.14.1.nupkg.sha512",
