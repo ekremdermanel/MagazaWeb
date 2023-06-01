@@ -1,0 +1,247 @@
+Program.cs ekle
+
+builder.Services.AddSession(options =>
+{
+    options.IdleTimeout = TimeSpan.FromMinutes(20);
+    options.Cookie.HttpOnly = true;
+    options.Cookie.IsEssential = true;
+});
+
+app.UseSession();
+
+
+String ten Listeye veya Listeden Stringe dönüştürme için paket indir
+dotnet add package Newtonsoft.Json --version 13.0.3
+
+
+Models - SepetUrunu.cs hazırla
+
+public class SepetUrunu
+{
+    public int Id { get; set; }
+    public string UrunAdi { get; set; }
+    public string? ResimAdi { get; set; }
+    public decimal? Fiyat { get; set; }
+    public int Adet { get; set; }
+    public decimal? Toplam { get { return Fiyat * Adet; } }
+}
+
+
+SepetController.cs
+GetSepet ve SetSepet adlı metotları oluştur
+
+List<SepetUrunu> GetSepet()
+{
+    List<SepetUrunu> sepet;
+    string strSepet = HttpContext.Session.GetString("Sepet");
+
+    if (strSepet != null)
+    {
+        sepet = JsonConvert.DeserializeObject<List<SepetUrunu>>(strSepet);
+    }
+    else
+    {
+        sepet = new List<SepetUrunu>();
+    }
+    return sepet;
+}
+
+void SetSepet(List<SepetUrunu> sepet)
+{
+    string strSepet = JsonConvert.SerializeObject(sepet);
+    HttpContext.Session.SetString("Sepet", strSepet);
+}
+
+
+
+SepetController.cs context alanı ekle
+
+private readonly MagazaContext context;
+
+public SepetController(MagazaContext context)
+{
+    this.context = context;
+}
+
+
+SepetController içerisine Index, SepeteEkle, SepettenSil, SepetiBosalt, Arttir, Azalt metotlarını hazırla
+
+public IActionResult Index()
+{
+    List<SepetUrunu> sepet = GetSepet();
+    return View(sepet);
+}
+
+public IActionResult SepeteEkle(int id)
+{
+    List<SepetUrunu> sepet = GetSepet();
+
+    SepetUrunu sepetUrunu = sepet.FirstOrDefault(x => x.Id == id);
+    if (sepetUrunu != null)
+    {
+        sepetUrunu.Adet++;
+    }
+    else
+    {
+        Urun urun = context.Urunler.FirstOrDefault(x => x.Id == id);
+        sepetUrunu = new SepetUrunu
+        {
+            Id = urun.Id,
+            UrunAdi = urun.UrunAdi,
+            ResimAdi = urun.ResimAdi,
+            Fiyat = urun.Fiyat,
+            Adet = 1
+        };
+        sepet.Add(sepetUrunu);
+    }
+
+    SetSepet(sepet);
+
+    return RedirectToAction("Index");
+}
+
+public IActionResult SepettenSil(int id)
+{
+    List<SepetUrunu> sepet = GetSepet();
+    SepetUrunu sepetUrunu = sepet.FirstOrDefault(x => x.Id == id);
+    if (sepetUrunu == null)
+    {
+        return RedirectToAction("Index");
+    }
+    sepet.Remove(sepetUrunu);
+    SetSepet(sepet);
+    return RedirectToAction("Index");
+}
+
+public IActionResult SepetiBosalt()
+{
+    HttpContext.Session.Remove("Sepet");
+    return RedirectToAction("Index");
+}
+
+public IActionResult Arttir(int id)
+{
+    List<SepetUrunu> sepet = GetSepet();
+    SepetUrunu sepetUrunu = sepet.FirstOrDefault(x => x.Id == id);
+    if (sepetUrunu == null)
+    {
+        return RedirectToAction("Index");
+    }
+    sepetUrunu.Adet++;
+    SetSepet(sepet);
+    return RedirectToAction("Index");
+}
+
+public IActionResult Azalt(int id)
+{
+    List<SepetUrunu> sepet = GetSepet();
+    SepetUrunu sepetUrunu = sepet.FirstOrDefault(x => x.Id == id);
+    if (sepetUrunu == null)
+    {
+        return RedirectToAction("Index");
+    }
+    sepetUrunu.Adet--;
+    if (sepetUrunu.Adet == 0)
+    {
+        return RedirectToAction("SepettenSil", new { id });
+    }
+    SetSepet(sepet);
+    return RedirectToAction("Index");
+}
+
+
+
+
+Views - Sepet - Index.cshtml hazırla
+
+@model List<SepetUrunu>
+
+<div class="container my-4">
+    <h2>Alışveriş Sepeti</h2>
+
+    @if (Model.Count == 0)
+    {
+        <div class="alert alert-danger">Sepetiniz Boş</div>
+    }
+    else
+    {
+        <table class="table table-bordered table-striped align-middle text-center">
+            <thead>
+                <tr>
+                    <th>Ürün</th>
+                    <th>Fiyat</th>
+                    <th style="width:100px">Adet</th>
+                    <th>Toplam</th>
+                    <th style="width:100px"></th>
+                </tr>
+            </thead>
+
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        <div class="d-md-flex align-items-center">
+                            <img src="@item.ResimAdi.Goster()" alt="" style="height:100px">
+                            <a asp-controller="Urun" asp-action="Detay" asp-route-id="1" class="ms-2">@item.UrunAdi</a>
+                        </div>
+                    </td>
+                    <td class="col-2 align-items-center">@item.Fiyat.ParaBirimi() TL</td>
+                    <td>
+                        <div class="input-group input-group-sm mx-auto">
+                            <a class="btn btn-outline-secondary" type="button" asp-action="Azalt" asp-route-id="@item.Id">-</a>
+                            <input type="text" class="form-control text-center" value="@item.Adet">
+                            <a class="btn btn-outline-secondary" type="button" asp-action="Arttir" asp-route-id="@item.Id">+</a>
+                        </div>
+                    </td>
+                    <td>@item.Toplam.ParaBirimi() TL</td>
+                    <td>
+                        <a class=" btn btn-danger btn-sm" asp-controller="Sepet" asp-action="SepettenSil"
+                            asp-route-id="@item.Id">Sil</a>
+                    </td>
+                </tr>
+            }
+        </table>
+
+        <h4 class="mb-3 text-end">Ödenecek Tutar: @Model.Sum(x => x.Toplam).ParaBirimi() TL</h4>
+        <div class="text-end">
+            <a class="btn btn-danger" asp-controller="Sepet" asp-action="SepetiBosalt">Sepeti Boşalt</a>
+            <a class="btn btn-success" asp-controller="Home" asp-action="Index">Siparişi Onayla</a>
+        </div>
+    }
+</div>
+
+
+
+
+Views - Shared - _Layout.cshtml ekle
+
+@using Newtonsoft.Json;
+
+
+
+List<SepetUrunu> sepet;
+string strSepet = Context.Session.GetString("Sepet");
+if (strSepet != null)
+{
+    sepet = JsonConvert.DeserializeObject<List<SepetUrunu>>(strSepet);
+}
+else
+{
+    sepet = new List<SepetUrunu>();
+}
+
+<li class="nav-item">
+    @if (sepet.Count > 0)
+    {
+        <a class="btn btn-success" asp-controller="Sepet" asp-action="Index">
+            <i class="bi bi-cart3"></i> Sepet
+            <span class="badge bg-light text-dark">@sepet.Count ürün</span>
+        </a>
+    }
+    else
+    {
+        <a class="btn btn-secondary" asp-controller="Sepet" asp-action="Index">
+            <i class="bi bi-cart3"></i> Sepet Boş
+        </a>
+    }
+</li>

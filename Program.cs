@@ -17,6 +17,13 @@ builder.Services.ConfigureApplicationCookie(options =>
     options.AccessDeniedPath = "/Kullanici/Yetki";
 });
 
+builder.Services.AddSession(options =>
+{
+    options.IdleTimeout = TimeSpan.FromMinutes(20);
+    options.Cookie.HttpOnly = true;
+    options.Cookie.IsEssential = true;
+});
+
 var app = builder.Build();
 app.UseStaticFiles();
 app.MapControllerRoute(
@@ -26,5 +33,6 @@ app.MapControllerRoute(
 
 app.UseAuthentication();
 app.UseAuthorization();
+app.UseSession();
 
 app.Run();

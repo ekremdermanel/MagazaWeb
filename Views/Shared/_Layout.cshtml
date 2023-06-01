@@ -1,3 +1,5 @@
+@using Newtonsoft.Json;
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -32,6 +34,32 @@
 
                     @if (User.Identity.IsAuthenticated)
                     {
+                        List<SepetUrunu> sepet;
+                        string strSepet = Context.Session.GetString("Sepet");
+                        if (strSepet != null)
+                        {
+                            sepet = JsonConvert.DeserializeObject<List<SepetUrunu>>(strSepet);
+                        }
+                        else
+                        {
+                            sepet = new List<SepetUrunu>();
+                        }
+
+                        <li class="nav-item">
+                            @if (sepet.Count > 0)
+                            {
+                                <a class="btn btn-success" asp-controller="Sepet" asp-action="Index">
+                                    <i class="bi bi-cart3"></i> Sepet
+                                    <span class="badge bg-light text-dark">@sepet.Count ürün</span>
+                                </a>
+                            }
+                            else
+                            {
+                                <a class="btn btn-secondary" asp-controller="Sepet" asp-action="Index">
+                                    <i class="bi bi-cart3"></i> Sepet Boş
+                                </a>
+                            }
+                        </li>
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
                                 data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">

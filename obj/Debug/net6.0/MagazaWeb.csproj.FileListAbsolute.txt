@@ -140,3 +140,4 @@ C:\Users\Administrator\Desktop\MagazaWeb\bin\Debug\net6.0\SixLabors.ImageSharp.d
 C:\Users\Ekrem\Desktop\MagazaWeb\bin\Debug\net6.0\SixLabors.ImageSharp.dll
 C:\Users\Administrator\Desktop\MagazaWeb\bin\Debug\net6.0\Microsoft.AspNetCore.Identity.EntityFrameworkCore.dll
 C:\Users\Ekrem\Desktop\MagazaWeb\bin\Debug\net6.0\Microsoft.AspNetCore.Identity.EntityFrameworkCore.dll
+C:\Users\Ekrem\Desktop\MagazaWeb\bin\Debug\net6.0\Newtonsoft.Json.dll
