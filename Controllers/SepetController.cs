@@ -51,7 +51,7 @@ namespace MagazaWeb.Controllers
         {
             List<SepetUrunu> sepet = GetSepet();
 
-            SepetUrunu sepetUrunu = sepet.FirstOrDefault(x => x.Id == id);
+            SepetUrunu sepetUrunu = sepet.FirstOrDefault(x => x.UrunId == id);
             if (sepetUrunu != null)
             {
                 sepetUrunu.Adet++;
@@ -61,7 +61,7 @@ namespace MagazaWeb.Controllers
                 Urun urun = context.Urunler.FirstOrDefault(x => x.Id == id);
                 sepetUrunu = new SepetUrunu
                 {
-                    Id = urun.Id,
+                    UrunId = urun.Id,
                     UrunAdi = urun.UrunAdi,
                     ResimAdi = urun.ResimAdi,
                     Fiyat = urun.Fiyat,
@@ -78,7 +78,7 @@ namespace MagazaWeb.Controllers
         public IActionResult SepettenSil(int id)
         {
             List<SepetUrunu> sepet = GetSepet();
-            SepetUrunu sepetUrunu = sepet.FirstOrDefault(x => x.Id == id);
+            SepetUrunu sepetUrunu = sepet.FirstOrDefault(x => x.UrunId == id);
             if (sepetUrunu == null)
             {
                 return RedirectToAction("Index");
@@ -97,7 +97,7 @@ namespace MagazaWeb.Controllers
         public IActionResult Arttir(int id)
         {
             List<SepetUrunu> sepet = GetSepet();
-            SepetUrunu sepetUrunu = sepet.FirstOrDefault(x => x.Id == id);
+            SepetUrunu sepetUrunu = sepet.FirstOrDefault(x => x.UrunId == id);
             if (sepetUrunu == null)
             {
                 return RedirectToAction("Index");
@@ -110,7 +110,7 @@ namespace MagazaWeb.Controllers
         public IActionResult Azalt(int id)
         {
             List<SepetUrunu> sepet = GetSepet();
-            SepetUrunu sepetUrunu = sepet.FirstOrDefault(x => x.Id == id);
+            SepetUrunu sepetUrunu = sepet.FirstOrDefault(x => x.UrunId == id);
             if (sepetUrunu == null)
             {
                 return RedirectToAction("Index");

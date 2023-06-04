@@ -7,7 +7,7 @@ namespace MagazaWeb.Models
 {
     public class SepetUrunu
     {
-        public int Id { get; set; }
+        public int UrunId { get; set; }
         public string UrunAdi { get; set; }
         public string? ResimAdi { get; set; }
         public decimal? Fiyat { get; set; }

@@ -18,7 +18,7 @@ Models - SepetUrunu.cs hazırla
 
 public class SepetUrunu
 {
-    public int Id { get; set; }
+    public int UrunId { get; set; }
     public string UrunAdi { get; set; }
     public string? ResimAdi { get; set; }
     public decimal? Fiyat { get; set; }
@@ -76,7 +76,7 @@ public IActionResult SepeteEkle(int id)
 {
     List<SepetUrunu> sepet = GetSepet();
 
-    SepetUrunu sepetUrunu = sepet.FirstOrDefault(x => x.Id == id);
+    SepetUrunu sepetUrunu = sepet.FirstOrDefault(x => x.UrunId == id);
     if (sepetUrunu != null)
     {
         sepetUrunu.Adet++;
@@ -86,7 +86,7 @@ public IActionResult SepeteEkle(int id)
         Urun urun = context.Urunler.FirstOrDefault(x => x.Id == id);
         sepetUrunu = new SepetUrunu
         {
-            Id = urun.Id,
+            UrunId = urun.Id,
             UrunAdi = urun.UrunAdi,
             ResimAdi = urun.ResimAdi,
             Fiyat = urun.Fiyat,
@@ -103,7 +103,7 @@ public IActionResult SepeteEkle(int id)
 public IActionResult SepettenSil(int id)
 {
     List<SepetUrunu> sepet = GetSepet();
-    SepetUrunu sepetUrunu = sepet.FirstOrDefault(x => x.Id == id);
+    SepetUrunu sepetUrunu = sepet.FirstOrDefault(x => x.UrunId == id);
     if (sepetUrunu == null)
     {
         return RedirectToAction("Index");
@@ -122,7 +122,7 @@ public IActionResult SepetiBosalt()
 public IActionResult Arttir(int id)
 {
     List<SepetUrunu> sepet = GetSepet();
-    SepetUrunu sepetUrunu = sepet.FirstOrDefault(x => x.Id == id);
+    SepetUrunu sepetUrunu = sepet.FirstOrDefault(x => x.UrunId == id);
     if (sepetUrunu == null)
     {
         return RedirectToAction("Index");
@@ -135,7 +135,7 @@ public IActionResult Arttir(int id)
 public IActionResult Azalt(int id)
 {
     List<SepetUrunu> sepet = GetSepet();
-    SepetUrunu sepetUrunu = sepet.FirstOrDefault(x => x.Id == id);
+    SepetUrunu sepetUrunu = sepet.FirstOrDefault(x => x.UrunId == id);
     if (sepetUrunu == null)
     {
         return RedirectToAction("Index");
@@ -182,21 +182,21 @@ Views - Sepet - Index.cshtml hazırla
                     <td>
                         <div class="d-md-flex align-items-center">
                             <img src="@item.ResimAdi.Goster()" alt="" style="height:100px">
-                            <a asp-controller="Urun" asp-action="Detay" asp-route-id="1" class="ms-2">@item.UrunAdi</a>
+                            <a asp-controller="Urun" asp-action="Detay" asp-route-id="@item.UrunId" class="ms-2">@item.UrunAdi</a>
                         </div>
                     </td>
                     <td class="col-2 align-items-center">@item.Fiyat.ParaBirimi() TL</td>
                     <td>
                         <div class="input-group input-group-sm mx-auto">
-                            <a class="btn btn-outline-secondary" type="button" asp-action="Azalt" asp-route-id="@item.Id">-</a>
+                            <a class="btn btn-outline-secondary" type="button" asp-action="Azalt" asp-route-id="@item.UrunId">-</a>
                             <input type="text" class="form-control text-center" value="@item.Adet">
-                            <a class="btn btn-outline-secondary" type="button" asp-action="Arttir" asp-route-id="@item.Id">+</a>
+                            <a class="btn btn-outline-secondary" type="button" asp-action="Arttir" asp-route-id="@item.UrunId">+</a>
                         </div>
                     </td>
                     <td>@item.Toplam.ParaBirimi() TL</td>
                     <td>
                         <a class=" btn btn-danger btn-sm" asp-controller="Sepet" asp-action="SepettenSil"
-                            asp-route-id="@item.Id">Sil</a>
+                            asp-route-id="@item.UrunId">Sil</a>
                     </td>
                 </tr>
             }
