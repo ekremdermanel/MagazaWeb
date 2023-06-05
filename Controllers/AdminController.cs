@@ -347,5 +347,13 @@ namespace MagazaWeb.Controllers
             context.SaveChanges();
             return RedirectToAction("SiparisDetay", new { id = viewModel.Siparis.Id });
         }
+
+        public IActionResult SiparisIptal(int id)
+        {
+            Siparis kayit = context.Siparisler.FirstOrDefault(x => x.Id == id);
+            context.Siparisler.Remove(kayit);
+            context.SaveChanges();
+            return RedirectToAction("Siparis");
+        }
     }
 }

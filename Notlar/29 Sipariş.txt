@@ -293,7 +293,8 @@ Views - Siparis - Index.cshtml
                         }
                     </table>
                     <h6>Teslimat Adresi</h6>
-                    <div class="card-text">@item.AdSoyad (@item.Telefon)</div>
+                    <div class="card-text">@item.AdSoyad</div>
+                    <div class="card-text">@item.Telefon</div>
                     <div class="card-text">@item.Adres @item.Ilce @item.Il</div>
                     <hr>
                     <div class="card-text muted">@item.SiparisUrunleri.Count ürünlük sipariş <strong>@item.Durum</strong>
@@ -365,6 +366,7 @@ Sayfada en alta sipariş durumunun değiştirileceği form yerleştir
     <div class="form-group mb-2 col">
         <input type="hidden" asp-for="Siparis.Id" value="@Model.Siparis.Id">
         <button type="submit" class="btn btn-primary">Tamam</button>
+        <a asp-action="SiparisIptal" asp-route-id="@Model.Siparis.Id" class="btn btn-danger">Siparişi İptal Et</a>
     </div>
 </form>
 
@@ -379,6 +381,17 @@ public IActionResult SiparisDurum(SiparisDetayViewModel viewModel)
     context.Siparisler.Update(kayit);
     context.SaveChanges();
     return RedirectToAction("SiparisDetay", new { id = viewModel.Siparis.Id });
+}
+
+
+AdminController SiparisIptal action oluştur
+
+public IActionResult SiparisIptal(int id)
+{
+    Siparis kayit = context.Siparisler.FirstOrDefault(x => x.Id == id);
+    context.Siparisler.Remove(kayit);
+    context.SaveChanges();
+    return RedirectToAction("Siparis");
 }
 
 

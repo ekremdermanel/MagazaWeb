@@ -27,7 +27,6 @@ namespace MagazaWeb.Functions
                 {
                     return rate;
                 }
-
             }
             throw new Exception("Dolar kuru alımında hata");
         }
