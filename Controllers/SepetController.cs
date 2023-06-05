@@ -5,9 +5,11 @@ using System.Security.Claims;
 using System.Threading.Tasks;
 using MagazaWeb.Functions;
 using MagazaWeb.Models;
+using MagazaWeb.ViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Newtonsoft.Json;
 
 namespace MagazaWeb.Controllers
@@ -152,11 +154,17 @@ namespace MagazaWeb.Controllers
                 OdemeTutari = siparisUrunleri.Sum(x => x.Toplam)
             };
 
-            return View(model);
+            SiparisOnayViewModel viewModel = new SiparisOnayViewModel()
+            {
+                Siparis = model,
+                Iller = new SelectList(context.Iller, "IlAdi", "IlAdi").ToList()
+            };
+
+            return View(viewModel);
         }
 
         [HttpPost]
-        public IActionResult SiparisOnay(Siparis model)
+        public IActionResult SiparisOnay(SiparisOnayViewModel viewModel)
         {
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
             var user = userManager.FindByIdAsync(userId).Result;
@@ -175,11 +183,11 @@ namespace MagazaWeb.Controllers
             {
                 SiparisUrunleri = siparisUrunleri,
                 KullaniciId = User.FindFirstValue(ClaimTypes.NameIdentifier),
-                AdSoyad = model.AdSoyad,
-                Telefon = model.Telefon,
-                Adres = model.Adres,
-                Il = model.Il,
-                Ilce = model.Ilce,
+                AdSoyad = viewModel.Siparis.AdSoyad,
+                Telefon = viewModel.Siparis.Telefon,
+                Adres = viewModel.Siparis.Adres,
+                Il = viewModel.Siparis.Il,
+                Ilce = viewModel.Siparis.Ilce,
                 OdemeTutari = siparisUrunleri.Sum(x => x.Toplam),
                 Tarih = DateTime.Now,
                 Durum = Siparis.SiparisDurumu.Beklemede
@@ -193,5 +201,13 @@ namespace MagazaWeb.Controllers
             HttpContext.Session.Remove("Sepet");
             return RedirectToAction("Index", "Siparis");
         }
+
+        [HttpPost]
+        public JsonResult IlceleriGetir(string ilAdi)
+        {
+            List<Ilce> ilceler = context.Ilceler.Where(x => x.Il.IlAdi == ilAdi).ToList();
+            return Json(ilceler);
+        }
+
     }
 }

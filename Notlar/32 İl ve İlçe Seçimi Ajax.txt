@@ -1,0 +1,183 @@
+Models - Il ve Ilce sınıflarını oluştur
+
+public class Il
+{
+    public int Id { get; set; }
+    public string IlAdi { get; set; }
+    public List<Ilce> Ilceler { get; set; }
+}
+
+public class Ilce
+{
+    public int Id { get; set; }
+    public string IlceAdi { get; set; }
+    public int IlId { get; set; }
+    public Il Il { get; set; }
+}
+
+
+MagazaContext te DbSet oluştur
+
+public DbSet<Il> Iller { get; set; }
+public DbSet<Ilce> Ilceler { get; set; }
+
+Dosyalardaki sql sorgularıyla il ve ilçe kayıtarını ekle
+
+
+
+ViewModels - SiparisOnayViewModel oluştur
+
+public class SiparisOnayViewModel
+{
+    public Siparis Siparis { get; set; }
+    public List<SelectListItem> Iller { get; set; } = new List<SelectListItem>();
+    public List<SelectListItem> Ilceler { get; set; } = new List<SelectListItem>();
+}
+
+
+
+
+SepetController SiparisOnay action larını düzenle
+
+public IActionResult SiparisOnay()
+{
+    var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+    var user = userManager.FindByIdAsync(userId).Result;
+
+    List<SiparisUrunu> siparisUrunleri = new List<SiparisUrunu>();
+    siparisUrunleri.AddRange(GetSepet().ConvertAll(x => new SiparisUrunu()
+    {
+        UrunId = x.UrunId,
+        UrunAdi = x.UrunAdi,
+        Fiyat = x.Fiyat,
+        Adet = x.Adet,
+        Toplam = x.Toplam
+    }));
+
+    Siparis model = new Siparis()
+    {
+        SiparisUrunleri = siparisUrunleri,
+        KullaniciId = User.FindFirstValue(ClaimTypes.NameIdentifier),
+        AdSoyad = user.AdSoyad,
+        OdemeTutari = siparisUrunleri.Sum(x => x.Toplam)
+    };
+
+    SiparisOnayViewModel viewModel = new SiparisOnayViewModel()
+    {
+        Siparis = model,
+        Iller = new SelectList(context.Iller, "IlAdi", "IlAdi").ToList()
+    };
+
+    return View(viewModel);
+}
+
+[HttpPost]
+public IActionResult SiparisOnay(SiparisOnayViewModel viewModel)
+{
+    var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+    var user = userManager.FindByIdAsync(userId).Result;
+
+    List<SiparisUrunu> siparisUrunleri = new List<SiparisUrunu>();
+    siparisUrunleri.AddRange(GetSepet().ConvertAll(x => new SiparisUrunu()
+    {
+        UrunId = x.UrunId,
+        UrunAdi = x.UrunAdi,
+        Fiyat = x.Fiyat,
+        Adet = x.Adet,
+        Toplam = x.Toplam
+    }));
+
+    Siparis kayit = new Siparis()
+    {
+        SiparisUrunleri = siparisUrunleri,
+        KullaniciId = User.FindFirstValue(ClaimTypes.NameIdentifier),
+        AdSoyad = viewModel.Siparis.AdSoyad,
+        Telefon = viewModel.Siparis.Telefon,
+        Adres = viewModel.Siparis.Adres,
+        Il = viewModel.Siparis.Il,
+        Ilce = viewModel.Siparis.Ilce,
+        OdemeTutari = siparisUrunleri.Sum(x => x.Toplam),
+        Tarih = DateTime.Now,
+        Durum = Siparis.SiparisDurumu.Beklemede
+    };
+
+    context.Siparisler.Add(kayit);
+    context.SaveChanges();
+
+    Eposta.SiparisEpostasiGonder(user.Email, kayit);
+
+    HttpContext.Session.Remove("Sepet");
+    return RedirectToAction("Index", "Siparis");
+}
+
+
+
+Views - Sepet - SiparisOnay.cshtml model düzenle
+
+@model SiparisOnayViewModel
+
+@Model.AdSoyad -> @Model.Siparis.AdSoyad ... vb
+
+
+
+Açılır menüleri düzenle
+
+<div class="row">
+    <div class="col-md-6 mb-3">
+        <label asp-for="Siparis.Il">İl</label>
+        <select class="form-select" id="iller" asp-for="Siparis.Il" asp-items="@Model.Iller"
+            asp-action="ActionName" required>
+            <option value="">Seçiniz...</option>
+        </select>
+        <div class="text-danger"></div>
+    </div>
+    <div class="col-md-6 mb-3">
+        <label asp-for="Siparis.Ilce">İlçe</label>
+        <select class="form-select" id="ilceler" asp-for="Siparis.Ilce" asp-items="@Model.Ilceler"
+            required>
+            <option value="">Seçiniz...</option>
+        </select>
+        <div class="text-danger"></div>
+    </div>
+</div>
+
+
+
+
+JavaScript ekle
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#iller').change(function () {
+            var ilAdi = $(this).val();
+            if (ilAdi != null && ilAdi != '') {
+                $.ajax({
+                    type: "post",
+                    url: '@Url.Action("IlceleriGetir", "Sepet")',
+                    data: { ilAdi: ilAdi },
+                    dataType: "JSON",
+                    success: function (result) {
+                        var ilceler = $("#ilceler");
+                        ilceler.empty();
+                        ilceler.append($("<option></option>").attr("value", "").html("Seçiniz..."));
+                        $.each(result, function (index, item) {
+                            ilceler.append($("<option></option>").attr("value", item.ilceAdi).html(item.ilceAdi));
+                        });
+                    }
+                });
+            }
+        });
+    });
+</script>
+
+
+
+
+SepetController - IlceleriGetir action oluştur
+
+[HttpPost]
+public JsonResult IlceleriGetir(string ilAdi)
+{
+    List<Ilce> ilceler = context.Ilceler.Where(x => x.Il.IlAdi == ilAdi).ToList();
+    return Json(ilceler);
+}

@@ -1,4 +1,4 @@
-@model Siparis
+@model SiparisOnayViewModel
 
 <div class="container my-4">
     <h2>Siparişi Onayla</h2>
@@ -10,7 +10,7 @@
                 <span class="badge badge-secondary badge-pill">3</span>
             </h4>
             <ul class="list-group mb-3">
-                @foreach (var item in Model.SiparisUrunleri)
+                @foreach (var item in Model.Siparis.SiparisUrunleri)
                 {
                     <li class="list-group-item d-flex justify-content-between lh-condensed">
                         <div>
@@ -29,11 +29,11 @@
                 </li>
                 <li class="list-group-item d-flex justify-content-between">
                     <strong>Ödenecek Tutar</strong>
-                    <strong>@Model.OdemeTutari.ParaBirimi() TL</strong>
+                    <strong>@Model.Siparis.OdemeTutari.ParaBirimi() TL</strong>
                 </li>
                 @{
                     var dolarKuru = Doviz.GetDolarKuru() * 1;
-                    var odenecekTutarDolar = Model.OdemeTutari / dolarKuru;
+                    var odenecekTutarDolar = Model.Siparis.OdemeTutari / dolarKuru;
                 }
                 <li class="list-group-item d-flex justify-content-between">
                     <strong>TCMB Dolar Kuru: </strong>
@@ -58,38 +58,38 @@
             <form method="post">
                 <div class="row">
                     <div class="col-md-6 mb-3">
-                        <label asp-for="AdSoyad">Ad Soyad</label>
-                        <input type="text" class="form-control" asp-for="AdSoyad" required>
+                        <label asp-for="Siparis.AdSoyad">Ad Soyad</label>
+                        <input type="text" class="form-control" asp-for="Siparis.AdSoyad" required>
                         <div class="text-danger"></div>
                     </div>
 
                     <div class="col-md-6 mb-3">
-                        <label asp-for="Telefon">Telefon</label>
-                        <input type="text" class="form-control inputmask" asp-for="Telefon"
+                        <label asp-for="Siparis.Telefon">Telefon</label>
+                        <input type="text" class="form-control inputmask" asp-for="Siparis.Telefon"
                             data-inputmask="'mask':'(999) 999 99 99'" required>
                         <div class="text-danger"></div>
                     </div>
                 </div>
                 <div class="mb-3">
-                    <label asp-for="Adres">Adres</label>
-                    <input type="text" class="form-control" asp-for="Adres" required>
+                    <label asp-for="Siparis.Adres">Adres</label>
+                    <input type="text" class="form-control" asp-for="Siparis.Adres" required>
                     <div class="text-danger"></div>
                 </div>
 
                 <div class="row">
                     <div class="col-md-6 mb-3">
-                        <label asp-for="Il">İl</label>
-                        <select class="form-select" asp-for="Il" required>
+                        <label asp-for="Siparis.Il">İl</label>
+                        <select class="form-select" id="iller" asp-for="Siparis.Il" asp-items="@Model.Iller"
+                            asp-action="ActionName" required>
                             <option value="">Seçiniz...</option>
-                            <option>İstanbul</option>
                         </select>
                         <div class="text-danger"></div>
                     </div>
                     <div class="col-md-6 mb-3">
-                        <label asp-for="Ilce">İlçe</label>
-                        <select class="form-select" asp-for="Ilce" required>
+                        <label asp-for="Siparis.Ilce">İlçe</label>
+                        <select class="form-select" id="ilceler" asp-for="Siparis.Ilce" asp-items="@Model.Ilceler"
+                            required>
                             <option value="">Seçiniz...</option>
-                            <option>Kadıköy</option>
                         </select>
                         <div class="text-danger"></div>
                     </div>
@@ -141,5 +141,29 @@
         $(document).ready(function () {
             $(".inputmask").inputmask();
         });     
+    </script>
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('#iller').change(function () {
+                var ilAdi = $(this).val();
+                if (ilAdi != null && ilAdi != '') {
+                    $.ajax({
+                        type: "post",
+                        url: '@Url.Action("IlceleriGetir", "Sepet")',
+                        data: { ilAdi: ilAdi },
+                        dataType: "JSON",
+                        success: function (result) {
+                            var ilceler = $("#ilceler");
+                            ilceler.empty();
+                            ilceler.append($("<option></option>").attr("value", "").html("Seçiniz..."));
+                            $.each(result, function (index, item) {
+                                ilceler.append($("<option></option>").attr("value", item.ilceAdi).html(item.ilceAdi));
+                            });
+                        }
+                    });
+                }
+            });
+        });
     </script>
 }
