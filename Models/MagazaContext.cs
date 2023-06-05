@@ -12,6 +12,7 @@ namespace MagazaWeb.Models
         public DbSet<Urun> Urunler { get; set; }
         public DbSet<Kategori> Kategoriler { get; set; }
         public DbSet<Degerlendirme> Degerlendirmeler { get; set; }
+        public DbSet<Siparis> Siparisler { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {

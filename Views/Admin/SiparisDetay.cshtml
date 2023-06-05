@@ -1,0 +1,51 @@
+@model SiparisDetayViewModel
+
+<div class="container mt-4">
+    <div class="mb-3">
+        <h2>Sipariş Detay</h2>
+
+        <div class="card">
+            <div class="card-body">
+                <h6 class="card-title">@Model.Siparis.Kullanici.UserName</h6>
+                <h6 class="card-title">@Model.Siparis.Kullanici.AdSoyad</h6>
+                <h6 class="card-title">@Model.Siparis.Tarih.KisaTarihSaat()</h6>
+                <h6 class="card-title">Ödeme Tutarı: @Model.Siparis.OdemeTutari.ParaBirimi() TL</h6>
+                <hr>
+                <h6>Sipariş Detayları</h6>
+                <div class="card-text small">
+                    <table class="table table-sm">
+                        @foreach (var item in Model.Siparis.SiparisUrunleri)
+                        {
+                            <tr>
+                                <td>@item.UrunAdi</td>
+                                <td class="w-25">@item.Fiyat.ParaBirimi() TL x @item.Adet adet</td>
+                                <td class="w-25">@item.Toplam.ParaBirimi() TL</td>
+                            </tr>
+                        }
+                    </table>
+                    <h6>Teslimat Adresi</h6>
+                    <div class="card-text">@Model.Siparis.AdSoyad (@Model.Siparis.Telefon)</div>
+                    <div class="card-text">@Model.Siparis.Adres @Model.Siparis.Ilce @Model.Siparis.Il</div>
+                    <hr>
+                    <div class="card-text muted">@Model.Siparis.SiparisUrunleri.Count ürünlük sipariş
+                        <strong>@Model.Siparis.Durum</strong>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <h2 class="mt-2">Sipariş Durumunu Değiştir</h2>
+        <form method="post" asp-action="SiparisDurum" class="row">
+            <div class="form-group mb-2 col-auto">
+                <select asp-for="Siparis.Durum" asp-items="@Model.SiparisDurumlari" value="@Model.Siparis.Durum"
+                    class="form-select">
+                </select>
+            </div>
+            <div class="form-group mb-2 col">
+                <input type="hidden" asp-for="Siparis.Id" value="@Model.Siparis.Id">
+                <button type="submit" class="btn btn-primary">Tamam</button>
+            </div>
+        </form>
+
+    </div>
+</div>

@@ -320,5 +320,32 @@ namespace MagazaWeb.Controllers
             return RedirectToAction("Degerlendirme", new { id = urunId });
         }
 
+        public IActionResult Siparis()
+        {
+            return View(context.Siparisler.Include(x => x.Kullanici).OrderByDescending(x => x.Tarih).ToList());
+        }
+
+        public IActionResult SiparisDetay(int id)
+        {
+            SiparisDetayViewModel viewModel = new SiparisDetayViewModel();
+            Siparis kayit = context.Siparisler.Include(x => x.Kullanici).Include(x => x.SiparisUrunleri).FirstOrDefault(x => x.Id == id);
+            viewModel.Siparis = kayit;
+            viewModel.SiparisDurumlari = Enum.GetValues(typeof(Siparis.SiparisDurumu)).Cast<Siparis.SiparisDurumu>().Select(v => new SelectListItem
+            {
+                Text = v.ToString(),
+                Value = ((int)v).ToString()
+            }).ToList();
+            return View(viewModel);
+        }
+
+        [HttpPost]
+        public IActionResult SiparisDurum(SiparisDetayViewModel viewModel)
+        {
+            Siparis kayit = context.Siparisler.FirstOrDefault(x => x.Id == viewModel.Siparis.Id);
+            kayit.Durum = viewModel.Siparis.Durum;
+            context.Siparisler.Update(kayit);
+            context.SaveChanges();
+            return RedirectToAction("SiparisDetay", new { id = viewModel.Siparis.Id });
+        }
     }
 }

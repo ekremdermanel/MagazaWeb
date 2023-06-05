@@ -52,7 +52,7 @@
         <h4 class="mb-3 text-end">Ödenecek Tutar: @Model.Sum(x => x.Toplam).ParaBirimi() TL</h4>
         <div class="text-end">
             <a class="btn btn-danger" asp-controller="Sepet" asp-action="SepetiBosalt">Sepeti Boşalt</a>
-            <a class="btn btn-success" asp-controller="Home" asp-action="Index">Siparişi Onayla</a>
+            <a class="btn btn-success" asp-controller="Sepet" asp-action="SiparisOnay">Siparişi Onayla</a>
         </div>
     }
 </div>

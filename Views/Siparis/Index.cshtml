@@ -1,0 +1,34 @@
+@model List<Siparis>
+
+<div class="container my-4">
+    <h2>Siparişlerim</h2>
+    @foreach (var item in Model)
+    {
+        <div class="card mb-3">
+            <div class="card-body">
+                <h6 class="card-title">@item.Tarih.KisaTarihSaat()</h6>
+                <h6 class="card-title">Ödeme Tutarı: @item.OdemeTutari.ParaBirimi() TL</h6>
+                <hr>
+                <h6>Sipariş Detayları</h6>
+                <div class="card-text small">
+                    <table class="table table-sm">
+                        @foreach (var item2 in item.SiparisUrunleri)
+                        {
+                            <tr>
+                                <td>@item2.UrunAdi</td>
+                                <td class="w-25">@item2.Fiyat.ParaBirimi() TL x @item2.Adet adet</td>
+                                <td class="w-25">@item2.Toplam.ParaBirimi() TL</td>
+                            </tr>
+                        }
+                    </table>
+                    <h6>Teslimat Adresi</h6>
+                    <div class="card-text">@item.AdSoyad (@item.Telefon)</div>
+                    <div class="card-text">@item.Adres @item.Ilce @item.Il</div>
+                    <hr>
+                    <div class="card-text muted">@item.SiparisUrunleri.Count ürünlük sipariş <strong>@item.Durum</strong>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+</div>

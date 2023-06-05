@@ -18421,6 +18421,11 @@
       "FileKind": "mvc"
     },
     {
+      "FilePath": "c:\\Users\\Ekrem\\Desktop\\MagazaWeb\\Views\\Admin\\SiparisDetay.cshtml",
+      "TargetPath": "Views\\Admin\\SiparisDetay.cshtml",
+      "FileKind": "mvc"
+    },
+    {
       "FilePath": "c:\\Users\\Ekrem\\Desktop\\MagazaWeb\\Views\\Shared\\_Layout.cshtml",
       "TargetPath": "Views\\Shared\\_Layout.cshtml",
       "FileKind": "mvc"
@@ -18436,6 +18441,11 @@
       "FileKind": "mvc"
     },
     {
+      "FilePath": "c:\\Users\\Ekrem\\Desktop\\MagazaWeb\\Views\\Admin\\Siparis.cshtml",
+      "TargetPath": "Views\\Admin\\Siparis.cshtml",
+      "FileKind": "mvc"
+    },
+    {
       "FilePath": "c:\\Users\\Ekrem\\Desktop\\MagazaWeb\\Views\\Admin\\Degerlendirme.cshtml",
       "TargetPath": "Views\\Admin\\Degerlendirme.cshtml",
       "FileKind": "mvc"
@@ -18448,6 +18458,11 @@
     {
       "FilePath": "c:\\Users\\Ekrem\\Desktop\\MagazaWeb\\Views\\Kullanici\\SifreDegistir.cshtml",
       "TargetPath": "Views\\Kullanici\\SifreDegistir.cshtml",
+      "FileKind": "mvc"
+    },
+    {
+      "FilePath": "c:\\Users\\Ekrem\\Desktop\\MagazaWeb\\Views\\Sepet\\SiparisOnay.cshtml",
+      "TargetPath": "Views\\Sepet\\SiparisOnay.cshtml",
       "FileKind": "mvc"
     },
     {
@@ -18468,6 +18483,11 @@
     {
       "FilePath": "c:\\Users\\Ekrem\\Desktop\\MagazaWeb\\Views\\Kullanici\\Login.cshtml",
       "TargetPath": "Views\\Kullanici\\Login.cshtml",
+      "FileKind": "mvc"
+    },
+    {
+      "FilePath": "c:\\Users\\Ekrem\\Desktop\\MagazaWeb\\Views\\Siparis\\Index.cshtml",
+      "TargetPath": "Views\\Siparis\\Index.cshtml",
       "FileKind": "mvc"
     },
     {

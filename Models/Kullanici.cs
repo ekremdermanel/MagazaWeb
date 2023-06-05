@@ -11,5 +11,6 @@ namespace MagazaWeb.Models
         public string AdSoyad { get; set; }
 
         public List<Degerlendirme> Degerlendirmeler { get; set; }
+        public List<Siparis> Siparisler { get; set; }
     }
 }
