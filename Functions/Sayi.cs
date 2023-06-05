@@ -5,11 +5,11 @@ using System.Threading.Tasks;
 
 namespace MagazaWeb.Functions
 {
-  public static class Sayi
-  {
-    public static string ParaBirimi(this decimal? sayi)
+    public static class Sayi
     {
-      return string.Format("{0:N0}", sayi);
+        public static string ParaBirimi(this decimal? sayi)
+        {
+            return string.Format("{0:N2}", sayi);
+        }
     }
-  }
 }

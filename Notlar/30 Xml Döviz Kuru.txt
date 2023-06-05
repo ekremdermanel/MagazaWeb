@@ -1,0 +1,37 @@
+Functions - Doviz.cs ekle ve fonksiyonu yaz
+
+public static decimal? GetDolarKuru()
+{
+    string xmlUrl = "https://www.tcmb.gov.tr/kurlar/today.xml";
+    XmlDocument xmlDoc = new XmlDocument();
+    xmlDoc.Load(xmlUrl);
+
+    XmlNodeList currencyNodes = xmlDoc.SelectNodes("//Currency[@Kod='USD']");
+    if (currencyNodes.Count > 0)
+    {
+        XmlNode currencyNode = currencyNodes[0];
+        string rateString = currencyNode.SelectSingleNode("BanknoteSelling").InnerText;
+        if (decimal.TryParse(rateString, NumberStyles.Any, CultureInfo.InvariantCulture, out decimal rate))
+        {
+            return rate;
+        }
+
+    }
+    throw new Exception("Dolar kuru alımında hata");
+}
+
+
+Views - Sepet - SiparisOnay.cshtml ekle
+
+@{
+    var dolarKuru = Doviz.GetDolarKuru() * 1;
+    var odenecekTutarDolar = Model.OdemeTutari / dolarKuru;
+}
+<li class="list-group-item d-flex justify-content-between">
+    <strong>TCMB Dolar Kuru: </strong>
+    <strpng>@dolarKuru.ParaBirimi() TL</strong>
+</li>
+<li class="list-group-item d-flex justify-content-between">
+    <strong>Ödenecek Tutar ($): </strong>
+    <strpng>@odenecekTutarDolar.ParaBirimi() $</strong>
+</li>

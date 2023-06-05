@@ -31,6 +31,18 @@
                     <strong>Ödenecek Tutar</strong>
                     <strong>@Model.OdemeTutari.ParaBirimi() TL</strong>
                 </li>
+                @{
+                    var dolarKuru = Doviz.GetDolarKuru() * 1;
+                    var odenecekTutarDolar = Model.OdemeTutari / dolarKuru;
+                }
+                <li class="list-group-item d-flex justify-content-between">
+                    <strong>TCMB Dolar Kuru: </strong>
+                    <strpng>@dolarKuru.ParaBirimi() TL</strong>
+                </li>
+                <li class="list-group-item d-flex justify-content-between">
+                    <strong>Ödenecek Tutar ($): </strong>
+                    <strpng>@odenecekTutarDolar.ParaBirimi() $</strong>
+                </li>
             </ul>
 
             <form method="post" class="card p-2">
