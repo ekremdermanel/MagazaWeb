@@ -134,8 +134,12 @@
 
 </div>
 
-<script type='text/javascript' src='~/js/jquery-3.7.0.min.js'></script>
-<script type='text/javascript' src="~/js/jquery.inputmask.min.js"></script>
-<script>
-    $("input.inputmask").inputmask();
-</script>
+@section Scriptler {
+    <script src='~/js/jquery-3.7.0.min.js'></script>
+    <script src="~/js/jquery.inputmask.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $(".inputmask").inputmask();
+        });     
+    </script>
+}
