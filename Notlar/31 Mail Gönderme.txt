@@ -29,8 +29,9 @@ public static class Eposta
 
     public static void SiparisEpostasiGonder(string eposta, Siparis model)
     {
-        string icerik = "<h2>Siparişiniz Oluşturuldu</h2>";
+        string icerik = String.Format("<img src={0} style='width:100%' />", "https://as2.ftcdn.net/v2/jpg/03/35/61/77/1000_F_335617768_uibY18rhaj6tXWkEo5o7lnaQMumKYBRJ.jpg");
 
+        icerik += "<h2>Siparişiniz Oluşturuldu</h2>";
         icerik += "<br><br><h4>Sipariş Bilgileri</h4>";
         icerik += String.Format("<p>Sipariş No: {0}</p>", model.Id);
         icerik += String.Format("<p>Sipariş Tarihi: {0}</p>", model.Tarih.KisaTarihSaat());

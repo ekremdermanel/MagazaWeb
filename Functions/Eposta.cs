@@ -13,7 +13,7 @@ namespace MagazaWeb.Functions
         public static void SendEmail(string toAddress, string subject, string body)
         {
             MailMessage mail = new MailMessage();
-            mail.From = new MailAddress("gonderenepostaadresi"); // Gönderen e-posta adresi
+            mail.From = new MailAddress("gonderen@ornek.com"); // Gönderen e-posta adresi
             mail.To.Add(toAddress); // Alıcı e-posta adresi
             mail.Subject = subject; // E-posta konusu
             mail.Body = body; // E-posta içeriği
@@ -21,7 +21,7 @@ namespace MagazaWeb.Functions
 
             SmtpClient smtpClient = new SmtpClient("smtp.gmail.com"); // SMTP sunucusu ayarları
             smtpClient.Port = 587;
-            smtpClient.Credentials = new System.Net.NetworkCredential("gonderenepostaadresi", "gonderensifre"); // SMTP kimlik doğrulama bilgileri
+            smtpClient.Credentials = new System.Net.NetworkCredential("gonderen@ornek.com", "gonderensifre"); // SMTP kimlik doğrulama bilgileri
             smtpClient.EnableSsl = true; // SSL kullanacak mı?
 
             try
@@ -36,8 +36,9 @@ namespace MagazaWeb.Functions
 
         public static void SiparisEpostasiGonder(string eposta, Siparis model)
         {
-            string icerik = "<h2>Siparişiniz Oluşturuldu</h2>";
+            string icerik = String.Format("<img src={0} style='width:100%' />", "https://as2.ftcdn.net/v2/jpg/03/35/61/77/1000_F_335617768_uibY18rhaj6tXWkEo5o7lnaQMumKYBRJ.jpg");
 
+            icerik += "<h2>Siparişiniz Oluşturuldu</h2>";
             icerik += "<br><br><h4>Sipariş Bilgileri</h4>";
             icerik += String.Format("<p>Sipariş No: {0}</p>", model.Id);
             icerik += String.Format("<p>Sipariş Tarihi: {0}</p>", model.Tarih.KisaTarihSaat());
