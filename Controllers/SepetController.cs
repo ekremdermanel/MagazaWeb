@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
+using MagazaWeb.Functions;
 using MagazaWeb.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
@@ -186,6 +187,8 @@ namespace MagazaWeb.Controllers
 
             context.Siparisler.Add(kayit);
             context.SaveChanges();
+
+            Eposta.SiparisEpostasiGonder(user.Email, kayit);
 
             HttpContext.Session.Remove("Sepet");
             return RedirectToAction("Index", "Siparis");
