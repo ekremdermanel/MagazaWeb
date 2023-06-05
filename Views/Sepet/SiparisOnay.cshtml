@@ -47,7 +47,8 @@
 
             <form method="post" class="card p-2">
                 <div class="input-group">
-                    <input type="text" class="form-control" id="PromosyonKodu" placeholder="Promosyon Kodu">
+                    <input type="text" class="form-control inputmask" id="PromosyonKodu"
+                        data-inputmask="'mask':'AAAAA99'" placeholder="Promosyon Kodu">
                     <button type="submit" class="btn btn-secondary">Uygula</button>
                 </div>
             </form>
@@ -64,7 +65,8 @@
 
                     <div class="col-md-6 mb-3">
                         <label asp-for="Telefon">Telefon</label>
-                        <input type="text" class="form-control" asp-for="Telefon" required>
+                        <input type="text" class="form-control inputmask" asp-for="Telefon"
+                            data-inputmask="'mask':'(999) 999 99 99'" required>
                         <div class="text-danger"></div>
                     </div>
                 </div>
@@ -105,19 +107,22 @@
                     </div>
                     <div class="col-md-6 mb-3">
                         <label for="KartNumara">Kredi kartı numarası</label>
-                        <input type="text" class="form-control" id="KartNumara" required>
+                        <input type="text" class="form-control inputmask" id="KartNumara"
+                            data-inputmask="'mask':'9999 9999 9999 9999'" required>
                         <div class="text-danger"></div>
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-md-3 mb-3">
                         <label for="KartGecerlilik">Geçerlilik</label>
-                        <input type="text" class="form-control" id="KartGecerlilik" required>
+                        <input type="text" class="form-control inputmask" id="KartGecerlilik"
+                            data-inputmask="'alias':'datetime','inputFormat':'mm/yy'" required>
                         <div class="text-danger"></div>
                     </div>
                     <div class="col-md-3 mb-3">
                         <label for="KartCvv">CVV</label>
-                        <input type="text" class="form-control" id="KartCvv" required>
+                        <input type="text" class="form-control inputmask" id="KartCvv" data-inputmask="'mask':'999'"
+                            required>
                         <div class="text-danger"></div>
                     </div>
                 </div>
@@ -128,3 +133,9 @@
     </div>
 
 </div>
+
+<script type='text/javascript' src='~/js/jquery-3.7.0.min.js'></script>
+<script type='text/javascript' src="~/js/jquery.inputmask.min.js"></script>
+<script>
+    $("input.inputmask").inputmask();
+</script>
