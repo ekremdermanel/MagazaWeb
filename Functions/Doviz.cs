@@ -14,21 +14,26 @@ namespace MagazaWeb.Functions
     {
         public static decimal? GetDolarKuru()
         {
-            string xmlUrl = "https://www.tcmb.gov.tr/kurlar/today.xml";
-            XmlDocument xmlDoc = new XmlDocument();
-            xmlDoc.Load(xmlUrl);
-
-            XmlNodeList currencyNodes = xmlDoc.SelectNodes("//Currency[@Kod='USD']");
-            if (currencyNodes.Count > 0)
+            try
             {
-                XmlNode currencyNode = currencyNodes[0];
-                string rateString = currencyNode.SelectSingleNode("BanknoteSelling").InnerText;
-                if (decimal.TryParse(rateString, NumberStyles.Any, CultureInfo.InvariantCulture, out decimal rate))
+                string xmlUrl = "https://www.tcmb.gov.tr/kurlar/today.xml";
+                XmlDocument xmlDoc = new XmlDocument();
+                xmlDoc.Load(xmlUrl);
+
+                XmlNodeList currencyNodes = xmlDoc.SelectNodes("//Currency[@Kod='USD']");
+                if (currencyNodes.Count > 0)
                 {
-                    return rate;
+                    XmlNode currencyNode = currencyNodes[0];
+                    string rateString = currencyNode.SelectSingleNode("BanknoteSelling").InnerText;
+                    if (decimal.TryParse(rateString, NumberStyles.Any, CultureInfo.InvariantCulture, out decimal rate))
+                    {
+                        return rate;
+                    }
                 }
+                throw new Exception("Dolar kuru alımında hata");
             }
-            throw new Exception("Dolar kuru alımında hata");
+            catch
+            { return 1; }
         }
     }
 }

@@ -1,0 +1,361 @@
+**********************************
+CONTEXT
+**********************************
+
+Models - Promosyon.cs oluştur
+
+ViewModels - PromosyonViewModel.cs oluştur
+
+
+MagazaContext ekle
+
+public DbSet<Promosyon> Promosyonlar { get; set; }
+
+
+**********************************
+ADMIN
+**********************************
+
+AdminController ekle
+
+Promosyon, PromosyonEkle, PromosyonGuncelle, PromosyonSil
+
+Admin View lar ekle
+Promosyon, PromosyonEkle, PromosyonGuncelle
+
+
+PromosyonGuncelle de tarih formatını ayarla
+Functions - Tarih - KisaTarih2 hazırla
+
+
+_AdminLayout link ekle
+<a class="nav-link" asp-action="Promosyon">
+    <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
+    Promosyonlar
+</a>
+
+
+
+**********************************
+SİPARİŞ ONAY
+**********************************
+
+ViewModels - PromosyonKoduKullanViewModel oluştur
+Promosyon Kodu girildiğinde gösterilecek ve güncellenecek alanlar yazılacak
+
+public class PromosyonKoduKullanViewModel
+{
+    public bool KodGecerli { get; set; }
+    public string PromosyonKodu { get; set; }
+    public string Aciklama { get; set; }
+    public string UygulananIndirim { get; set; }
+    public string OdenecekTutarIndirimsiz { get; set; }
+    public string OdenecekTutar { get; set; }
+    public string OdenecekTutarDolar { get; set; }
+    public string DolarKuru { get; set; }
+}
+
+
+
+SepetController - PromosyonKoduKullan action ekle
+
+[HttpPost]
+public JsonResult PromosyonKoduKullan(string kod)
+{
+    List<SepetUrunu> sepet = GetSepet();
+    decimal? odemeTutari = sepet.Sum(x => x.Toplam);
+    decimal dolarKuru = Doviz.GetDolarKuru().Value;
+
+     PromosyonKoduKullanViewModel viewModel = new PromosyonKoduKullanViewModel()
+    {
+        KodGecerli = false,
+        PromosyonKodu = kod,
+        UygulananIndirim = "0",
+        OdenecekTutar = odemeTutari.ParaBirimi(),
+        OdenecekTutarIndirimsiz = odemeTutari.ParaBirimi(),
+        DolarKuru = ((decimal?)dolarKuru).ParaBirimi(),
+        OdenecekTutarDolar = (odemeTutari / dolarKuru).ParaBirimi()
+    };
+
+    Promosyon kayit = context.Promosyonlar.FirstOrDefault(x => x.PromosyonKodu == kod);
+    if (kayit == null)
+    {
+        viewModel.Aciklama = "Hatalı Kod";
+    }
+    else if (kayit.GecerlilikTarihi < DateTime.Today)
+    {
+        viewModel.Aciklama = "Süresi Dolmuş Kod";
+    }
+    else
+    {
+        decimal? indirim = odemeTutari * kayit.IndirimOrani / 100;
+        if (indirim > kayit.MaksimumIndirim)
+        {
+            indirim = kayit.MaksimumIndirim;
+        }
+
+        viewModel.KodGecerli = true;
+        viewModel.UygulananIndirim = indirim.ParaBirimi();
+        viewModel.OdenecekTutar = (odemeTutari - indirim).ParaBirimi();
+        viewModel.OdenecekTutarIndirimsiz = odemeTutari.ParaBirimi();
+        viewModel.OdenecekTutarDolar = (((odemeTutari - indirim)) / dolarKuru).ParaBirimi();
+        viewModel.Aciklama = kayit.Aciklama;
+    }
+    return Json(viewModel);
+}
+
+
+
+SepetController - PromosyonIptal action ekle
+
+public JsonResult PromosyonIptal()
+{
+    List<SepetUrunu> sepet = GetSepet();
+    decimal? odemeTutari = sepet.Sum(x => x.Toplam);
+    decimal? dolarKuru = Doviz.GetDolarKuru();
+    PromosyonKoduKullanViewModel viewModel = new PromosyonKoduKullanViewModel()
+    {
+        UygulananIndirim = "0",
+        OdenecekTutar = odemeTutari.ParaBirimi(),
+        OdenecekTutarIndirimsiz = odemeTutari.ParaBirimi(),
+        DolarKuru = dolarKuru.ParaBirimi(),
+        OdenecekTutarDolar = (odemeTutari / dolarKuru).ParaBirimi(),
+    };
+    return Json(viewModel);
+}
+
+
+
+Views - Sepet - SiparisOnay düzenle
+
+Form değiştir
+
+<form method="post" id="PromosyonFormu" asp-action="PromosyonKoduKullan" class="card p-2">
+    <div class="input-group position-relative">
+        <input type="text" class="form-control inputmask" id="PromosyonKodu"
+            data-inputmask="'mask':'AAAAA99'" placeholder="Promosyon Kodu">
+        <button type="submit" class="btn btn-secondary z-1">Uygula</button>
+        <div class="position-absolute bg-light h-100 w-100 text-center border" id="spinner"
+            style="display:none;z-index:5">
+            <img src="~/image/spinner.gif" alt="" style="width:35px"> Lütfen Bekleyiniz...
+        </div>
+    </div>
+</form>
+
+
+Prosmosyon Satırını düzenle
+
+<li class="list-group-item bg-light d-none" id="PromosyonSatiri">
+    <div class="text-success">
+        <div class="d-flex justify-content-between">
+            <h6 class="my-0">Promosyon Kodu</h6>
+            <a href="#" id="PromosyonIptal" class="ms-auto text-danger"><i
+                    class="bi bi-x-square"></i></a>
+        </div>
+        <div class="small d-flex justify-content-between">
+            <div></div>
+            <div></div>
+        </div>
+        <div class="small"></div>
+    </div>
+</li>
+
+
+
+Promosyon Kodu girildiğinde güncellenecek alanları isimlendir
+
+<li class="list-group-item d-flex justify-content-between">
+    <strong>Ödenecek Tutar</strong>
+    <strong id="OdenecekTutar">@Model.Siparis.OdemeTutari.ParaBirimi() TL</strong>
+</li>
+@{
+    var dolarKuru = Doviz.GetDolarKuru() * 1;
+    var odenecekTutarDolar = Model.Siparis.OdemeTutari / dolarKuru;
+}
+<li class="list-group-item d-flex justify-content-between">
+    <strong>TCMB Dolar Kuru: </strong>
+    <span id="DolarKuru">@dolarKuru.ParaBirimi() TL</span>
+</li>
+<li class="list-group-item d-flex justify-content-between">
+    <strong>Ödenecek Tutar ($): </strong>
+    <span id="OdenecekTutarDolar">@odenecekTutarDolar.ParaBirimi() $</span>
+</li>
+
+
+
+
+
+AJAX kullanarak girilen kodu arayan kodlar
+
+
+$('#PromosyonFormu').submit(function (e) {
+    e.preventDefault();
+    var kod = $('#PromosyonKodu').val();
+    $('#PromosyonKodu').val("");
+    if (kod != null && kod != '') {
+        $.ajax({
+            type: "post",
+            url: '@Url.Action("PromosyonKoduKullan", "Sepet")',
+            data: { kod: kod },
+            dataType: "JSON",
+            beforeSend: function () {
+                $("#PromosyonFormu button").prop("disabled", true);
+                $("#spinner").show();
+            },
+            complete: function () {
+                $("#PromosyonFormu button").prop("disabled", false);
+                $("#spinner").hide();
+            },
+            success: function (result) {
+                $("#PromosyonSatiri").removeClass("d-none");
+                var kutu = $("#PromosyonSatiri > div");
+                var kod = $("#PromosyonSatiri > div > div:nth-child(2) > div:first");
+                var indirim = $("#PromosyonSatiri > div > div:nth-child(2) > div:nth-child(2)");
+                var aciklama = $("#PromosyonSatiri > div > div:nth-child(3)");
+
+                kod.text(result.promosyonKodu);
+                aciklama.text(result.aciklama);
+                kutu.removeClass();
+                if (result.kodGecerli) {
+                    kutu.addClass("text-success")
+                    indirim.text("-" + result.uygulananIndirim + " TL");
+                    $("#pKodu").val(result.promosyonKodu);
+                    $("#OdenecekTutarIndirimsizSatiri").removeClass("d-none");
+                } else {
+                    kutu.addClass("text-danger")
+                    indirim.text("");
+                    $("#pKodu").val("");
+                    $("#OdenecekTutarIndirimsizSatiri").addClass("d-none");
+                }
+
+                $("#OdenecekTutarIndirimsiz").text(result.odenecekTutarIndirimsiz + " TL");
+                $("#OdenecekTutar").text(result.odenecekTutar + " TL");
+                $("#DolarKuru").text(result.dolarKuru + " TL");
+                $("#OdenecekTutarDolar").text(result.odenecekTutarDolar + " $");
+            }
+        });
+    }
+});
+
+$('#PromosyonIptal').click(function () {
+    $.ajax({
+        type: "get",
+        url: '@Url.Action("PromosyonIptal", "Sepet")',
+        beforeSend: function () {
+            $("#PromosyonSatiri").addClass("d-none");
+            $("#PromosyonFormu button").prop("disabled", true);
+            $("#spinner").show();
+        },
+        complete: function () {
+            $("#PromosyonFormu button").prop("disabled", false);
+            $("#spinner").hide();
+        },
+        success: function (result) {
+            $("#OdenecekTutar").text(result.odenecekTutar + " TL");
+            $("#DolarKuru").text(result.dolarKuru + " TL");
+            $("#OdenecekTutarDolar").text(result.odenecekTutarDolar + " $");
+
+            $("#pKodu").val("");
+            $("#OdenecekTutarIndirimsizSatiri").addClass("d-none");
+        }
+    });
+});
+
+
+**********************************
+SİPARİŞ GİRİŞİ
+**********************************
+
+Models - Siparis.cs ye ekle
+Veritabanında siparişle birlikte saklanacak alanlar
+
+public string? PromosyonKodu { get; set; }
+public string? PromosyonAciklama { get; set; }
+public string? PromosyonDetay { get; set; }
+public decimal? UygulananIndirim { get; set; }
+
+
+SepetController - SiparisOnay action ına ekle
+
+decimal? odemeTutariIndirimsiz = siparisUrunleri.Sum(x => x.Toplam);
+
+Siparis kayit = new Siparis()
+{
+    SiparisUrunleri = siparisUrunleri,
+    KullaniciId = User.FindFirstValue(ClaimTypes.NameIdentifier),
+    AdSoyad = viewModel.Siparis.AdSoyad,
+    Telefon = viewModel.Siparis.Telefon,
+    Adres = viewModel.Siparis.Adres,
+    Il = viewModel.Siparis.Il,
+    Ilce = viewModel.Siparis.Ilce,
+    OdemeTutariIndirimsiz = odemeTutariIndirimsiz,
+    OdemeTutari = odemeTutariIndirimsiz,
+    Tarih = DateTime.Now,
+    Durum = Siparis.SiparisDurumu.Beklemede
+};
+
+Promosyon promosyon = context.Promosyonlar.FirstOrDefault(x => x.PromosyonKodu == viewModel.Siparis.PromosyonKodu);
+if (promosyon != null)
+{
+    decimal? indirim = odemeTutariIndirimsiz * promosyon.IndirimOrani / 100;
+    if (indirim > promosyon.MaksimumIndirim)
+    {
+        indirim = promosyon.MaksimumIndirim;
+    }
+
+    kayit.OdemeTutari = odemeTutariIndirimsiz - indirim;
+    kayit.PromosyonKodu = viewModel.Siparis.PromosyonKodu;
+    kayit.PromosyonAciklama = promosyon.Aciklama;
+    kayit.PromosyonDetay = "%" + promosyon.IndirimOrani + " indirim, maksimum " + promosyon.MaksimumIndirim + " TL";
+    kayit.UygulananIndirim = indirim.Value;
+}
+
+
+**********************************
+SİPARİŞ DETAYLARI
+**********************************
+
+Views - Siparis - Index düzenle
+
+@if (item.PromosyonKodu != null)
+{
+    <h6>İndirim</h6>
+    <div class="card-text">İndirimli Ödeme Tutarı: <strong><del>@item.OdemeTutariIndirimsiz.ParaBirimi()
+                TL</del>
+            @item.OdemeTutari.ParaBirimi() TL</strong></div>
+    <div class="card-text">@item.PromosyonKodu kodu ile @(((decimal?)item.UygulananIndirim).ParaBirimi()) TL
+        indirim yapıldı</div>
+    <div class="card-text">@item.PromosyonAciklama (@item.PromosyonDetay)</div>
+    <hr>
+}
+
+
+
+Views - Admin - SiparisDetay düzenle
+
+@if (Model.Siparis.PromosyonKodu != null)
+{
+    <h6>İndirim</h6>
+    <div class="card-text">İndirimli Ödeme Tutarı:
+        <strong><del>@Model.Siparis.OdemeTutariIndirimsiz.ParaBirimi()
+                TL</del>
+            @Model.Siparis.OdemeTutari.ParaBirimi() TL</strong></div>
+    <div class="card-text">@Model.Siparis.PromosyonKodu kodu ile
+        @(((decimal?)Model.Siparis.UygulananIndirim).ParaBirimi()) TL
+        indirim yapıldı</div>
+    <div class="card-text">@Model.Siparis.PromosyonAciklama (@Model.Siparis.PromosyonDetay)</div>
+    <hr>
+}
+
+
+Functions - Eposta.cs - SiparisEpostasiGonder düzenle
+
+if (model.PromosyonKodu != null)
+{
+    icerik += "<br><br><h4>İndirim</h4>";
+    icerik += String.Format("<p>İndirimli Ödeme Tutarı: <strong><del>{0} TL</del> {1} TL</strong></p>", model.OdemeTutariIndirimsiz.ParaBirimi(), model.OdemeTutari.ParaBirimi());
+    icerik += String.Format("<p>Promosyon Kodu: {0}</p>", model.PromosyonKodu);
+    icerik += String.Format("<p>Uygulanan İndirim: {0} TL</p>", model.UygulananIndirim.ParaBirimi());
+    icerik += String.Format("<p>Promosyon Bilgileri: {0} ({1})</p>", model.PromosyonAciklama, model.PromosyonDetay);
+}
+

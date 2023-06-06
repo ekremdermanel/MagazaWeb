@@ -355,5 +355,82 @@ namespace MagazaWeb.Controllers
             context.SaveChanges();
             return RedirectToAction("Siparis");
         }
+
+        public IActionResult Promosyon()
+        {
+            return View(context.Promosyonlar.ToList());
+        }
+
+        [HttpGet]
+        public IActionResult PromosyonEkle()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public IActionResult PromosyonEkle(PromosyonViewModel viewModel)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(viewModel);
+            }
+
+            Promosyon model = new Promosyon
+            {
+                PromosyonKodu = viewModel.PromosyonKodu,
+                Aciklama = viewModel.Aciklama,
+                IndirimOrani = viewModel.IndirimOrani,
+                MaksimumIndirim = viewModel.MaksimumIndirim,
+                GecerlilikTarihi = viewModel.GecerlilikTarihi
+            };
+
+            context.Promosyonlar.Add(model);
+            context.SaveChanges();
+            return RedirectToAction("Promosyon");
+        }
+
+        public IActionResult PromosyonSil(int id)
+        {
+            Promosyon kayit = context.Promosyonlar.FirstOrDefault(x => x.Id == id);
+            context.Promosyonlar.Remove(kayit);
+            context.SaveChanges();
+            return RedirectToAction("Promosyon");
+        }
+
+        [HttpGet]
+        public IActionResult PromosyonGuncelle(int id)
+        {
+            Promosyon kayit = context.Promosyonlar.FirstOrDefault(x => x.Id == id);
+            PromosyonViewModel viewModel = new PromosyonViewModel
+            {
+                Id = kayit.Id,
+                PromosyonKodu = kayit.PromosyonKodu,
+                Aciklama = kayit.Aciklama,
+                IndirimOrani = kayit.IndirimOrani,
+                MaksimumIndirim = kayit.MaksimumIndirim,
+                GecerlilikTarihi = kayit.GecerlilikTarihi
+            };
+            return View(viewModel);
+        }
+
+        [HttpPost]
+        public IActionResult PromosyonGuncelle(PromosyonViewModel viewModel)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(viewModel);
+            }
+
+            Promosyon kayit = context.Promosyonlar.FirstOrDefault(x => x.Id == viewModel.Id);
+            kayit.PromosyonKodu = viewModel.PromosyonKodu;
+            kayit.Aciklama = viewModel.Aciklama;
+            kayit.IndirimOrani = viewModel.IndirimOrani;
+            kayit.MaksimumIndirim = viewModel.MaksimumIndirim;
+            kayit.GecerlilikTarihi = viewModel.GecerlilikTarihi;
+
+            context.Promosyonlar.Update(kayit);
+            context.SaveChanges();
+            return RedirectToAction("Promosyon");
+        }
     }
 }

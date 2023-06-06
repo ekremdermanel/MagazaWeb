@@ -52,6 +52,15 @@ namespace MagazaWeb.Functions
             }
             icerik += "</ul>";
 
+            if (model.PromosyonKodu != null)
+            {
+                icerik += "<br><br><h4>İndirim</h4>";
+                icerik += String.Format("<p>İndirimli Ödeme Tutarı: <strong><del>{0} TL</del> {1} TL</strong></p>", model.OdemeTutariIndirimsiz.ParaBirimi(), model.OdemeTutari.ParaBirimi());
+                icerik += String.Format("<p>Promosyon Kodu: {0}</p>", model.PromosyonKodu);
+                icerik += String.Format("<p>Uygulanan İndirim: {0} TL</p>", model.UygulananIndirim.ParaBirimi());
+                icerik += String.Format("<p>Promosyon Bilgileri: {0} ({1})</p>", model.PromosyonAciklama, model.PromosyonDetay);
+            }
+
             icerik += "<br><br><h4>Teslimat Bilgileri</h4>";
             icerik += String.Format("<p>Ad Soyad: {0}</p>", model.AdSoyad);
             icerik += String.Format("<p>Telefon: {0}</p>", model.Telefon);

@@ -20,16 +20,28 @@
                         <span class="text-muted">@item.Toplam.ParaBirimi() TL</span>
                     </li>
                 }
-                <li class="list-group-item d-flex justify-content-between bg-light">
+                <li class="list-group-item bg-light d-none" id="PromosyonSatiri">
                     <div class="text-success">
-                        <h6 class="my-0">Promosyon Kodu</h6>
-                        <small>ORNEKKOD</small>
+                        <div class="d-flex justify-content-between">
+                            <h6 class="my-0">Promosyon Kodu</h6>
+                            <a href="#" id="PromosyonIptal" class="ms-auto text-danger"><i
+                                    class="bi bi-x-square"></i></a>
+                        </div>
+                        <div class="small d-flex justify-content-between">
+                            <div></div>
+                            <div></div>
+                        </div>
+                        <div class="small"></div>
                     </div>
-                    <span class="text-success">-10 TL</span>
+                </li>
+                <li class="list-group-item d-flex justify-content-between d-none" id="OdenecekTutarIndirimsizSatiri">
+                    <strong></strong>
+                    <strong><del id="OdenecekTutarIndirimsiz">@Model.Siparis.OdemeTutariIndirimsiz.ParaBirimi()
+                            TL</del></strong>
                 </li>
                 <li class="list-group-item d-flex justify-content-between">
                     <strong>Ödenecek Tutar</strong>
-                    <strong>@Model.Siparis.OdemeTutari.ParaBirimi() TL</strong>
+                    <strong id="OdenecekTutar">@Model.Siparis.OdemeTutari.ParaBirimi() TL</strong>
                 </li>
                 @{
                     var dolarKuru = Doviz.GetDolarKuru() * 1;
@@ -37,21 +49,26 @@
                 }
                 <li class="list-group-item d-flex justify-content-between">
                     <strong>TCMB Dolar Kuru: </strong>
-                    <strpng>@dolarKuru.ParaBirimi() TL</strong>
+                    <span id="DolarKuru">@dolarKuru.ParaBirimi() TL</span>
                 </li>
                 <li class="list-group-item d-flex justify-content-between">
                     <strong>Ödenecek Tutar ($): </strong>
-                    <strpng>@odenecekTutarDolar.ParaBirimi() $</strong>
+                    <span id="OdenecekTutarDolar">@odenecekTutarDolar.ParaBirimi() $</span>
                 </li>
             </ul>
 
-            <form method="post" class="card p-2">
-                <div class="input-group">
+            <form method="post" id="PromosyonFormu" asp-action="PromosyonKoduKullan" class="card p-2">
+                <div class="input-group position-relative">
                     <input type="text" class="form-control inputmask" id="PromosyonKodu"
                         data-inputmask="'mask':'AAAAA99'" placeholder="Promosyon Kodu">
-                    <button type="submit" class="btn btn-secondary">Uygula</button>
+                    <button type="submit" class="btn btn-secondary z-1">Uygula</button>
+                    <div class="position-absolute bg-light h-100 w-100 text-center border" id="spinner"
+                        style="display:none;z-index:5">
+                        <img src="~/image/spinner.gif" alt="" style="width:35px"> Lütfen Bekleyiniz...
+                    </div>
                 </div>
             </form>
+
         </div>
         <div class="col-md-8 order-md-1">
             <h4 class="mb-3">Teslimat Adresi</h4>
@@ -82,6 +99,7 @@
                         <select class="form-select" id="iller" asp-for="Siparis.Il" asp-items="@Model.Iller"
                             asp-action="ActionName" required>
                             <option value="">Seçiniz...</option>
+                            <option>İstanbul</option>
                         </select>
                         <div class="text-danger"></div>
                     </div>
@@ -90,6 +108,7 @@
                         <select class="form-select" id="ilceler" asp-for="Siparis.Ilce" asp-items="@Model.Ilceler"
                             required>
                             <option value="">Seçiniz...</option>
+                            <option>Kadıköy</option>
                         </select>
                         <div class="text-danger"></div>
                     </div>
@@ -127,6 +146,8 @@
                     </div>
                 </div>
 
+                <input type="hidden" asp-for="Siparis.PromosyonKodu" id="pKodu">
+
                 <button class="btn btn-primary btn-lg btn-block" type="submit">Ödeme Yap</button>
             </form>
         </div>
@@ -145,6 +166,7 @@
 
     <script type="text/javascript">
         $(document).ready(function () {
+
             $('#iller').change(function () {
                 var ilAdi = $(this).val();
                 if (ilAdi != null && ilAdi != '') {
@@ -164,6 +186,80 @@
                     });
                 }
             });
+
+            $('#PromosyonFormu').submit(function (e) {
+                e.preventDefault();
+                var kod = $('#PromosyonKodu').val();
+                $('#PromosyonKodu').val("");
+                if (kod != null && kod != '') {
+                    $.ajax({
+                        type: "post",
+                        url: '@Url.Action("PromosyonKoduKullan", "Sepet")',
+                        data: { kod: kod },
+                        dataType: "JSON",
+                        beforeSend: function () {
+                            $("#PromosyonFormu button").prop("disabled", true);
+                            $("#spinner").show();
+                        },
+                        complete: function () {
+                            $("#PromosyonFormu button").prop("disabled", false);
+                            $("#spinner").hide();
+                        },
+                        success: function (result) {
+                            $("#PromosyonSatiri").removeClass("d-none");
+                            var kutu = $("#PromosyonSatiri > div");
+                            var kod = $("#PromosyonSatiri > div > div:nth-child(2) > div:first");
+                            var indirim = $("#PromosyonSatiri > div > div:nth-child(2) > div:nth-child(2)");
+                            var aciklama = $("#PromosyonSatiri > div > div:nth-child(3)");
+
+                            kod.text(result.promosyonKodu);
+                            aciklama.text(result.aciklama);
+                            kutu.removeClass();
+                            if (result.kodGecerli) {
+                                kutu.addClass("text-success")
+                                indirim.text("-" + result.uygulananIndirim + " TL");
+                                $("#pKodu").val(result.promosyonKodu);
+                                $("#OdenecekTutarIndirimsizSatiri").removeClass("d-none");
+                            } else {
+                                kutu.addClass("text-danger")
+                                indirim.text("");
+                                $("#pKodu").val("");
+                                $("#OdenecekTutarIndirimsizSatiri").addClass("d-none");
+                            }
+
+                            $("#OdenecekTutarIndirimsiz").text(result.odenecekTutarIndirimsiz + " TL");
+                            $("#OdenecekTutar").text(result.odenecekTutar + " TL");
+                            $("#DolarKuru").text(result.dolarKuru + " TL");
+                            $("#OdenecekTutarDolar").text(result.odenecekTutarDolar + " $");
+                        }
+                    });
+                }
+            });
+
+            $('#PromosyonIptal').click(function () {
+                $.ajax({
+                    type: "get",
+                    url: '@Url.Action("PromosyonIptal", "Sepet")',
+                    beforeSend: function () {
+                        $("#PromosyonSatiri").addClass("d-none");
+                        $("#PromosyonFormu button").prop("disabled", true);
+                        $("#spinner").show();
+                    },
+                    complete: function () {
+                        $("#PromosyonFormu button").prop("disabled", false);
+                        $("#spinner").hide();
+                    },
+                    success: function (result) {
+                        $("#OdenecekTutar").text(result.odenecekTutar + " TL");
+                        $("#DolarKuru").text(result.dolarKuru + " TL");
+                        $("#OdenecekTutarDolar").text(result.odenecekTutarDolar + " $");
+
+                        $("#pKodu").val("");
+                        $("#OdenecekTutarIndirimsizSatiri").addClass("d-none");
+                    }
+                });
+            });
+
         });
     </script>
 }

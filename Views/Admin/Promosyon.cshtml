@@ -1,0 +1,33 @@
+@model List<Promosyon>
+
+<div class="container mt-4">
+    <div class="mb-3">
+        <h2>Promosyonlar</h2>
+
+        <a asp-action="PromosyonEkle" class="btn btn-primary mb-3">Ekle</a>
+        <!-- Urun Listesi -->
+        <table class="table table-striped align-middle">
+            <thead>
+                <tr>
+                    <th>Promosyon Kodu</th>
+                    <th>Açıklama</th>
+                    <th>Geçerlilik Tarihi</th>
+                    <th>İşlem</th>
+                </tr>
+            </thead>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.PromosyonKodu</td>
+                    <td>@item.Aciklama</td>
+                    <td>@item.GecerlilikTarihi.KisaTarih()</td>
+                    <td>
+                        <a asp-action="PromosyonGuncelle" asp-route-id="@item.Id"
+                            class="btn btn-outline-primary">Güncelle</a>
+                        <a asp-action="PromosyonSil" asp-route-id="@item.Id" class="btn btn-outline-primary">Sil</a>
+                    </td>
+                </tr>
+            }
+        </table>
+    </div>
+</div>

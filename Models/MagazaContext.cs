@@ -15,6 +15,7 @@ namespace MagazaWeb.Models
         public DbSet<Siparis> Siparisler { get; set; }
         public DbSet<Il> Iller { get; set; }
         public DbSet<Ilce> Ilceler { get; set; }
+        public DbSet<Promosyon> Promosyonlar { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
@@ -24,6 +25,12 @@ namespace MagazaWeb.Models
 
         private void OrnekVeri(ModelBuilder builder)
         {
+            Il il = new Il { Id = 1, IlAdi = "Örnek İl" };
+            builder.Entity<Il>().HasData(il);
+
+            Ilce ilce = new Ilce { Id = 1, IlceAdi = "Örnek İlçe", IlId = 1 };
+            builder.Entity<Ilce>().HasData(ilce);
+
             IdentityRole roleAdmin = new IdentityRole { Name = "Admin", NormalizedName = "ADMIN" };
             builder.Entity<IdentityRole>().HasData(roleAdmin);
 
@@ -39,7 +46,6 @@ namespace MagazaWeb.Models
 
 
             Kategori kategori;
-
             kategori = new Kategori { Id = 1, KategoriAdi = "Telefon", Slogan = "Son model telefonlar" };
             builder.Entity<Kategori>().HasData(kategori);
 

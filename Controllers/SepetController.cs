@@ -179,6 +179,8 @@ namespace MagazaWeb.Controllers
                 Toplam = x.Toplam
             }));
 
+            decimal? odemeTutariIndirimsiz = siparisUrunleri.Sum(x => x.Toplam);
+
             Siparis kayit = new Siparis()
             {
                 SiparisUrunleri = siparisUrunleri,
@@ -188,10 +190,27 @@ namespace MagazaWeb.Controllers
                 Adres = viewModel.Siparis.Adres,
                 Il = viewModel.Siparis.Il,
                 Ilce = viewModel.Siparis.Ilce,
-                OdemeTutari = siparisUrunleri.Sum(x => x.Toplam),
+                OdemeTutariIndirimsiz = odemeTutariIndirimsiz,
+                OdemeTutari = odemeTutariIndirimsiz,
                 Tarih = DateTime.Now,
                 Durum = Siparis.SiparisDurumu.Beklemede
             };
+
+            Promosyon promosyon = context.Promosyonlar.FirstOrDefault(x => x.PromosyonKodu == viewModel.Siparis.PromosyonKodu);
+            if (promosyon != null)
+            {
+                decimal? indirim = odemeTutariIndirimsiz * promosyon.IndirimOrani / 100;
+                if (indirim > promosyon.MaksimumIndirim)
+                {
+                    indirim = promosyon.MaksimumIndirim;
+                }
+
+                kayit.OdemeTutari = odemeTutariIndirimsiz - indirim;
+                kayit.PromosyonKodu = viewModel.Siparis.PromosyonKodu;
+                kayit.PromosyonAciklama = promosyon.Aciklama;
+                kayit.PromosyonDetay = "%" + promosyon.IndirimOrani + " indirim, maksimum " + promosyon.MaksimumIndirim + " TL";
+                kayit.UygulananIndirim = indirim.Value;
+            }
 
             context.Siparisler.Add(kayit);
             context.SaveChanges();
@@ -207,6 +226,68 @@ namespace MagazaWeb.Controllers
         {
             List<Ilce> ilceler = context.Ilceler.Where(x => x.Il.IlAdi == ilAdi).ToList();
             return Json(ilceler);
+        }
+
+        [HttpPost]
+        public JsonResult PromosyonKoduKullan(string kod)
+        {
+            List<SepetUrunu> sepet = GetSepet();
+            decimal? odemeTutari = sepet.Sum(x => x.Toplam);
+            decimal dolarKuru = Doviz.GetDolarKuru().Value;
+
+            PromosyonKoduKullanViewModel viewModel = new PromosyonKoduKullanViewModel()
+            {
+                KodGecerli = false,
+                PromosyonKodu = kod,
+                UygulananIndirim = "0",
+                OdenecekTutar = odemeTutari.ParaBirimi(),
+                OdenecekTutarIndirimsiz = odemeTutari.ParaBirimi(),
+                DolarKuru = ((decimal?)dolarKuru).ParaBirimi(),
+                OdenecekTutarDolar = (odemeTutari / dolarKuru).ParaBirimi()
+            };
+
+            Promosyon kayit = context.Promosyonlar.FirstOrDefault(x => x.PromosyonKodu == kod);
+            if (kayit == null)
+            {
+                viewModel.Aciklama = "Hatalı Kod";
+            }
+            else if (kayit.GecerlilikTarihi < DateTime.Today)
+            {
+                viewModel.Aciklama = "Süresi Dolmuş Kod";
+            }
+            else
+            {
+                decimal? indirim = odemeTutari * kayit.IndirimOrani / 100;
+                if (indirim > kayit.MaksimumIndirim)
+                {
+                    indirim = kayit.MaksimumIndirim;
+                }
+
+                viewModel.KodGecerli = true;
+                viewModel.UygulananIndirim = indirim.ParaBirimi();
+                viewModel.OdenecekTutar = (odemeTutari - indirim).ParaBirimi();
+                viewModel.OdenecekTutarIndirimsiz = odemeTutari.ParaBirimi();
+                viewModel.OdenecekTutarDolar = (((odemeTutari - indirim)) / dolarKuru).ParaBirimi();
+                viewModel.Aciklama = kayit.Aciklama;
+            }
+            return Json(viewModel);
+        }
+
+        public JsonResult PromosyonIptal()
+        {
+            List<SepetUrunu> sepet = GetSepet();
+            decimal? odemeTutari = sepet.Sum(x => x.Toplam);
+            decimal? dolarKuru = Doviz.GetDolarKuru();
+
+            PromosyonKoduKullanViewModel viewModel = new PromosyonKoduKullanViewModel()
+            {
+                UygulananIndirim = "0",
+                OdenecekTutar = odemeTutari.ParaBirimi(),
+                OdenecekTutarIndirimsiz = odemeTutari.ParaBirimi(),
+                DolarKuru = dolarKuru.ParaBirimi(),
+                OdenecekTutarDolar = (odemeTutari / dolarKuru).ParaBirimi(),
+            };
+            return Json(viewModel);
         }
 
     }

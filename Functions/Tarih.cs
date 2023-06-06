@@ -12,6 +12,11 @@ namespace MagazaWeb.Functions
             return tarih.ToString("dd.MM.yyyy");
         }
 
+        public static string KisaTarih2(this DateTime tarih)
+        {
+            return tarih.ToString("yyyy-MM-dd");
+        }
+
         public static string KisaTarihSaat(this DateTime tarih)
         {
             return tarih.ToString("dd.MM.yyyy HH:mm");

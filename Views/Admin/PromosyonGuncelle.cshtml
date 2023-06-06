@@ -1,0 +1,38 @@
+@model PromosyonViewModel
+
+<div class="container mt-4">
+    <div class="mb-3">
+
+        <h2>Promosyon Güncelle</h2>
+
+        <form method="post" enctype="multipart/form-data">
+            <div class="mb-3">
+                <label asp-for="PromosyonKodu"></label>
+                <input asp-for="PromosyonKodu" value="@Model.PromosyonKodu" class="form-control inputmask"
+                    data-inputmask="'mask':'AAAAA99'">
+                <span asp-validation-for="PromosyonKodu" class="text-danger"></span>
+            </div>
+            <div class="mb-3">
+                <label asp-for="Aciklama"></label>
+                <input asp-for="Aciklama" value="@Model.Aciklama" class="form-control">
+                <span asp-validation-for="Aciklama" class="text-danger"></span>
+            </div>
+            <div class="mb-3">
+                <label asp-for="IndirimOrani"></label>
+                <input asp-for="IndirimOrani" value="@Model.IndirimOrani" class="form-control">
+                <span asp-validation-for="IndirimOrani" class="text-danger"></span>
+            </div>
+            <div class="mb-3">
+                <label asp-for="MaksimumIndirim"></label>
+                <input asp-for="MaksimumIndirim" value="@Model.MaksimumIndirim" class="form-control">
+                <span asp-validation-for="MaksimumIndirim" class="text-danger"></span>
+            </div>
+            <div class="mb-3">
+                <label asp-for="GecerlilikTarihi"></label>
+                <input asp-for="GecerlilikTarihi" value="@Model.GecerlilikTarihi.KisaTarih2()" class="form-control">
+                <span asp-validation-for="GecerlilikTarihi" class="text-danger"></span>
+            </div>
+            <button type="submit" class="btn btn-primary">Tamam</button>
+        </form>
+    </div>
+</div>

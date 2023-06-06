@@ -23,6 +23,19 @@
                             </tr>
                         }
                     </table>
+                    @if (Model.Siparis.PromosyonKodu != null)
+                    {
+                        <h6>İndirim</h6>
+                        <div class="card-text">İndirimli Ödeme Tutarı:
+                            <strong><del>@Model.Siparis.OdemeTutariIndirimsiz.ParaBirimi()
+                                    TL</del>
+                                @Model.Siparis.OdemeTutari.ParaBirimi() TL</strong></div>
+                        <div class="card-text">@Model.Siparis.PromosyonKodu kodu ile
+                            @(((decimal?)Model.Siparis.UygulananIndirim).ParaBirimi()) TL
+                            indirim yapıldı</div>
+                        <div class="card-text">@Model.Siparis.PromosyonAciklama (@Model.Siparis.PromosyonDetay)</div>
+                        <hr>
+                    }
                     <h6>Teslimat Adresi</h6>
                     <div class="card-text">@Model.Siparis.AdSoyad</div>
                     <div class="card-text">@Model.Siparis.Telefon</div>

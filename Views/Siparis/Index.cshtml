@@ -21,6 +21,17 @@
                             </tr>
                         }
                     </table>
+                    @if (item.PromosyonKodu != null)
+                    {
+                        <h6>İndirim</h6>
+                        <div class="card-text">İndirimli Ödeme Tutarı: <strong><del>@item.OdemeTutariIndirimsiz.ParaBirimi()
+                                    TL</del>
+                                @item.OdemeTutari.ParaBirimi() TL</strong></div>
+                        <div class="card-text">@item.PromosyonKodu kodu ile @(((decimal?)item.UygulananIndirim).ParaBirimi()) TL
+                            indirim yapıldı</div>
+                        <div class="card-text">@item.PromosyonAciklama (@item.PromosyonDetay)</div>
+                        <hr>
+                    }
                     <h6>Teslimat Adresi</h6>
                     <div class="card-text">@item.AdSoyad</div>
                     <div class="card-text">@item.Telefon</div>
