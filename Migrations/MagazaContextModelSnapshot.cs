@@ -54,6 +54,28 @@ namespace MagazaWeb.Migrations
                     b.ToTable("Degerlendirmeler");
                 });
 
+            modelBuilder.Entity("MagazaWeb.Models.Favori", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.Property<string>("KullaniciId")
+                        .IsRequired()
+                        .HasColumnType("varchar(255)");
+
+                    b.Property<int>("UrunId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("KullaniciId");
+
+                    b.HasIndex("UrunId");
+
+                    b.ToTable("Favoriler");
+                });
+
             modelBuilder.Entity("MagazaWeb.Models.Il", b =>
                 {
                     b.Property<int>("Id")
@@ -218,18 +240,18 @@ namespace MagazaWeb.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "8eff00a6-7e8a-4131-bced-2902acfe9fb8",
+                            Id = "7189da20-b608-4ac1-9952-8bbfd2c42fc6",
                             AccessFailedCount = 0,
                             AdSoyad = "Admin",
-                            ConcurrencyStamp = "88c19754-a175-4ce3-a2c1-fe65723cd32b",
+                            ConcurrencyStamp = "c09197af-8a29-4b00-a214-ac165c310c1a",
                             Email = "admin@gmail.com",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             NormalizedEmail = "ADMIN@GMAIL.COM",
                             NormalizedUserName = "ADMIN",
-                            PasswordHash = "AQAAAAEAACcQAAAAEGTzS3q4cLMvhaddBZi4EhYpBfnIAW8IeDZEmn0MpEZfxLnnnN5QABgyzXpGwgWZ9w==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEGzBqKmBg4oZ6H07TNXA9Ts4A45cspDAHd6OxRwcp8hNXalG9BK1L4qzrYs0ljHluw==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "c64657f8-d265-4344-a5aa-14d285b77471",
+                            SecurityStamp = "28b0c5ab-acfe-4352-a557-191eeb9229fb",
                             TwoFactorEnabled = false,
                             UserName = "Admin"
                         });
@@ -406,7 +428,7 @@ namespace MagazaWeb.Migrations
                         {
                             Id = 2,
                             Aciklama = "Lorem ipsum dolor sit amet consectetur adipisicing elit. Quis voluptas reiciendis, iste accusantium ipsa magni culpa ad distinctio? At illo doloribus cupiditate amet ex eligendi, qui optio ducimus eaque deleniti molestiae eos praesentium soluta fugiat? Nulla totam ipsam explicabo quo nam dolorem numquam dolore vero velit, asperiores sequi odit in.\r\n        Laborum nulla molestiae sit vitae. Praesentium accusamus quidem blanditiis aliquam voluptatum ab ad magni soluta, maxime cupiditate et sint. Minus corporis quae quisquam pariatur enim architecto quo aliquam, molestias expedita sit consequatur accusantium ut dignissimos ducimus sapiente, natus repudiandae itaque suscipit officiis, eius fuga corrupti rerum fugit. Sunt, illo nulla.",
-                            EklenmeTarihi = new DateTime(2023, 6, 6, 17, 47, 32, 151, DateTimeKind.Local).AddTicks(8195),
+                            EklenmeTarihi = new DateTime(2023, 6, 6, 21, 49, 0, 991, DateTimeKind.Local).AddTicks(3585),
                             Fiyat = 30000m,
                             KategoriId = 1,
                             Stok = 100,
@@ -416,7 +438,7 @@ namespace MagazaWeb.Migrations
                         {
                             Id = 3,
                             Aciklama = "Lorem ipsum dolor sit amet.",
-                            EklenmeTarihi = new DateTime(2023, 6, 6, 17, 47, 32, 151, DateTimeKind.Local).AddTicks(8212),
+                            EklenmeTarihi = new DateTime(2023, 6, 6, 21, 49, 0, 991, DateTimeKind.Local).AddTicks(3608),
                             Fiyat = 20000m,
                             KategoriId = 1,
                             Stok = 5,
@@ -426,7 +448,7 @@ namespace MagazaWeb.Migrations
                         {
                             Id = 4,
                             Aciklama = "Lorem ipsum dolor sit amet consectetur adipisicing elit. Saepe, natus? Consequatur fugit vel assumenda iusto consectetur amet alias ex aut.\r\nSequi aperiam ullam distinctio atque, tempora voluptates perspiciatis cupiditate cumque itaque unde vero neque ratione, maxime culpa nostrum adipisci quibusdam?\r\n[onemli]Pariatur natus assumenda recusandae distinctio totam ipsum quo dolorem amet, dignissimos sunt quasi laboriosam ex maiores vero provident eius nemo![/onemli]",
-                            EklenmeTarihi = new DateTime(2023, 6, 6, 17, 7, 32, 151, DateTimeKind.Local).AddTicks(8221),
+                            EklenmeTarihi = new DateTime(2023, 6, 6, 21, 9, 0, 991, DateTimeKind.Local).AddTicks(3617),
                             Fiyat = 19900m,
                             KategoriId = 1,
                             Stok = 50,
@@ -456,7 +478,7 @@ namespace MagazaWeb.Migrations
                         {
                             Id = 7,
                             Aciklama = "Lorem ipsum dolor sit amet consectetur adipisicing elit. Saepe, natus? Consequatur fugit vel assumenda iusto consectetur amet alias ex aut.\r\nSequi aperiam ullam distinctio atque, tempora voluptates perspiciatis cupiditate cumque itaque unde vero neque ratione, maxime culpa nostrum adipisci quibusdam?\r\nPariatur natus assumenda recusandae distinctio totam ipsum quo dolorem amet, dignissimos sunt quasi laboriosam ex maiores vero provident eius nemo!",
-                            EklenmeTarihi = new DateTime(2023, 5, 22, 17, 47, 32, 151, DateTimeKind.Local).AddTicks(8344),
+                            EklenmeTarihi = new DateTime(2023, 5, 22, 21, 49, 0, 991, DateTimeKind.Local).AddTicks(3649),
                             Fiyat = 59999m,
                             KategoriId = 2,
                             Stok = 1,
@@ -466,7 +488,7 @@ namespace MagazaWeb.Migrations
                         {
                             Id = 8,
                             Aciklama = "Lorem ipsum dolor sit amet consectetur adipisicing elit. Saepe, natus? Consequatur fugit vel assumenda iusto consectetur amet alias ex aut.",
-                            EklenmeTarihi = new DateTime(2023, 4, 6, 17, 47, 32, 151, DateTimeKind.Local).AddTicks(8353),
+                            EklenmeTarihi = new DateTime(2023, 4, 6, 21, 49, 0, 991, DateTimeKind.Local).AddTicks(3657),
                             Fiyat = 34500m,
                             KategoriId = 3,
                             Stok = 50,
@@ -476,7 +498,7 @@ namespace MagazaWeb.Migrations
                         {
                             Id = 9,
                             Aciklama = "Lorem ipsum dolor sit amet.",
-                            EklenmeTarihi = new DateTime(2023, 6, 6, 17, 37, 32, 151, DateTimeKind.Local).AddTicks(8370),
+                            EklenmeTarihi = new DateTime(2023, 6, 6, 21, 39, 0, 991, DateTimeKind.Local).AddTicks(3675),
                             Fiyat = 29999m,
                             KategoriId = 3,
                             Stok = 15,
@@ -486,7 +508,7 @@ namespace MagazaWeb.Migrations
                         {
                             Id = 10,
                             Aciklama = "Lorem ipsum dolor sit amet consectetur adipisicing elit. Porro, suscipit.\r\nArchitecto, eum quasi amet porro voluptatum consequatur? Numquam, quas voluptate.",
-                            EklenmeTarihi = new DateTime(2023, 6, 6, 14, 47, 32, 151, DateTimeKind.Local).AddTicks(8380),
+                            EklenmeTarihi = new DateTime(2023, 6, 6, 18, 49, 0, 991, DateTimeKind.Local).AddTicks(3685),
                             Fiyat = 250m,
                             KategoriId = 4,
                             Stok = 100,
@@ -522,15 +544,15 @@ namespace MagazaWeb.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "9161f316-c208-4cd6-9a91-9f40f4af837e",
-                            ConcurrencyStamp = "bcff61e1-714d-4906-9ab2-025d3a481c2b",
+                            Id = "28a6426c-8c60-4f28-8564-aff6ff93119b",
+                            ConcurrencyStamp = "e94dc848-4f32-4756-bded-d165dfc50534",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         },
                         new
                         {
-                            Id = "ef5972d2-317a-45d4-8f2f-c2fe9e65ce2b",
-                            ConcurrencyStamp = "0bb840a3-0416-482c-9a7a-cbc9ee927b05",
+                            Id = "7f3f2cd3-a8e9-4dfc-93fd-d0d1b921597d",
+                            ConcurrencyStamp = "6b017765-d9ad-4ffb-bafb-36ef4999c05c",
                             Name = "User",
                             NormalizedName = "USER"
                         });
@@ -621,8 +643,8 @@ namespace MagazaWeb.Migrations
                     b.HasData(
                         new
                         {
-                            UserId = "8eff00a6-7e8a-4131-bced-2902acfe9fb8",
-                            RoleId = "9161f316-c208-4cd6-9a91-9f40f4af837e"
+                            UserId = "7189da20-b608-4ac1-9952-8bbfd2c42fc6",
+                            RoleId = "28a6426c-8c60-4f28-8564-aff6ff93119b"
                         });
                 });
 
@@ -655,6 +677,25 @@ namespace MagazaWeb.Migrations
 
                     b.HasOne("MagazaWeb.Models.Urun", "Urun")
                         .WithMany("Degerlendirmeler")
+                        .HasForeignKey("UrunId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Kullanici");
+
+                    b.Navigation("Urun");
+                });
+
+            modelBuilder.Entity("MagazaWeb.Models.Favori", b =>
+                {
+                    b.HasOne("MagazaWeb.Models.Kullanici", "Kullanici")
+                        .WithMany()
+                        .HasForeignKey("KullaniciId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("MagazaWeb.Models.Urun", "Urun")
+                        .WithMany("Favoriler")
                         .HasForeignKey("UrunId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -784,6 +825,8 @@ namespace MagazaWeb.Migrations
             modelBuilder.Entity("MagazaWeb.Models.Urun", b =>
                 {
                     b.Navigation("Degerlendirmeler");
+
+                    b.Navigation("Favoriler");
                 });
 #pragma warning restore 612, 618
         }

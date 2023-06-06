@@ -16,6 +16,7 @@ namespace MagazaWeb.Models
         public DbSet<Il> Iller { get; set; }
         public DbSet<Ilce> Ilceler { get; set; }
         public DbSet<Promosyon> Promosyonlar { get; set; }
+        public DbSet<Favori> Favoriler { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {

@@ -25,6 +25,7 @@ namespace MagazaWeb.Models
         public Kategori Kategori { get; set; }
 
         public List<Degerlendirme> Degerlendirmeler { get; set; }
+        public List<Favori> Favoriler { get; set; }
 
     }
 }

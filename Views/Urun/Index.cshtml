@@ -1,46 +1,73 @@
 @model List<Urun>
-    
 
-    <!-- Icerik -->
-    <div class="container mt-4">
-        <div class="row mb-3">
-            <!-- Ana Bolum -->
-            <div class="col-lg-8">
-                <h2>@ViewBag.ListeBasligi</h2>
-                <!-- Urun Listesi -->
-                <div class="row row-cols-2 row-cols-lg-3 g-3">
-                    
-                    @foreach (var item in Model)
-                    {
-                        
-                        <!-- Urun -->
-                        <div class="col">
-                            <div class="card">
-                                <img class="card-img-top" src="@item.ResimAdi.Goster()" alt="..." />
-                                <div class="card-body text-center">
-                                    <h5 class="card-title">@item.UrunAdi</h5>
-                                    <p class="card-text small">@item.Fiyat.ParaBirimi() TL</p>
-                                    <p class="card-text small muted">@item.Kategori.KategoriAdi</p>
-                                    <a class="btn btn-outline-primary btn-sm" asp-controller="Urun" asp-action="Detay" asp-route-id="@item.Id">Detay</a>
-                                </div>
+@{
+    var userId = "";
+}
+
+@if (User.Identity.IsAuthenticated)
+{
+    @using Microsoft.AspNetCore.Identity
+
+    @inject UserManager<Kullanici> UserManager
+
+    userId = UserManager.GetUserId(User);
+}
+
+<!-- Icerik -->
+<div class="container mt-4">
+    <div class="row mb-3">
+        <!-- Ana Bolum -->
+        <div class="col-lg-8">
+            <h2>@ViewBag.ListeBasligi</h2>
+            <!-- Urun Listesi -->
+            <div class="row row-cols-2 row-cols-lg-3 g-3">
+
+                @foreach (var item in Model)
+                {
+                    <!-- Urun -->
+                    <div class="col">
+                        <div class="card position-relative">
+                            <img class="card-img-top" src="@item.ResimAdi.Goster()" alt="..." />
+                            <div class="card-body text-center">
+                                <h5 class="card-title">@item.UrunAdi</h5>
+                                <p class="card-text small">@item.Fiyat.ParaBirimi() TL</p>
+                                <p class="card-text small muted">@item.Kategori.KategoriAdi</p>
+                                <a class="btn btn-outline-primary btn-sm" asp-controller="Urun" asp-action="Detay"
+                                    asp-route-id="@item.Id">Detay</a>
                             </div>
+                            @if (User.Identity.IsAuthenticated)
+                            {
+                                if (@item.Favoriler.FirstOrDefault(x => x.KullaniciId == userId) != null)
+                                {
+                                    <a class="favori btn btn-danger position-absolute top-0 end-0 m-1 opacity-50"
+                                        id="@item.Id"><i class="bi bi-heart-fill"></i></a>
+                                }
+                                else
+                                {
+                                    <a class="favori btn btn-secondary position-absolute top-0 end-0 m-1 opacity-50"
+                                        id="@item.Id"><i class="bi bi-heart-fill"></i></a>
+                                }
+                            }
+
                         </div>
+                    </div>
+                }
 
-                    }
-                    
-                </div>
-
-            </div>
-            <!-- Yan Menu -->
-            <div class="col-lg-4">
-                
-                <partial name="_Arama"></partial>
-
-                @await Component.InvokeAsync("Kategoriler")
+                <a href="#" class="favori" id="aaabbb">fladkslfş ksadşflksaşdf ksd</a>
 
             </div>
+
+        </div>
+        <!-- Yan Menu -->
+        <div class="col-lg-4">
+
+            <partial name="_Arama"></partial>
+
+            @await Component.InvokeAsync("Kategoriler")
+
         </div>
     </div>
+</div>
 
 @section Duyuru {
     <li class="nav-item"><button type="button" class="btn btn-success me-2">3 Al 1 Öde</button></li>

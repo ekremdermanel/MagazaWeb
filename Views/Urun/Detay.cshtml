@@ -1,13 +1,39 @@
 @model UrunDetayViewModel
 
+@{
+    var userId = "";
+}
+
+@if (User.Identity.IsAuthenticated)
+{
+    @using Microsoft.AspNetCore.Identity
+
+    @inject UserManager<Kullanici> UserManager
+
+    userId = UserManager.GetUserId(User);
+}
+
 <!-- Icerik -->
 <div class="container mt-4">
     <div class="mb-3">
         <!-- Vitrin -->
         <div class="card mb-4">
             <div class="row">
-                <div class="col-md-6">
+                <div class="col-md-6 position-relative">
                     <img class="img-fluid rounded-start" src="@Model.Urun.ResimAdi.Goster()" alt="..." />
+                    @if (User.Identity.IsAuthenticated)
+                    {
+                        if (@Model.Urun.Favoriler.FirstOrDefault(x => x.KullaniciId == userId) != null)
+                        {
+                            <a class="favori btn btn-danger position-absolute top-0 end-0 m-1 opacity-50"
+                                id="@Model.Urun.Id"><i class="bi bi-heart-fill"></i></a>
+                        }
+                        else
+                        {
+                            <a class="favori btn btn-secondary position-absolute top-0 end-0 m-1 opacity-50"
+                                id="@Model.Urun.Id"><i class="bi bi-heart-fill"></i></a>
+                        }
+                    }
                 </div>
                 <div class="col-md-6">
                     <div class="card-body">

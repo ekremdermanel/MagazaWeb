@@ -1,0 +1,101 @@
+@model List<Favori>
+
+<!-- Icerik -->
+<div class="container my-4">
+
+    <h2>Favorilerim</h2>
+    <!-- Urun Listesi -->
+    <div class="row row-cols-2 row-cols-lg-3 g-3">
+
+        @foreach (var item in Model)
+        {
+            <!-- Urun -->
+            <div class="col">
+                <div class="card position-relative">
+                    <img class="card-img-top" src="@item.Urun.ResimAdi.Goster()" alt="..." />
+                    <div class="card-body text-center">
+                        <h5 class="card-title">@item.Urun.UrunAdi</h5>
+                        <p class="card-text small">@item.Urun.Fiyat.ParaBirimi() TL</p>
+                        <p class="card-text small muted">@item.Urun.Kategori.KategoriAdi</p>
+                        <a class="btn btn-outline-primary btn-sm" asp-controller="Urun" asp-action="Detay"
+                            asp-route-id="@item.UrunId">Detay</a>
+                    </div>
+                    <a class="favorisil btn btn-danger position-absolute top-0 end-0 m-1 opacity-75" id="@item.UrunId"><i
+                            class="bi bi-heart-fill"></i></a>
+                </div>
+            </div>
+        }
+    </div>
+</div>
+
+
+
+<div class="modal" tabindex="-1" id="OnayKutusu">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Onay Gerekiyor</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p id="urun"></p>
+                <p>Favorilerden çıkarmak istediğine emin misin?</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" id="onay">Favorilerden Çıkar</button>
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Kapat</button>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scriptler {
+
+    <script>
+        $(document).ready(function () {
+
+            /*
+            $(".favorisil").click(function () {
+                if (confirm("Favorilerden Çıkarmak İstediğine Emin misin?")) {
+                    var a = this;
+                    $.ajax({
+                        type: "get",
+                        url: '@Url.Action("FavoriEkleCikar", "Urun")',
+                        data: { id: this.id },
+                        success: function (result) {
+                            if (!result * 1) {
+                                $(a).parent().parent().hide();
+                            }
+                        }
+                    });
+                }
+            });*/
+
+            $(".favorisil").click(function () {
+
+                var urun = $(this).parent().children().find("h5").text();
+                $('#OnayKutusu').modal('show').attr('data', this.id);
+                $('#urun').text(urun);
+            });
+
+            $("#onay").click(function () {
+                var id = $('#OnayKutusu').modal('hide').attr('data');
+                $.ajax({
+                    type: "get",
+                    url: '@Url.Action("FavoriEkleCikar", "Urun")',
+                    data: { id: id },
+                    success: function (result) {
+                        if (!result * 1) {
+                            $('#' + id).parent().parent().hide();
+                        }
+                    }
+                });
+            });
+
+        });
+    </script>
+}
+
+
+

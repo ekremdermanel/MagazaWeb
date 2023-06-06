@@ -1,0 +1,319 @@
+Models - Favori.cs ekle
+
+public class Favori
+{
+    public int Id { get; set; }
+    public int UrunId { get; set; }
+    public Urun Urun { get; set; }
+    public string KullaniciId { get; set; }
+    public Kullanici Kullanici { get; set; }
+}
+
+
+Models - Urun.cs ekle
+
+public List<Favori> Favoriler { get; set; }
+
+
+MagazaContext ekle
+
+public DbSet<Favori> Favoriler { get; set; }
+
+
+UrunController.cs 
+
+userManager alanı ekle ve ata
+
+FavoriEkleCikar action oluştur
+
+public bool FavoriEkleCikar(int id)
+{
+    var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+    Favori kayit = context.Favoriler.FirstOrDefault(x => x.UrunId == id && x.KullaniciId == userId);
+    if (kayit == null)
+    {
+        Favori model = new Favori
+        {
+            UrunId = id,
+            KullaniciId = userId
+        };
+        context.Favoriler.Add(model);
+        context.SaveChanges();
+        return true;
+    }
+    else
+    {
+        context.Favoriler.Remove(kayit);
+        context.SaveChanges();
+        return false;
+    }
+}
+
+
+Index action düzenle
+
+if (id == null)
+{
+    ViewBag.ListeBasligi = "Tüm Ürünler";
+    if (User.Identity.IsAuthenticated)
+    {
+        return View(context.Urunler.Include("Kategori").Include(y => y.Favoriler).ToList());
+    }
+    else
+    {
+        return View(context.Urunler.Include("Kategori").ToList());
+    }
+
+}
+else
+{
+    Kategori kayit = context.Kategoriler.FirstOrDefault(x => x.Id == id);
+    ViewBag.ListeBasligi = kayit.KategoriAdi + " - " + kayit.Slogan;
+    if (User.Identity.IsAuthenticated)
+    {
+        return View(context.Urunler.Include("Kategori").Where(x => x.KategoriId == id).Include(y => y.Favoriler).ToList());
+    }
+    else
+    {
+        return View(context.Urunler.Include("Kategori").Where(x => x.KategoriId == id).ToList());
+    }
+}
+
+
+
+Views - Urun - Index.cshtml
+
+@{
+    var userId = "";
+}
+
+@if (User.Identity.IsAuthenticated)
+{
+    @using Microsoft.AspNetCore.Identity
+
+    @inject UserManager<Kullanici> UserManager
+
+    userId = UserManager.GetUserId(User);
+}
+
+
+
+Card relative yap
+
+<div class="card position-relative">
+
+
+
+Eğer kulanıcı girişi yapılmışsa absolute favori icon ları göster
+
+@if (User.Identity.IsAuthenticated)
+{
+    if (@item.Favoriler.FirstOrDefault(x => x.KullaniciId == userId) != null)
+    {
+        <a class="favori btn btn-danger position-absolute top-0 end-0 m-1 opacity-50"
+            id="@item.Id"><i class="bi bi-heart-fill"></i></a>
+    }
+    else
+    {
+        <a class="favori btn btn-secondary position-absolute top-0 end-0 m-1 opacity-50"
+            id="@item.Id"><i class="bi bi-heart-fill"></i></a>
+    }
+}
+
+
+Layout ta script hazırla
+
+ <script>
+    $(document).ready(function () {
+
+        $(".favori").click(function () {
+            var a = this;
+            $.ajax({
+                type: "get",
+                url: '@Url.Action("FavoriEkleCikar", "Urun")',
+                data: { id: this.id },
+                success: function (result) {
+                    if (result * 1) {
+                        $(a).removeClass("btn-secondary");
+                        $(a).addClass("btn-danger");
+                    } else {
+                        $(a).removeClass("btn-danger");
+                        $(a).addClass("btn-secondary");
+                    }
+                }
+            });
+        });
+
+    });
+</script>
+
+
+
+****************************
+KULLANICI FAVORİ SAYFASI
+****************************
+
+UrunController - Favori action ekle
+
+[Authorize]
+public IActionResult Favori()
+{
+    var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+    return View(context.Favoriler.Include(x => x.Urun).Include(y => y.Urun.Kategori).Where(x => x.KullaniciId == userId).ToList());
+}
+
+
+Views - Urun - Favori.cshtml ekle
+
+@foreach (var item in Model)
+{
+    <!-- Urun -->
+    <div class="col">
+        <div class="card position-relative">
+            <img class="card-img-top" src="@item.Urun.ResimAdi.Goster()" alt="..." />
+            <div class="card-body text-center">
+                <h5 class="card-title">@item.Urun.UrunAdi</h5>
+                <p class="card-text small">@item.Urun.Fiyat.ParaBirimi() TL</p>
+                <p class="card-text small muted">@item.Urun.Kategori.KategoriAdi</p>
+                <a class="btn btn-outline-primary btn-sm" asp-controller="Urun" asp-action="Detay"
+                    asp-route-id="@item.UrunId">Detay</a>
+            </div>
+            <a class="favorisil btn btn-danger position-absolute top-0 end-0 m-1 opacity-75" id="@item.UrunId"><i
+                    class="bi bi-heart-fill"></i></a>
+        </div>
+    </div>
+}
+
+
+Modal onay kutusu ekle 
+
+<div class="modal" tabindex="-1" id="OnayKutusu">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Onay Gerekiyor</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p id="urun"></p>
+                <p>Favorilerden çıkarmak istediğine emin misin?</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" id="onay">Favorilerden Çıkar</button>
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Kapat</button>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+Script oluştur
+
+<script>
+    $(document).ready(function () {
+
+        /*
+        $(".favorisil").click(function () {
+            if (confirm("Favorilerden Çıkarmak İstediğine Emin misin?")) {
+                var a = this;
+                $.ajax({
+                    type: "get",
+                    url: '@Url.Action("FavoriEkleCikar", "Urun")',
+                    data: { id: this.id },
+                    success: function (result) {
+                        if (!result * 1) {
+                            $(a).parent().parent().hide();
+                        }
+                    }
+                });
+            }
+        });*/
+
+        $(".favorisil").click(function () {
+
+            var urun = $(this).parent().children().find("h5").text();
+            $('#OnayKutusu').modal('show').attr('data', this.id);
+            $('#urun').text(urun);
+        });
+
+        $("#onay").click(function () {
+            var id = $('#OnayKutusu').modal('hide').attr('data');
+            $.ajax({
+                type: "get",
+                url: '@Url.Action("FavoriEkleCikar", "Urun")',
+                data: { id: id },
+                success: function (result) {
+                    if (!result * 1) {
+                        $('#' + id).parent().parent().hide();
+                    }
+                }
+            });
+        });
+
+    });
+</script>
+
+
+
+
+
+****************************
+ÜRÜN DETAY SAYFASI
+****************************
+
+UrunDetayViewModel ekle
+
+public List<Favori> Favoriler { get; set; }
+
+
+Views - Urun - Detay.cshtml
+
+@{
+    var userId = "";
+}
+
+@if (User.Identity.IsAuthenticated)
+{
+    @using Microsoft.AspNetCore.Identity
+
+    @inject UserManager<Kullanici> UserManager
+
+    userId = UserManager.GetUserId(User);
+}
+
+
+
+
+<div class="col-md-6 position-relative">
+    <img class="img-fluid rounded-start" src="@Model.Urun.ResimAdi.Goster()" alt="..." />
+    @if (User.Identity.IsAuthenticated)
+    {
+        if (@Model.Urun.Favoriler.FirstOrDefault(x => x.KullaniciId == userId) != null)
+        {
+            <a class="favori btn btn-danger position-absolute top-0 end-0 m-1 opacity-50"
+                id="@Model.Urun.Id"><i class="bi bi-heart-fill"></i></a>
+        }
+        else
+        {
+            <a class="favori btn btn-secondary position-absolute top-0 end-0 m-1 opacity-50"
+                id="@Model.Urun.Id"><i class="bi bi-heart-fill"></i></a>
+        }
+    }
+</div>
+
+
+
+
+UrunController - Detay action
+
+Urun urun;
+if (User.Identity.IsAuthenticated)
+{
+    urun = context.Urunler.Include(y => y.Favoriler).FirstOrDefault(x => x.Id == id);
+}
+else
+{
+    urun = context.Urunler.FirstOrDefault(x => x.Id == id);
+}
+

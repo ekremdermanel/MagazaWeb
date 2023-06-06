@@ -10,6 +10,7 @@ namespace MagazaWeb.ViewModels
     {
         public Urun Urun { get; set; }
         public List<Degerlendirme> Degerlendirmeler { get; set; }
+        public List<Favori> Favoriler { get; set; }
         public double OrtalamaPuan { get; set; }
     }
 }

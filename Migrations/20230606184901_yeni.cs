@@ -353,19 +353,46 @@ namespace MagazaWeb.Migrations
                 })
                 .Annotation("MySQL:Charset", "utf8mb4");
 
+            migrationBuilder.CreateTable(
+                name: "Favoriler",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("MySQL:ValueGenerationStrategy", MySQLValueGenerationStrategy.IdentityColumn),
+                    UrunId = table.Column<int>(type: "int", nullable: false),
+                    KullaniciId = table.Column<string>(type: "varchar(255)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Favoriler", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Favoriler_AspNetUsers_KullaniciId",
+                        column: x => x.KullaniciId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Favoriler_tblUrunler_UrunId",
+                        column: x => x.UrunId,
+                        principalTable: "tblUrunler",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                })
+                .Annotation("MySQL:Charset", "utf8mb4");
+
             migrationBuilder.InsertData(
                 table: "AspNetRoles",
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
                 values: new object[,]
                 {
-                    { "9161f316-c208-4cd6-9a91-9f40f4af837e", "bcff61e1-714d-4906-9ab2-025d3a481c2b", "Admin", "ADMIN" },
-                    { "ef5972d2-317a-45d4-8f2f-c2fe9e65ce2b", "0bb840a3-0416-482c-9a7a-cbc9ee927b05", "User", "USER" }
+                    { "28a6426c-8c60-4f28-8564-aff6ff93119b", "e94dc848-4f32-4756-bded-d165dfc50534", "Admin", "ADMIN" },
+                    { "7f3f2cd3-a8e9-4dfc-93fd-d0d1b921597d", "6b017765-d9ad-4ffb-bafb-36ef4999c05c", "User", "USER" }
                 });
 
             migrationBuilder.InsertData(
                 table: "AspNetUsers",
                 columns: new[] { "Id", "AccessFailedCount", "AdSoyad", "ConcurrencyStamp", "Email", "EmailConfirmed", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName" },
-                values: new object[] { "8eff00a6-7e8a-4131-bced-2902acfe9fb8", 0, "Admin", "88c19754-a175-4ce3-a2c1-fe65723cd32b", "admin@gmail.com", true, false, null, "ADMIN@GMAIL.COM", "ADMIN", "AQAAAAEAACcQAAAAEGTzS3q4cLMvhaddBZi4EhYpBfnIAW8IeDZEmn0MpEZfxLnnnN5QABgyzXpGwgWZ9w==", null, false, "c64657f8-d265-4344-a5aa-14d285b77471", false, "Admin" });
+                values: new object[] { "7189da20-b608-4ac1-9952-8bbfd2c42fc6", 0, "Admin", "c09197af-8a29-4b00-a214-ac165c310c1a", "admin@gmail.com", true, false, null, "ADMIN@GMAIL.COM", "ADMIN", "AQAAAAEAACcQAAAAEGzBqKmBg4oZ6H07TNXA9Ts4A45cspDAHd6OxRwcp8hNXalG9BK1L4qzrYs0ljHluw==", null, false, "28b0c5ab-acfe-4352-a557-191eeb9229fb", false, "Admin" });
 
             migrationBuilder.InsertData(
                 table: "Iller",
@@ -386,7 +413,7 @@ namespace MagazaWeb.Migrations
             migrationBuilder.InsertData(
                 table: "AspNetUserRoles",
                 columns: new[] { "RoleId", "UserId" },
-                values: new object[] { "9161f316-c208-4cd6-9a91-9f40f4af837e", "8eff00a6-7e8a-4131-bced-2902acfe9fb8" });
+                values: new object[] { "28a6426c-8c60-4f28-8564-aff6ff93119b", "7189da20-b608-4ac1-9952-8bbfd2c42fc6" });
 
             migrationBuilder.InsertData(
                 table: "Ilceler",
@@ -399,15 +426,15 @@ namespace MagazaWeb.Migrations
                 values: new object[,]
                 {
                     { 1, "Lorem ipsum dolor sit amet consectetur adipisicing elit. [onemli]Quis voluptas reiciendis,[/onemli] iste accusantium ipsa magni culpa ad distinctio?", new DateTime(2022, 11, 20, 0, 0, 0, 0, DateTimeKind.Unspecified), 25000m, 1, null, 40, "Apple iPhone 13" },
-                    { 2, "Lorem ipsum dolor sit amet consectetur adipisicing elit. Quis voluptas reiciendis, iste accusantium ipsa magni culpa ad distinctio? At illo doloribus cupiditate amet ex eligendi, qui optio ducimus eaque deleniti molestiae eos praesentium soluta fugiat? Nulla totam ipsam explicabo quo nam dolorem numquam dolore vero velit, asperiores sequi odit in.\r\n        Laborum nulla molestiae sit vitae. Praesentium accusamus quidem blanditiis aliquam voluptatum ab ad magni soluta, maxime cupiditate et sint. Minus corporis quae quisquam pariatur enim architecto quo aliquam, molestias expedita sit consequatur accusantium ut dignissimos ducimus sapiente, natus repudiandae itaque suscipit officiis, eius fuga corrupti rerum fugit. Sunt, illo nulla.", new DateTime(2023, 6, 6, 17, 47, 32, 151, DateTimeKind.Local).AddTicks(8195), 30000m, 1, null, 100, "Apple iPhone 14" },
-                    { 3, "Lorem ipsum dolor sit amet.", new DateTime(2023, 6, 6, 17, 47, 32, 151, DateTimeKind.Local).AddTicks(8212), 20000m, 1, null, 5, "Samsung A55" },
-                    { 4, "Lorem ipsum dolor sit amet consectetur adipisicing elit. Saepe, natus? Consequatur fugit vel assumenda iusto consectetur amet alias ex aut.\r\nSequi aperiam ullam distinctio atque, tempora voluptates perspiciatis cupiditate cumque itaque unde vero neque ratione, maxime culpa nostrum adipisci quibusdam?\r\n[onemli]Pariatur natus assumenda recusandae distinctio totam ipsum quo dolorem amet, dignissimos sunt quasi laboriosam ex maiores vero provident eius nemo![/onemli]", new DateTime(2023, 6, 6, 17, 7, 32, 151, DateTimeKind.Local).AddTicks(8221), 19900m, 1, null, 50, "Samsung Galaxy S22" },
+                    { 2, "Lorem ipsum dolor sit amet consectetur adipisicing elit. Quis voluptas reiciendis, iste accusantium ipsa magni culpa ad distinctio? At illo doloribus cupiditate amet ex eligendi, qui optio ducimus eaque deleniti molestiae eos praesentium soluta fugiat? Nulla totam ipsam explicabo quo nam dolorem numquam dolore vero velit, asperiores sequi odit in.\r\n        Laborum nulla molestiae sit vitae. Praesentium accusamus quidem blanditiis aliquam voluptatum ab ad magni soluta, maxime cupiditate et sint. Minus corporis quae quisquam pariatur enim architecto quo aliquam, molestias expedita sit consequatur accusantium ut dignissimos ducimus sapiente, natus repudiandae itaque suscipit officiis, eius fuga corrupti rerum fugit. Sunt, illo nulla.", new DateTime(2023, 6, 6, 21, 49, 0, 991, DateTimeKind.Local).AddTicks(3585), 30000m, 1, null, 100, "Apple iPhone 14" },
+                    { 3, "Lorem ipsum dolor sit amet.", new DateTime(2023, 6, 6, 21, 49, 0, 991, DateTimeKind.Local).AddTicks(3608), 20000m, 1, null, 5, "Samsung A55" },
+                    { 4, "Lorem ipsum dolor sit amet consectetur adipisicing elit. Saepe, natus? Consequatur fugit vel assumenda iusto consectetur amet alias ex aut.\r\nSequi aperiam ullam distinctio atque, tempora voluptates perspiciatis cupiditate cumque itaque unde vero neque ratione, maxime culpa nostrum adipisci quibusdam?\r\n[onemli]Pariatur natus assumenda recusandae distinctio totam ipsum quo dolorem amet, dignissimos sunt quasi laboriosam ex maiores vero provident eius nemo![/onemli]", new DateTime(2023, 6, 6, 21, 9, 0, 991, DateTimeKind.Local).AddTicks(3617), 19900m, 1, null, 50, "Samsung Galaxy S22" },
                     { 5, "Lorem ipsum dolor sit amet consectetur adipisicing elit. Saepe, natus? Consequatur fugit vel assumenda iusto consectetur amet alias ex aut.\r\nSequi aperiam ullam distinctio atque, tempora voluptates perspiciatis cupiditate cumque itaque unde vero neque ratione, maxime culpa nostrum adipisci quibusdam?\r\nPariatur natus assumenda recusandae distinctio totam ipsum quo dolorem amet, dignissimos sunt quasi laboriosam ex maiores vero provident eius nemo!", new DateTime(2023, 5, 5, 0, 0, 0, 0, DateTimeKind.Unspecified), 20000m, 1, null, 10, "Xiaomi Note 10 Pro" },
                     { 6, "Lorem ipsum dolor sit amet consectetur adipisicing elit. Saepe, natus? Consequatur fugit vel assumenda iusto consectetur amet alias ex aut.\r\nSequi aperiam ullam distinctio atque, tempora voluptates perspiciatis cupiditate cumque itaque unde vero neque ratione, maxime culpa nostrum adipisci quibusdam?", new DateTime(2022, 11, 25, 0, 0, 0, 0, DateTimeKind.Unspecified), 23999m, 2, null, 8, "Lenovo Ideapad 3" },
-                    { 7, "Lorem ipsum dolor sit amet consectetur adipisicing elit. Saepe, natus? Consequatur fugit vel assumenda iusto consectetur amet alias ex aut.\r\nSequi aperiam ullam distinctio atque, tempora voluptates perspiciatis cupiditate cumque itaque unde vero neque ratione, maxime culpa nostrum adipisci quibusdam?\r\nPariatur natus assumenda recusandae distinctio totam ipsum quo dolorem amet, dignissimos sunt quasi laboriosam ex maiores vero provident eius nemo!", new DateTime(2023, 5, 22, 17, 47, 32, 151, DateTimeKind.Local).AddTicks(8344), 59999m, 2, null, 1, "Apple Macbook Pro" },
-                    { 8, "Lorem ipsum dolor sit amet consectetur adipisicing elit. Saepe, natus? Consequatur fugit vel assumenda iusto consectetur amet alias ex aut.", new DateTime(2023, 4, 6, 17, 47, 32, 151, DateTimeKind.Local).AddTicks(8353), 34500m, 3, null, 50, "Samsung QE 65B750 TV" },
-                    { 9, "Lorem ipsum dolor sit amet.", new DateTime(2023, 6, 6, 17, 37, 32, 151, DateTimeKind.Local).AddTicks(8370), 29999m, 3, null, 15, "LG 55UQ81 TV" },
-                    { 10, "Lorem ipsum dolor sit amet consectetur adipisicing elit. Porro, suscipit.\r\nArchitecto, eum quasi amet porro voluptatum consequatur? Numquam, quas voluptate.", new DateTime(2023, 6, 6, 14, 47, 32, 151, DateTimeKind.Local).AddTicks(8380), 250m, 4, null, 100, "LG Bluetooth Kulaklık" }
+                    { 7, "Lorem ipsum dolor sit amet consectetur adipisicing elit. Saepe, natus? Consequatur fugit vel assumenda iusto consectetur amet alias ex aut.\r\nSequi aperiam ullam distinctio atque, tempora voluptates perspiciatis cupiditate cumque itaque unde vero neque ratione, maxime culpa nostrum adipisci quibusdam?\r\nPariatur natus assumenda recusandae distinctio totam ipsum quo dolorem amet, dignissimos sunt quasi laboriosam ex maiores vero provident eius nemo!", new DateTime(2023, 5, 22, 21, 49, 0, 991, DateTimeKind.Local).AddTicks(3649), 59999m, 2, null, 1, "Apple Macbook Pro" },
+                    { 8, "Lorem ipsum dolor sit amet consectetur adipisicing elit. Saepe, natus? Consequatur fugit vel assumenda iusto consectetur amet alias ex aut.", new DateTime(2023, 4, 6, 21, 49, 0, 991, DateTimeKind.Local).AddTicks(3657), 34500m, 3, null, 50, "Samsung QE 65B750 TV" },
+                    { 9, "Lorem ipsum dolor sit amet.", new DateTime(2023, 6, 6, 21, 39, 0, 991, DateTimeKind.Local).AddTicks(3675), 29999m, 3, null, 15, "LG 55UQ81 TV" },
+                    { 10, "Lorem ipsum dolor sit amet consectetur adipisicing elit. Porro, suscipit.\r\nArchitecto, eum quasi amet porro voluptatum consequatur? Numquam, quas voluptate.", new DateTime(2023, 6, 6, 18, 49, 0, 991, DateTimeKind.Local).AddTicks(3685), 250m, 4, null, 100, "LG Bluetooth Kulaklık" }
                 });
 
             migrationBuilder.CreateIndex(
@@ -458,6 +485,16 @@ namespace MagazaWeb.Migrations
                 column: "UrunId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Favoriler_KullaniciId",
+                table: "Favoriler",
+                column: "KullaniciId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Favoriler_UrunId",
+                table: "Favoriler",
+                column: "UrunId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Ilceler_IlId",
                 table: "Ilceler",
                 column: "IlId");
@@ -498,6 +535,9 @@ namespace MagazaWeb.Migrations
 
             migrationBuilder.DropTable(
                 name: "Degerlendirmeler");
+
+            migrationBuilder.DropTable(
+                name: "Favoriler");
 
             migrationBuilder.DropTable(
                 name: "Ilceler");
