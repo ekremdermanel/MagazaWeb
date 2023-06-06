@@ -99,7 +99,6 @@
                         <select class="form-select" id="iller" asp-for="Siparis.Il" asp-items="@Model.Iller"
                             asp-action="ActionName" required>
                             <option value="">Seçiniz...</option>
-                            <option>İstanbul</option>
                         </select>
                         <div class="text-danger"></div>
                     </div>
@@ -156,7 +155,6 @@
 </div>
 
 @section Scriptler {
-    <script src='~/js/jquery-3.7.0.min.js'></script>
     <script src="~/js/jquery.inputmask.min.js"></script>
     <script>
         $(document).ready(function () {
