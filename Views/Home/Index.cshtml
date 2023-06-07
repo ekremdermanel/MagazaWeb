@@ -1,4 +1,4 @@
-@model List<Urun>
+@model int
 
 <!-- Slogan -->
 <header class="py-2 bg-light border-bottom">
@@ -16,22 +16,14 @@
         <!-- Ana Bolum -->
         <div class="col-lg-8">
             <!-- Vitrin -->
-
-            @foreach (var item in Model)
-            {
-                <div class="card mb-4">
-                    <img class="card-img-top" src="@item.ResimAdi.Goster()" alt="..." />
-                    <div class="card-body">
-                        <h2 class="card-title">@item.UrunAdi</h2>
-                        <p class="card-text small">@item.Fiyat.ParaBirimi() TL</p>
-                        <p class="card-text">@item.Aciklama.Kisalt(20)</p>
-                        <a class="btn btn-primary" asp-controller="Urun" asp-action="Detay"
-                        asp-route-id="@item.Id">Detay</a>
-                    </div>
-                </div>
-            }
-
+            <div id="toplam" class="d-none">@Model</div>
+            <div class="my-1" id="vitrin"></div>
+            <button id="listele" class="btn btn-outline-primary w-100 my-1" disabled>Daha Fazla Listele</button>
+            <div id="spinner" class="card text-center my-1">
+                <img id="spinner" src="~/image/spinner.gif" alt="" style="width:35px" class="mx-auto d-block">
+            </div>
         </div>
+
         <!-- Yan Menu -->
         <div class="col-lg-4">
 
@@ -67,4 +59,43 @@
             return aciklama;
         }
     }
+}
+
+@section Scriptler {
+
+    <script type="text/javascript">
+        function veri_goster() {
+            var gosterilen = parseInt($('#vitrin > div').length);
+            var toplam = parseInt($("#toplam").text());
+            $.ajax({
+                type: "get",
+                url: '@Url.Action("Vitrin", "Home")',
+                data: { gosterilen: gosterilen },
+                dataType: "html",
+                beforeSend: function () {
+                    $("#listele").prop("disabled", true);
+                    $("#spinner").show();
+                },
+                complete: function () {
+                    $("#listele").prop("disabled", false);
+                    $("#spinner").hide();
+                },
+                success: function (result) {
+                    $('#vitrin').append(result);
+                    gosterilen = parseInt($('#vitrin > div').length);
+                    if (gosterilen == toplam) {
+                        $("#listele").hide();
+                    } else {
+                        $("#listele").text(toplam + " kayıttan " + (gosterilen + 1) + " - " + ((gosterilen + 3) > toplam ? toplam : (gosterilen + 3)) + " arasını göster");
+                    }
+                }
+            });
+        }
+
+        $(document).ready(function () {
+            veri_goster();
+            $('#listele').click(function () { veri_goster() });
+        });
+
+    </script>
 }

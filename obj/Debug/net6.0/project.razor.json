@@ -18406,6 +18406,11 @@
       "FileKind": "mvc"
     },
     {
+      "FilePath": "c:\\Users\\Ekrem\\Desktop\\MagazaWeb\\Views\\Shared\\_Vitrin.cshtml",
+      "TargetPath": "Views\\Shared\\_Vitrin.cshtml",
+      "FileKind": "mvc"
+    },
+    {
       "FilePath": "c:\\Users\\Ekrem\\Desktop\\MagazaWeb\\Views\\Kullanici\\SifreDegistir.cshtml",
       "TargetPath": "Views\\Kullanici\\SifreDegistir.cshtml",
       "FileKind": "mvc"

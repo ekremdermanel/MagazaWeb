@@ -1,0 +1,73 @@
+HomeController - Index 
+Sadece toplam ürün sayısını viewa gönder
+int toplam = context.Urunler.Count();
+return View(toplam);
+
+Views - Home - Index.cshtml
+toplamı gizli olarak yazdır
+<div id="toplam" class="d-none">@Model</div>
+
+
+HomeController - Vitrin action ını partial view için hazırla
+public IActionResult Vitrin(int gosterilen)
+{
+    var liste = context.Urunler.OrderByDescending(x => x.Id).Skip(gosterilen).Take(3).ToList();
+    return PartialView("_Vitrin", liste);
+}
+
+
+Views - Shared - _Vitrin.cshtml hazırla
+
+@model List<Urun>
+
+@foreach (var item in Model)
+{
+    <div class="card mb-4">
+        <img class="card-img-top" src="@item.ResimAdi.Goster()" alt="..." />
+        <div class="card-body">
+            <h2 class="card-title">@item.UrunAdi</h2>
+            <p class="card-text small">@item.Fiyat.ParaBirimi() TL</p>
+            <p class="card-text">@item.Aciklama.Kisalt(20)</p>
+            <a class="btn btn-primary" asp-controller="Urun" asp-action="Detay" asp-route-id="@item.Id">Detay</a>
+        </div>
+    </div>
+}
+
+
+Views - Home - Index.cshtml ajax script ekle
+
+<script type="text/javascript">
+    function veri_goster() {
+        var gosterilen = parseInt($('#vitrin > div').length);
+        var toplam = parseInt($("#toplam").text());
+        $.ajax({
+            type: "get",
+            url: '@Url.Action("Vitrin", "Home")',
+            data: { gosterilen: gosterilen },
+            dataType: "html",
+            beforeSend: function () {
+                $("#listele").prop("disabled", true);
+                $("#spinner").show();
+            },
+            complete: function () {
+                $("#listele").prop("disabled", false);
+                $("#spinner").hide();
+            },
+            success: function (result) {
+                $('#vitrin').append(result);
+                gosterilen = parseInt($('#vitrin > div').length);
+                if (gosterilen == toplam) {
+                    $("#listele").hide();
+                } else {
+                    $("#listele").text(toplam + " kayıttan " + (gosterilen + 1) + " - " + ((gosterilen + 3) > toplam ? toplam : (gosterilen + 3)) + " arasını göster");
+                }
+            }
+        });
+    }
+
+    $(document).ready(function () {
+        veri_goster();
+        $('#listele').click(function () { veri_goster() });
+    });
+
+</script>
