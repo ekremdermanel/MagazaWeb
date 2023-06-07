@@ -1,4 +1,8 @@
-@model List<Urun>
+@using X.PagedList
+@using X.PagedList.Mvc.Core
+@using X.PagedList.Web.Common
+
+@model IPagedList<Urun>
 
 @{
     var userId = "";
@@ -52,11 +56,18 @@
                         </div>
                     </div>
                 }
-
-                <a href="#" class="favori" id="aaabbb">fladkslfş ksadşflksaşdf ksd</a>
-
+                
             </div>
-
+            
+            <div class="mt-3">
+            @Html.PagedListPager(
+                (IPagedList)Model, 
+                page => Url.Action("Index", new{ page }),
+                new PagedListRenderOptions {
+                    LiElementClasses = new string[] { "page-item" },
+                    PageClasses = new string[] { "page-link" }
+                    })
+            </div>
         </div>
         <!-- Yan Menu -->
         <div class="col-lg-4">

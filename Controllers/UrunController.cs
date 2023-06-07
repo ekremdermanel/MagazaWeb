@@ -9,6 +9,7 @@ using System.Security.Claims;
 using Microsoft.AspNetCore.Authorization;
 using MagazaWeb.ViewModels;
 using Microsoft.AspNetCore.Identity;
+using X.PagedList;
 
 namespace MagazaWeb.Controllers
 {
@@ -23,18 +24,18 @@ namespace MagazaWeb.Controllers
             this.userManager = userManager;
         }
 
-        public IActionResult Index(int? id)
+        public IActionResult Index(int? id, int page = 1)
         {
             if (id == null)
             {
                 ViewBag.ListeBasligi = "Tüm Ürünler";
                 if (User.Identity.IsAuthenticated)
                 {
-                    return View(context.Urunler.Include("Kategori").Include(y => y.Favoriler).ToList());
+                    return View(context.Urunler.Include("Kategori").Include(y => y.Favoriler).ToPagedList(page, 3));
                 }
                 else
                 {
-                    return View(context.Urunler.Include("Kategori").ToList());
+                    return View(context.Urunler.Include("Kategori").ToPagedList(page, 3));
                 }
 
             }
@@ -44,11 +45,11 @@ namespace MagazaWeb.Controllers
                 ViewBag.ListeBasligi = kayit.KategoriAdi + " - " + kayit.Slogan;
                 if (User.Identity.IsAuthenticated)
                 {
-                    return View(context.Urunler.Include("Kategori").Where(x => x.KategoriId == id).Include(y => y.Favoriler).ToList());
+                    return View(context.Urunler.Include("Kategori").Where(x => x.KategoriId == id).Include(y => y.Favoriler).ToPagedList(page, 3));
                 }
                 else
                 {
-                    return View(context.Urunler.Include("Kategori").Where(x => x.KategoriId == id).ToList());
+                    return View(context.Urunler.Include("Kategori").Where(x => x.KategoriId == id).ToPagedList(page, 3));
                 }
             }
         }

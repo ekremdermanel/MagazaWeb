@@ -1,11 +1,12 @@
 {
   "version": 2,
-  "dgSpecHash": "q82h73PNZ719T8+c+pYyDjA/5UOK5/EwwZOpCyYim5lyOAnTMrESWrOniiuZ2awFsNbvYuQSJOzgAKXHrG9C8g==",
+  "dgSpecHash": "M5O4D/tR8x3irTM1OtFMFCh0GD+ehoxhyrwGAwGXI4gyWN1VYwbH6FFkc/iI3dwirlp458ke2PMp2Pg6yBNNHA==",
   "success": true,
   "projectFilePath": "C:\\Users\\Ekrem\\Desktop\\MagazaWeb\\MagazaWeb.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Ekrem\\.nuget\\packages\\google.protobuf\\3.21.9\\google.protobuf.3.21.9.nupkg.sha512",
     "C:\\Users\\Ekrem\\.nuget\\packages\\humanizer.core\\2.14.1\\humanizer.core.2.14.1.nupkg.sha512",
+    "C:\\Users\\Ekrem\\.nuget\\packages\\jetbrains.annotations\\2022.3.1\\jetbrains.annotations.2022.3.1.nupkg.sha512",
     "C:\\Users\\Ekrem\\.nuget\\packages\\k4os.compression.lz4\\1.2.6\\k4os.compression.lz4.1.2.6.nupkg.sha512",
     "C:\\Users\\Ekrem\\.nuget\\packages\\k4os.compression.lz4.streams\\1.2.6\\k4os.compression.lz4.streams.1.2.6.nupkg.sha512",
     "C:\\Users\\Ekrem\\.nuget\\packages\\k4os.hash.xxhash\\1.0.6\\k4os.hash.xxhash.1.0.6.nupkg.sha512",
@@ -59,7 +60,9 @@
     "C:\\Users\\Ekrem\\.nuget\\packages\\system.text.encodings.web\\7.0.0\\system.text.encodings.web.7.0.0.nupkg.sha512",
     "C:\\Users\\Ekrem\\.nuget\\packages\\system.text.json\\7.0.0\\system.text.json.7.0.0.nupkg.sha512",
     "C:\\Users\\Ekrem\\.nuget\\packages\\system.threading.tasks\\4.3.0\\system.threading.tasks.4.3.0.nupkg.sha512",
-    "C:\\Users\\Ekrem\\.nuget\\packages\\system.windows.extensions\\4.7.0\\system.windows.extensions.4.7.0.nupkg.sha512"
+    "C:\\Users\\Ekrem\\.nuget\\packages\\system.windows.extensions\\4.7.0\\system.windows.extensions.4.7.0.nupkg.sha512",
+    "C:\\Users\\Ekrem\\.nuget\\packages\\x.pagedlist\\8.4.7\\x.pagedlist.8.4.7.nupkg.sha512",
+    "C:\\Users\\Ekrem\\.nuget\\packages\\x.pagedlist.mvc.core\\8.4.7\\x.pagedlist.mvc.core.8.4.7.nupkg.sha512"
   ],
   "logs": []
 }

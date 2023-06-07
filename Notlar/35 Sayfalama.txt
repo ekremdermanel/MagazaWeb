@@ -1,0 +1,33 @@
+Paketi yükle
+dotnet add package X.PagedList.Mvc.Core 
+
+UrunController - Index
+
+page parametresi ekle, ilk olarak 1. sayfa gösterilecek
+public IActionResult Index(int? id, int page = 1)
+
+
+ToList yerine ToPagedList kullan
+.ToPagedList(page, 3));
+page kaçıncı sayfanın gösterileceğini, 3 her sayfada kaç kayıt gösterileceğini ayarlar
+
+Views - Urun - Index
+
+Kütüphaneleri ekle
+
+@using X.PagedList
+@using X.PagedList.Mvc.Core
+@using X.PagedList.Web.Common
+
+@model IPagedList<Urun>
+
+
+Sayafalama linklerini oluştur
+
+@Html.PagedListPager(
+(IPagedList)Model, 
+page => Url.Action("Index", new{ page }),
+new PagedListRenderOptions {
+    LiElementClasses = new string[] { "page-item" },
+    PageClasses = new string[] { "page-link" }
+    })
