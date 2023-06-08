@@ -1,0 +1,82 @@
+Cookie, içerisinde metin yazılarak ziyaretçi bilgisayarına yüklenebilen küçük dosyalardır.
+Son giriş yapan kullanıcı bilgileri, sitede yapılan görüntü ayarları vs. cookie de saklanabilir.
+
+
+Program.cs cookie kullanılacağını belirt
+app.UseCookiePolicy();
+
+
+HomeController action ekle
+
+public void SetGorunumModu(bool check)
+{
+    CookieOptions cookie = new CookieOptions();
+    cookie.Expires = DateTime.Now.AddMonths(3);
+    string mod = check ? "gece" : "gündüz";
+    Response.Cookies.Append("gorunum", mod, cookie);
+}
+
+public string GetGorunumModu()
+{
+    return Request.Cookies["gorunum"];
+}
+
+
+_Layout.cshtml
+
+Footera ekle
+
+<div class="form-check form-switch">
+    <input class="form-check-input" type="checkbox" role="switch" id="mod">
+    <label class="form-check-label" for="mod"><i id="modIcon" class="bi bi-sun"></i></label>
+</div>
+
+
+
+Scriptleri hazırla
+
+<script>
+    $(document).ready(function () {
+
+        $("#mod").change(function () {
+            var secim = this;
+            var icon = $("#modIcon");
+            if (secim.checked) {
+                $("body").addClass("bg-dark");
+                $(".card").addClass("bg-dark");
+                $(".card").addClass("text-white");
+                $(".card").addClass("border-light");
+                icon.removeClass("bi-sun");
+                icon.addClass("bi-moon");
+            } else {
+                $("body").removeClass("bg-dark");
+                $(".card").removeClass("bg-dark");
+                $(".card").removeClass("text-white");
+                $(".card").removeClass("border-light");
+                icon.removeClass("bi-moon");
+                icon.addClass("bi-sun");
+            }
+
+            $.ajax({
+                type: "get",
+                url: '@Url.Action("SetGorunumModu", "Home")',
+                data: { check: secim.checked }
+            });
+
+        });
+
+
+        $.ajax({
+            url: '@Url.Action("GetGorunumModu", "Home")',
+            success: function (result) {
+                if (result == "gece") {
+                    $("#mod").prop("checked", true);
+                    $("#mod").trigger("change");
+                }
+            }
+        });
+
+    });
+</script>
+
+

@@ -52,6 +52,18 @@ namespace MagazaWeb.Controllers
             return View(viewModel);
         }
 
+        public void SetGorunumModu(bool check)
+        {
+            CookieOptions cookie = new CookieOptions();
+            cookie.Expires = DateTime.Now.AddMonths(3);
+            string mod = check ? "gece" : "gündüz";
+            Response.Cookies.Append("gorunum", mod, cookie);
+        }
+
+        public string GetGorunumModu()
+        {
+            return Request.Cookies["gorunum"];
+        }
 
     }
 }

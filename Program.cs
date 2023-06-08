@@ -34,5 +34,6 @@ app.MapControllerRoute(
 app.UseAuthentication();
 app.UseAuthorization();
 app.UseSession();
+app.UseCookiePolicy();
 
 app.Run();
