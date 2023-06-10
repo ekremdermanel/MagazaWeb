@@ -145,3 +145,5 @@ C:\Users\Ekrem\Desktop\MagazaWeb\bin\Debug\net6.0\JetBrains.Annotations.dll
 C:\Users\Ekrem\Desktop\MagazaWeb\bin\Debug\net6.0\X.PagedList.dll
 C:\Users\Ekrem\Desktop\MagazaWeb\bin\Debug\net6.0\X.PagedList.Mvc.Core.dll
 C:\Users\Ekrem\Desktop\MagazaWeb\obj\Debug\net6.0\MagazaWeb.MvcApplicationPartsAssemblyInfo.cs
+C:\Users\Ekrem\Desktop\MagazaWeb\bin\Debug\net6.0\itextsharp.dll
+C:\Users\Ekrem\Desktop\MagazaWeb\bin\Debug\net6.0\itextsharp.xmlworker.dll

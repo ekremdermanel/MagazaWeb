@@ -1,0 +1,85 @@
+Paketlerii yükle
+dotnet add package iTextSharp
+dotnet add package itextsharp.xmlworker
+
+
+SiparisController - Fatura action ve view oluştur
+Pdf içeriği bu sayfadan doldurulacak. Layout kullanma
+
+
+
+SiparisController yapıcı metot ve alanları düzenle
+View dan String e Render işlemi için gerekli
+
+private readonly MagazaContext context;
+private readonly UserManager<Kullanici> userManager;
+private readonly IWebHostEnvironment hostingEnvironment;
+private readonly IServiceProvider serviceProvider;
+
+public SiparisController(MagazaContext context, UserManager<Kullanici> userManager, IWebHostEnvironment hostingEnvironment, IServiceProvider serviceProvider)
+{
+    this.context = context;
+    this.userManager = userManager;
+    this.hostingEnvironment = hostingEnvironment;
+    this.serviceProvider = serviceProvider;
+}
+
+
+
+SiparisController - RenderViewToString metodunu yaz
+Fatura sayfasını string e dönüştürecek
+
+public string RenderViewToString(Siparis model)
+{
+    var viewEngine = serviceProvider.GetRequiredService<IRazorViewEngine>();
+    var viewName = "Fatura"; // Render etmek istediğiniz view'ın adı
+
+    var actionContext = new ActionContext(HttpContext, RouteData, ControllerContext.ActionDescriptor);
+    using (var sw = new StringWriter())
+    {
+        var viewResult = viewEngine.FindView(actionContext, viewName, true);
+
+        if (!viewResult.Success)
+        {
+            // View bulunamadı
+            return string.Empty;
+        }
+
+        var viewDictionary = new ViewDataDictionary(new EmptyModelMetadataProvider(), new ModelStateDictionary())
+        {
+            Model = model
+        };
+
+        var viewContext = new ViewContext(actionContext, viewResult.View, viewDictionary, new TempDataDictionary(actionContext.HttpContext, serviceProvider.GetRequiredService<ITempDataProvider>()), sw, new HtmlHelperOptions());
+
+        viewResult.View.RenderAsync(viewContext).GetAwaiter().GetResult();
+        return sw.ToString();
+    }
+}
+
+
+SiparisController - FaturaOlustur metodunu yaz
+PDF dosyasını oluşturacak
+
+public FileResult FaturaOlustur(int id)
+{
+    Siparis model = context.Siparisler.Include(s => s.SiparisUrunleri).FirstOrDefault(x => x.Id == id);
+    string icerik = RenderViewToString(model);
+
+    using (MemoryStream stream = new System.IO.MemoryStream())
+    {
+        StringReader sr = new StringReader(icerik);
+        Document pdfDoc = new Document(PageSize.A4, 30f, 30f, 50f, 50f);
+        PdfWriter writer = PdfWriter.GetInstance(pdfDoc, stream);
+        pdfDoc.Open();
+        XMLWorkerHelper.GetInstance().ParseXHtml(writer, pdfDoc, sr);
+        pdfDoc.Close();
+        return File(stream.ToArray(), "application/pdf", String.Format("siparis_{0}.pdf", model.Id));
+    }
+}
+
+
+Views - Siparis - Index.cshtml
+Fatura Oluştur linki ekle
+
+<a asp-action="FaturaOlustur" asp-route-id="@item.Id" class="btn btn-primary ms-auto">Fatura Oluştur (PDF)</a>

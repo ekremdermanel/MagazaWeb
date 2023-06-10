@@ -1,0 +1,150 @@
+@model Siparis
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="tr">
+
+<head>
+    <meta charset="UTF-8" />
+    <title>Sipariş Faturası</title>
+    <style>
+        body {
+            font-family: Arial;
+        }
+
+        table,
+        tr,
+        td,
+        th {
+            border: 1px solid black;
+            padding: 5px;
+        }
+
+        table {
+            border-collapse: collapse;
+            text-align: left;
+            width: 100%;
+        }
+
+        .tablo th {
+            width: 25%;
+        }
+
+        .tablo td {
+            width: 75%;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Sipariş Faturası</h1>
+    <table class="tablo">
+        <tr>
+            <th>Sipariş No</th>
+            <td>@Model.Id</td>
+        </tr>
+        <tr>
+            <th>Sipariş Tarihi</th>
+            <td>@Model.Tarih.KisaTarihSaat()</td>
+        </tr>
+        <tr>
+            <th>Ödeme Tutarı</th>
+            <td>@Model.OdemeTutari.ParaBirimi() TL</td>
+        </tr>
+    </table>
+
+
+    <h3>Sipariş Detayları</h3>
+    <table style="font-size:.8em;text-align:center">
+        <tr>
+            <th>Ürün Adı</th>
+            <th>Fiyat</th>
+            <th>Adet</th>
+            <th>Toplam</th>
+        </tr>
+        @foreach (var item in Model.SiparisUrunleri)
+        {
+            <tr>
+                <td>@item.UrunAdi</td>
+                <td>@item.Fiyat.ParaBirimi() TL</td>
+                <td>@item.Adet adet</td>
+                <td>@item.Toplam.ParaBirimi() TL</td>
+            </tr>
+        }
+        @if (Model.PromosyonKodu == null)
+        {
+            <tr>
+                <th colspan="3" style="text-align: right;">Ödeme Tutarı</th>
+                <th>@Model.OdemeTutari.ParaBirimi() TL</th>
+            </tr>
+        }
+        else
+        {
+            <tr>
+                <th colspan="3" style="text-align: right;">Genel Toplam</th>
+                <th>@Model.OdemeTutariIndirimsiz.ParaBirimi() TL</th>
+            </tr>
+            <tr>
+                <th colspan="3" style="text-align: right;">İndirim Tutarı</th>
+                <th>@Model.UygulananIndirim.ParaBirimi() TL</th>
+            </tr>
+            <tr>
+                <th colspan="3" style="text-align: right;">Ödeme Tutarı</th>
+                <th>@Model.OdemeTutari.ParaBirimi() TL</th>
+            </tr>
+        }
+    </table>
+
+    @if (Model.PromosyonKodu != null)
+    {
+        <h3>İndirim</h3>
+        <table class="tablo">
+            <tr>
+                <th>İndirimsiz Tutar</th>
+                <td><del>@Model.OdemeTutariIndirimsiz.ParaBirimi() TL</del></td>
+            </tr>
+            <tr>
+                <th>İndirim Tutarı</th>
+                <td>@(((decimal?)Model.UygulananIndirim).ParaBirimi()) TL</td>
+            </tr>
+            <tr>
+                <th>İndirimli Ödenen Tutar</th>
+                <td><strong>@Model.OdemeTutari.ParaBirimi() TL</strong></td>
+            </tr>
+            <tr>
+                <th>Promosyon Kodu</th>
+                <td>@Model.PromosyonKodu</td>
+            </tr>
+            <tr>
+                <th>Promosyon Detay</th>
+                <td>
+                    @Model.PromosyonAciklama <br />
+                    @Model.PromosyonDetay
+                </td>
+            </tr>
+        </table>
+    }
+
+    <h3>Teslimat Adresi</h3>
+    <table class="tablo">
+        <tr>
+            <th>Ad Soyad</th>
+            <td>@Model.AdSoyad</td>
+        </tr>
+        <tr>
+            <th>Telefon</th>
+            <td>@Model.Telefon</td>
+        </tr>
+        <tr>
+            <th>Adres</th>
+            <td>@Model.Adres @Model.Ilce @Model.Il</td>
+        </tr>
+    </table>
+
+</body>
+
+</html>
+

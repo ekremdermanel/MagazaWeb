@@ -6,8 +6,15 @@
     {
         <div class="card mb-3">
             <div class="card-body">
-                <h6 class="card-title">@item.Tarih.KisaTarihSaat()</h6>
-                <h6 class="card-title">Ödeme Tutarı: @item.OdemeTutari.ParaBirimi() TL</h6>
+                <div class="d-flex justify-content-between align-items-start">
+                    <div>
+                        <h6 class="card-title">Sipariş No: @item.Id</h6>
+                        <h6 class="card-title">@item.Tarih.KisaTarihSaat()</h6>
+                        <h6 class="card-title">Ödeme Tutarı: @item.OdemeTutari.ParaBirimi() TL</h6>
+                    </div>
+                    <a asp-action="FaturaOlustur" asp-route-id="@item.Id" class="btn btn-primary ms-auto">Fatura Oluştur
+                        (PDF)</a>
+                </div>
                 <hr>
                 <h6>Sipariş Detayları</h6>
                 <div class="card-text small">
