@@ -1,0 +1,62 @@
+@{
+    Layout = null;
+}
+
+<html lang="tr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resim Seçimi</title>
+    <style>
+        #resimler {
+            display: flex;
+            flex-wrap: wrap;
+        }
+
+        .kucuk-resim {
+            border: 1px solid gray;
+            margin: 10px;
+            width: 120px;
+            cursor: pointer;
+        }
+
+        .kucuk-resim img {
+            width: 120px;
+            height: 100px;
+        }
+
+        .kucuk-resim p {
+            padding: 3px;
+            text-align: center;
+            font-size: 0.6em;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="resimler">
+        @foreach (var item in ViewBag.resimler)
+        {
+            <div class="kucuk-resim">
+                <img src="~/upload/@item.Name" alt="thumbnail" title="@item.Name" />
+                <p>@item.Name</p>
+            </div>
+        }
+    </div>
+    <script src="~/js/jquery-3.7.0.min.js"></script>
+    <script src="~/ckeditor/ckeditor.js"></script>
+    <script>
+        $(document).ready(function () {
+            var funcNum = @(Context.Request.Query["CKEditorFuncNum"] + ";")
+                $('#resimler').on('click', '.kucuk-resim', function () {
+                    var fileUrl = '/upload/' + $(this).find('img').attr('title');
+                    window.opener.CKEDITOR.tools.callFunction(funcNum, fileUrl);
+                    window.close();
+                });
+        });
+    </script>
+</body>
+
+</html>

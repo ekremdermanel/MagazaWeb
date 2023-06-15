@@ -432,5 +432,24 @@ namespace MagazaWeb.Controllers
             context.SaveChanges();
             return RedirectToAction("Promosyon");
         }
+
+        [HttpPost]
+        public IActionResult ResimYukle(IFormFile upload)
+        {
+            string resimUzantisi = Path.GetExtension(upload.FileName);
+            string resimAdi = Guid.NewGuid() + "-" + DateTime.Now.ToString("yyyyMMddhhmmss") + resimUzantisi;
+            string resimYolu = Path.Combine(Directory.GetCurrentDirectory(), $"wwwroot/upload/{resimAdi}");
+            var stream = new FileStream(resimYolu, FileMode.Create);
+            upload.CopyToAsync(stream);
+            return new JsonResult(new { path = "/upload/" + resimAdi });
+        }
+
+        public IActionResult ResimSecimi()
+        {
+            var klasorYolu = new DirectoryInfo(Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/upload/"));
+            ViewBag.resimler = klasorYolu.GetFiles();
+            return View();
+        }
+
     }
 }

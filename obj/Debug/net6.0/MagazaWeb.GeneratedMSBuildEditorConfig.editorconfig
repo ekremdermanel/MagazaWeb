@@ -55,6 +55,10 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cUHJvbW9zeW9uR3VuY2VsbGUuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
+[c:/Users/Ekrem/Desktop/MagazaWeb/Views/Admin/ResimSecimi.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cUmVzaW1TZWNpbWkuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
 [c:/Users/Ekrem/Desktop/MagazaWeb/Views/Admin/Siparis.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cU2lwYXJpcy5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 

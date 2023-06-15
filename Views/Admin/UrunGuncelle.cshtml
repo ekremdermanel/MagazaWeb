@@ -13,7 +13,8 @@
             </div>
             <div class="mb-3">
                 <label asp-for="KategoriId"></label>
-                <select asp-for="KategoriId" asp-items="@Model.Kategoriler" value="@Model.KategoriId" class="form-select">
+                <select asp-for="KategoriId" asp-items="@Model.Kategoriler" value="@Model.KategoriId"
+                    class="form-select">
                     <option value="">Seçiniz</option>
                 </select>
                 <span asp-validation-for="KategoriId" class="text-danger"></span>
@@ -44,7 +45,7 @@
             </div>
             <div class="mb-3">
                 <label asp-for="Aciklama"></label>
-                <textarea asp-for="Aciklama" class="form-control">@Model.Aciklama</textarea>
+                <textarea asp-for="Aciklama" class="form-control" id="editor">@Model.Aciklama</textarea>
                 <span asp-validation-for="Aciklama" class="text-danger"></span>
             </div>
             <button type="submit" class="btn btn-primary">Tamam</button>

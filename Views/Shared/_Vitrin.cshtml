@@ -7,7 +7,6 @@
         <div class="card-body">
             <h2 class="card-title">@item.UrunAdi</h2>
             <p class="card-text small">@item.Fiyat.ParaBirimi() TL</p>
-            <p class="card-text">@item.Aciklama.Kisalt(20)</p>
             <a class="btn btn-primary" asp-controller="Urun" asp-action="Detay" asp-route-id="@item.Id">Detay</a>
         </div>
     </div>

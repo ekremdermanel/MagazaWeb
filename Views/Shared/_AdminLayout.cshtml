@@ -98,9 +98,14 @@
     <script src="~/admin/js/datatables-simple-demo.js"></script>
     <script src="~/js/jquery-3.7.0.min.js"></script>
     <script src="~/js/jquery.inputmask.min.js"></script>
+    <script src="~/ckeditor/ckeditor.js"></script>
     <script>
         $(document).ready(function () {
             $(".inputmask").inputmask();
+            CKEDITOR.replace("editor", {
+                filebrowserUploadUrl: '@Url.Action("ResimYukle", "Admin")',
+                filebrowserBrowseUrl: '@Url.Action("ResimSecimi", "Admin")'
+            });
         });     
     </script>
 </body>
