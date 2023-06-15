@@ -11,7 +11,7 @@
     <link href="~/admin/extras/style.css" rel="stylesheet" />
     <link href="~/admin/css/styles.css" rel="stylesheet" />
     <script src="~/admin/extras/all.js"></script>
-
+    <link href="~/datatables/css/jquery.dataTables.min.css" rel="stylesheet" />
 </head>
 
 <body class="sb-nav-fixed">
@@ -99,6 +99,7 @@
     <script src="~/js/jquery-3.7.0.min.js"></script>
     <script src="~/js/jquery.inputmask.min.js"></script>
     <script src="~/ckeditor/ckeditor.js"></script>
+    <script src="~/datatables/js/jquery.dataTables.min.js"></script>
     <script>
         $(document).ready(function () {
             $(".inputmask").inputmask();
@@ -107,6 +108,22 @@
                 filebrowserBrowseUrl: '@Url.Action("ResimSecimi", "Admin")'
             });
         });     
+    </script>
+    <script>
+        let table = new DataTable('#dataTable', {
+            "language": {
+                "lengthMenu": "Her sayfada _MENU_ kayıt göster",
+                "zeroRecords": "Kayıt bulunamadı",
+                "info": "Gösterilen sayfa  _PAGE_ / _PAGES_",
+                "infoEmpty": "Kayıt yok",
+                "infoFiltered": "(Toplam _MAX_ kayıttan filtrelendi)",
+                "search": "Arama",
+                "paginate": {
+                    "previous": "Geri",
+                    "next": "İleri"
+                }
+            }
+        });
     </script>
 </body>
 

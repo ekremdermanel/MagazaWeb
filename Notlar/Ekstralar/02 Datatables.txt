@@ -1,0 +1,34 @@
+_AdminLayout.cshtml css ve js dosyalarını ekle
+
+<link href="~/datatables/css/jquery.dataTables.min.css" rel="stylesheet" />
+
+<script src="~/datatables/js/jquery.dataTables.min.js"></script>
+
+<script>
+    let table = new DataTable('#dataTable', {
+    });
+</script>
+
+
+Views - Admin - Urun, Kategori, Kullanici, Sİparis, Promosyon
+sayfalarında tabloya dataTable id sini ver
+
+
+Dil ayarlarını yap
+
+<script>
+    let table = new DataTable('#dataTable', {
+        "language": {
+            "lengthMenu": "Her sayfada _MENU_ kayıt göster",
+            "zeroRecords": "Kayıt bulunamadı",
+            "info": "Gösterilen sayfa  _PAGE_ / _PAGES_",
+            "infoEmpty": "Kayıt yok",
+            "infoFiltered": "(Toplam _MAX_ kayıttan filtrelendi)",
+            "search": "Arama",
+            "paginate": {
+                "previous": "Geri",
+                "next": "İleri"
+            }
+        }
+    });
+</script>

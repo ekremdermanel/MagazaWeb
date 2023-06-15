@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "Pq4kdDWgXS04RTlg36iIq7qqQexj73C5HE1sz0ntaK0=",
+  "Hash": "w6OGzekr02Un1Wc/AiDmFkD5JJvh8kQrVt2jj7sqsqM=",
   "Source": "MagazaWeb",
   "BasePath": "_content/MagazaWeb",
   "Mode": "Default",
@@ -4809,6 +4809,40 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\css\\fonts\\bootstrap-icons.woff"
+    },
+    {
+      "Identity": "C:\\Users\\Ekrem\\Desktop\\MagazaWeb\\wwwroot\\datatables\\css\\jquery.dataTables.min.css",
+      "SourceId": "MagazaWeb",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\Ekrem\\Desktop\\MagazaWeb\\wwwroot\\",
+      "BasePath": "_content/MagazaWeb",
+      "RelativePath": "datatables/css/jquery.dataTables.min.css",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\datatables\\css\\jquery.dataTables.min.css"
+    },
+    {
+      "Identity": "C:\\Users\\Ekrem\\Desktop\\MagazaWeb\\wwwroot\\datatables\\js\\jquery.dataTables.min.js",
+      "SourceId": "MagazaWeb",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\Ekrem\\Desktop\\MagazaWeb\\wwwroot\\",
+      "BasePath": "_content/MagazaWeb",
+      "RelativePath": "datatables/js/jquery.dataTables.min.js",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\datatables\\js\\jquery.dataTables.min.js"
     },
     {
       "Identity": "C:\\Users\\Ekrem\\Desktop\\MagazaWeb\\wwwroot\\image\\spinner.gif",
