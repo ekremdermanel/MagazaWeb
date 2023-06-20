@@ -1,0 +1,23 @@
+RASTGELE SAYI
+
+HomeController - Index action ekle
+
+
+string[] yazilar = {
+    "Merhaba, Sitemize Hoşgeldiniz!",
+    "Alışverişin Yeni Adresi",
+    "Her Türlü İhtiyacınız İçin Doğru Adres",
+    "Uygun Fiyat Garantisi",
+    "Güvenli Alışveriş",
+    "Hızlı Güvenilir Teslimat"
+};
+Random random = new Random();
+int sayi = random.Next(yazilar.Length);
+ViewBag.Yazi = yazilar[sayi];
+
+
+
+ÖR:
+random.Next(10); // 0-9 arası rastgele tamsayı
+random.Next(2,10); // 2-9 arası rastgele tamsayı
+random.NextDouble(); // 0-1 arası rastgele ondalıklı sayı (0 ve 1 dahil değil)

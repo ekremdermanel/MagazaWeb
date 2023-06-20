@@ -18,7 +18,17 @@ namespace MagazaWeb.Controllers
 
         public IActionResult Index()
         {
-            ViewBag.Yazi = "Merhaba, Sitemize Hoşgeldiniz!";
+            string[] yazilar = {
+                "Merhaba, Sitemize Hoşgeldiniz!",
+                "Alışverişin Yeni Adresi",
+                "Her Türlü İhtiyacınız İçin Doğru Adres",
+                "Uygun Fiyat Garantisi",
+                "Güvenli Alışveriş",
+                "Hızlı Güvenilir Teslimat"
+            };
+            Random random = new Random();
+            int sayi = random.Next(yazilar.Length);
+            ViewBag.Yazi = yazilar[sayi];
             ViewData["Baslik"] = "Ana Sayfa";
             int toplam = context.Urunler.Count();
             return View(toplam);
