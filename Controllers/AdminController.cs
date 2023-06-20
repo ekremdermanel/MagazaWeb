@@ -33,6 +33,39 @@ namespace MagazaWeb.Controllers
             return View();
         }
 
+        public JsonResult UrunStokGrafik()
+        {
+            List<UrunStokGrafikViewModel> veriler = context.Urunler.Select(x => new UrunStokGrafikViewModel
+            {
+                UrunAdi = x.UrunAdi,
+                Stok = x.Stok
+            }
+            ).ToList();
+            return Json(veriler);
+        }
+
+        public JsonResult SiparisTutarGrafik()
+        {
+            List<SiparisTutarGrafikViewModel> veriler = context.Siparisler.Select(x => new SiparisTutarGrafikViewModel
+            {
+                SiparisTarihi = x.Tarih,
+                Tutar = x.OdemeTutari
+            }
+            ).ToList();
+            return Json(veriler);
+        }
+
+        public JsonResult SiparisUrunGrafik()
+        {
+            List<SiparisUrunGrafikViewModel> veriler = context.SiparisUrunleri.GroupBy(s => s.UrunAdi).Select(x => new SiparisUrunGrafikViewModel
+            {
+                UrunAdi = x.Key,
+                SatisMiktari = x.Sum(y => y.Adet)
+            }
+            ).OrderByDescending(z => z.SatisMiktari).ToList();
+            return Json(veriler);
+        }
+
         public IActionResult Urun()
         {
             return View(context.Urunler.Include("Kategori").ToList());

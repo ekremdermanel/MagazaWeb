@@ -1,3 +1,63 @@
+ViewModels - GrafikViewModel ekle
+
+public class UrunStokGrafikViewModel
+{
+    public string UrunAdi { get; set; }
+    public int? Stok { get; set; }
+}
+
+public class SiparisTutarGrafikViewModel
+{
+    public DateTime SiparisTarihi { get; set; }
+    public decimal? Tutar { get; set; }
+}
+
+public class SiparisUrunGrafikViewModel
+{
+    public string UrunAdi { get; set; }
+    public int SatisMiktari { get; set; }
+}
+
+_AdminLayout Scriptler Section ekle
+
+AdminController.cs grafik verilerini gönderecek action ları hazırla
+
+public JsonResult UrunStokGrafik()
+{
+    List<UrunStokGrafikViewModel> veriler = context.Urunler.Select(x => new UrunStokGrafikViewModel
+    {
+        UrunAdi = x.UrunAdi,
+        Stok = x.Stok
+    }
+    ).ToList();
+    return Json(veriler);
+}
+
+public JsonResult SiparisTutarGrafik()
+{
+    List<SiparisTutarGrafikViewModel> veriler = context.Siparisler.Select(x => new SiparisTutarGrafikViewModel
+    {
+        SiparisTarihi = x.Tarih,
+        Tutar = x.OdemeTutari
+    }
+    ).ToList();
+    return Json(veriler);
+}
+
+public JsonResult SiparisUrunGrafik()
+{
+    List<SiparisUrunGrafikViewModel> veriler = context.SiparisUrunleri.GroupBy(s => s.UrunAdi).Select(x => new SiparisUrunGrafikViewModel
+    {
+        UrunAdi = x.Key,
+        SatisMiktari = x.Sum(y => y.Adet)
+    }
+    ).OrderByDescending(z => z.SatisMiktari).ToList();
+    return Json(veriler);
+}
+
+
+Views - Admin - Index.cshtml
+
 <div id="urunstok_div">
     <div class="spinner" style="display:none;">
         <img src="~/image/spinner.gif" alt="" style="width:35px"> Grafik Yükleniyor...

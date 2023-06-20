@@ -13,6 +13,7 @@ namespace MagazaWeb.Models
         public DbSet<Kategori> Kategoriler { get; set; }
         public DbSet<Degerlendirme> Degerlendirmeler { get; set; }
         public DbSet<Siparis> Siparisler { get; set; }
+        public DbSet<SiparisUrunu> SiparisUrunleri { get; set; }
         public DbSet<Il> Iller { get; set; }
         public DbSet<Ilce> Ilceler { get; set; }
         public DbSet<Promosyon> Promosyonlar { get; set; }
