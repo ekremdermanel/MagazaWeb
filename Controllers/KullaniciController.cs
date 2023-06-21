@@ -15,13 +15,15 @@ namespace MagazaWeb.Controllers
     {
         private readonly UserManager<Kullanici> userManager;
         private readonly SignInManager<Kullanici> signInManager;
-        public readonly RoleManager<IdentityRole> roleManager;
+        private readonly RoleManager<IdentityRole> roleManager;
+        private readonly CaptchaService captchaService;
 
-        public KullaniciController(UserManager<Kullanici> userManager, SignInManager<Kullanici> signInManager, RoleManager<IdentityRole> roleManager)
+        public KullaniciController(UserManager<Kullanici> userManager, SignInManager<Kullanici> signInManager, RoleManager<IdentityRole> roleManager, CaptchaService captchaService)
         {
             this.userManager = userManager;
             this.signInManager = signInManager;
             this.roleManager = roleManager;
+            this.captchaService = captchaService;
         }
 
         public IActionResult Kayit()
@@ -72,6 +74,13 @@ namespace MagazaWeb.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Login(LoginViewModel model)
         {
+            var captchaResult = await captchaService.VerifyToken(model.Token);
+            if (!captchaResult)
+            {
+                ModelState.AddModelError("", "Güvenlik Sebebiyle İşlem Yapılmadı");
+                return View(model);
+            }
+
             if (!ModelState.IsValid)
             {
                 return View(model);

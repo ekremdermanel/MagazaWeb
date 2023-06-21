@@ -24,6 +24,10 @@ builder.Services.AddSession(options =>
     options.Cookie.IsEssential = true;
 });
 
+builder.Services.Configure<CaptchaConfig>(builder.Configuration.GetSection("GoogleReCaptcha"));
+builder.Services.AddTransient(typeof(CaptchaService));
+
+
 var app = builder.Build();
 app.UseStaticFiles();
 app.MapControllerRoute(

@@ -1,0 +1,117 @@
+Aşağıdaki adresinden ReCaptcha anahtarları oluştur
+https://www.google.com/u/1/recaptcha/admin/create
+Geliştirme aşamasındaki proje için alan adına localhost ekle
+
+
+appsettings.json dosyasına ekle
+
+"GoogleReCaptcha": {
+    "SiteKey": "Site_Key_Yazilacak",
+    "SecretKey": "Secret_Key_Yazilacak"
+}
+
+
+Models - CaptchaConfig.cs class oluştur
+
+public class CaptchaConfig
+{
+    public string SiteKey { get; set; }
+    public string SecretKey { get; set; }
+}
+
+
+
+Login.cshtml ekle
+
+@using Microsoft.Extensions.Options;
+@inject IOptions<CaptchaConfig> CaptchaConfig
+
+@section Scriptler {
+
+    <script src="https://www.google.com/recaptcha/api.js?render=@CaptchaConfig.Value.SiteKey"></script>
+
+    <script>
+
+        grecaptcha.ready(function () {
+            grecaptcha.execute('@CaptchaConfig.Value.SiteKey', { action: 'submit' }).then(function (token) {
+                $("#Token").val(token);
+            });
+        });
+
+    </script>
+}
+
+
+<input asp-for="Token" type="hidden" id="Token" />
+
+
+ViewModels - LoginViewModel.cs ekle
+
+[Required]
+public string Token { get; set; }
+
+
+
+Models - CaptchaResponse.cs ekle
+
+public class CaptchaResponse
+{
+    public bool Success { get; set; }
+
+    public double Score { get; set; }
+}
+
+
+Models - CaptchaService.cs ekle
+
+public class CaptchaService
+{
+    private readonly IOptionsMonitor<CaptchaConfig> config;
+
+    public CaptchaService(IOptionsMonitor<CaptchaConfig> config)
+    {
+        this.config = config;
+    }
+    public async Task<bool> VerifyToken(string token)
+    {
+        try
+        {
+            string url = $"https://www.google.com/recaptcha/api/siteverify?secret={config.CurrentValue.SecretKey}&response={token}";
+            using (var client = new HttpClient())
+            {
+                var httpResult = await client.GetAsync(url);
+                if (httpResult.StatusCode != HttpStatusCode.OK)
+                {
+                    return false;
+                }
+                var responseString = await httpResult.Content.ReadAsStringAsync();
+                var googleResult = JsonConvert.DeserializeObject<CaptchaResponse>(responseString);
+                return googleResult.Success && googleResult.Score >= 0.5;
+            }
+        }
+        catch (System.Exception)
+        {
+            return false;
+        }
+    }
+}
+
+
+Program.cs ekle
+
+builder.Services.Configure<CaptchaConfig>(builder.Configuration.GetSection("GoogleReCaptcha"));
+builder.Services.AddTransient(typeof(CaptchaService));
+
+
+
+KullaniciController Login HttpPost action ekle 
+
+var captchaResult = await captchaService.VerifyToken(model.Token);
+if (!captchaResult)
+{
+    ModelState.AddModelError("", "Güvenlik Sebebiyle İşlem Yapılmadı");
+    return View(model);
+}
+
+
+

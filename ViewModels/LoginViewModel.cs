@@ -18,5 +18,7 @@ namespace MagazaWeb.ViewModels
         public string Sifre { get; set; }
 
         public string? ReturnUrl { get; set; }
+        [Required]
+        public string Token { get; set; }
     }
 }

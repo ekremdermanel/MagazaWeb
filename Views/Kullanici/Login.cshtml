@@ -1,5 +1,8 @@
 @model LoginViewModel
 
+@using Microsoft.Extensions.Options;
+@inject IOptions<CaptchaConfig> CaptchaConfig
+
 <div class="container my-4">
     <h1>Login</h1>
     <div asp-validation-summary="All"></div>
@@ -15,6 +18,22 @@
             <span asp-validation-for="Sifre" class="text-danger"></span>
         </div>
         <input asp-for="ReturnUrl" type="hidden" />
+        <input asp-for="Token" type="hidden" id="Token" />
         <button type="submit" class="btn btn-primary">Tamam</button>
     </form>
 </div>
+
+@section Scriptler {
+
+    <script src="https://www.google.com/recaptcha/api.js?render=@CaptchaConfig.Value.SiteKey"></script>
+
+    <script>
+
+        grecaptcha.ready(function () {
+            grecaptcha.execute('@CaptchaConfig.Value.SiteKey', { action: 'submit' }).then(function (token) {
+                $("#Token").val(token);
+            });
+        });
+
+    </script>
+}
